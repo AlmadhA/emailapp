@@ -1,0 +1,5 @@
+lxml
+openpyxl
+fuzzywuzzy
+streamlit
+html5lib
