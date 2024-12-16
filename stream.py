@@ -95,7 +95,7 @@ gb.configure_column(pivot1.columns[0], pinned="left")
 gb.configure_default_column(resizable=True)
 gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
 for col in pivot1.columns[1:]:  # Kolom kedua dan seterusnya
-    gb.configure_column(col, width=150, cellStyle='background: linear-gradient(to right, #ffcccc 0%, #ff6666 100%);')
+    gb.configure_column(col, width=150)
 #gb.configure_default_column(filterable=True, sortable=True)
 gb.configure_column(pivot1.columns[0], filter="text")
 grid_options = gb.build()
