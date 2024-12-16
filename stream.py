@@ -92,7 +92,11 @@ pivot1=df_mie.pivot(index='Nama Cabang', columns='BULAN', values='Kuantitas').re
 
 
 gb = GridOptionsBuilder.from_dataframe(pivot1)
-
+gb.configure_column(pivot1.columns[0], pinned="left")
+gb.configure_default_column(resizable=True)
+gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
+#gb.configure_default_column(filterable=True, sortable=True)
+gb.configure_column(pivot1.columns[0], filter="text")
 
 js_code = JsCode("""
 function(params) {
@@ -115,8 +119,7 @@ function(params) {
 # Tambahkan cellStyle ke kolom tertentu
 for col in pivot1.columns[1:-2]:
     gb.configure_column(
-        col, width=150,
-        cellStyle=js_code
+        col, width=150
     )
 
 grid_options = gb.build()
