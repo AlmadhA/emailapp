@@ -112,6 +112,8 @@ function(params) {
 
     const value = params.value;
     const ratio = (value - rowMin) / (rowMax - rowMin);
+
+    // Skema warna merah (Reds) dengan satu warna dominan
     const red = Math.min(255, Math.max(0, 255 * (1 - ratio)));
     const color = `rgb(${red}, ${red}, ${red})`;  // Gradasi dari putih ke merah
 
