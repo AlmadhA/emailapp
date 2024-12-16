@@ -96,7 +96,7 @@ gb.configure_column(pivot1.columns[0], pinned="left")
 gb.configure_default_column(resizable=True)
 gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
 for col in pivot1.columns[1:]:  # Kolom kedua dan seterusnya
-    gradient_css = """
+    gradient_css = JsCode("""
     function(params) {
         const value = params.value;
         const min = 700;  // Nilai minimum
@@ -109,7 +109,7 @@ for col in pivot1.columns[1:]:  # Kolom kedua dan seterusnya
             color: 'black'  // Warna teks
         };
     }
-"""
+""")
     gb.configure_column(col, width=150, cellStyle=gradient_css)
 #gb.configure_default_column(filterable=True, sortable=True)
 gb.configure_column(pivot1.columns[0], filter="text")
