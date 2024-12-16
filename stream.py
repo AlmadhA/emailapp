@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 import plotly.graph_objs as go
-from st_aggrid import AgGrid, GridOptionsBuilder
+from st_aggrid import AgGrid, GridOptionsBuilder, JsCode
 
 st.set_page_config(layout="wide")
 def download_file_from_github(url, save_path):
@@ -90,26 +90,37 @@ df_mie = df_mie[df_mie['BULAN']>='January 2024']
 pivot1=df_mie.pivot(index='Nama Cabang', columns='BULAN', values='Kuantitas').reset_index().fillna(0)
 pivot1.iloc[:,1:] = pivot1.iloc[:,1:].astype('float64')
 
-gradient_css = JsCode("""
-    function(params) {
-        const value = params.value;
-        const min = 700;  // Nilai minimum
-        const max = 1500; // Nilai maksimum
-        const ratio = (value - min) / (max - min);
-        const red = Math.min(255, Math.round(255 * (1 - ratio)));
-        const green = Math.min(255, Math.round(255 * ratio));
-        return {
-            backgroundColor: `rgb(${red}, ${green}, 150)`,  // Warna gradient
-            color: 'black'  // Warna teks
-        };
-    }
-""")
+
 gb = GridOptionsBuilder.from_dataframe(pivot1)
 gb.configure_column(pivot1.columns[0], pinned="left")
 gb.configure_default_column(resizable=True)
 gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
 for col in pivot1.columns[1:]:  # Kolom kedua dan seterusnya
-    gb.configure_column(col, width=150, cellStyle=gradient_css)
+    gb.configure_column(col, width=150)
+js_code = """
+function(params) {
+    if (params.value == null || params.value == 0) {
+        return {'backgroundColor': 'white'};
+    }
+    const min = params.colDef.minValue;
+    const max = params.colDef.maxValue;
+    const value = params.value;
+    const ratio = (value - min) / (max - min);
+    const red = Math.min(255, Math.max(0, 255 * (1 - ratio)));
+    const green = Math.min(255, Math.max(0, 255 * ratio));
+    const color = `rgb(${red}, ${green}, 0)`;
+    return {'backgroundColor': color, 'color': 'black'};
+}
+"""
+
+# Tambahkan cellStyle ke kolom tertentu
+for col in df.columns[1:]:
+    gb.configure_column(
+        col,
+        cellStyle=js_code,
+        minValue=df[col].min(),
+        maxValue=df[col].max(),
+    )
 #gb.configure_default_column(filterable=True, sortable=True)
 gb.configure_column(pivot1.columns[0], filter="text")
 
