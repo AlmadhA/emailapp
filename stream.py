@@ -89,9 +89,11 @@ df_mie['BULAN'] = pd.Categorical(df_mie['BULAN'], categories=df_mie.sort_values(
 df_mie = df_mie[df_mie['BULAN']>='January 2024']
 pivot1=df_mie.pivot(index='Nama Cabang', columns='BULAN', values='Kuantitas').reset_index().fillna(0)
 #pivot1.iloc[:,1:] = pivot1.iloc[:,1:].astype('int')
+pivot1['RowMin'] = pivot1.iloc[:, 1:].min(axis=1)
+pivot1['RowMax'] = pivot1.iloc[:, 1:].max(axis=1)
 
-
-gb = GridOptionsBuilder.from_dataframe(pivot1)
+# Membuat GridOptions dengan AgGrid
+gb = GridOptionsBuilder.from_dataframe(pivot1.drop(columns=["RowMin", "RowMax"]))
 gb.configure_column(pivot1.columns[0], pinned="left")
 gb.configure_default_column(resizable=True)
 gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
@@ -116,8 +118,9 @@ function(params) {
     return {'backgroundColor': color, 'color': 'black'};
 }
 """)
+
 # Tambahkan cellStyle ke kolom tertentu
-for col in pivot1.columns[1:]:
+for col in pivot1.columns[1:-2]:
     gb.configure_column(
         col,
         cellStyle=js_code
