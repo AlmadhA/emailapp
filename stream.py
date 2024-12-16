@@ -88,7 +88,7 @@ df_mie['Tanggal'] = pd.to_datetime(df_mie['BULAN'], format='%B %Y')
 df_mie['BULAN'] = pd.Categorical(df_mie['BULAN'], categories=df_mie.sort_values('Tanggal')['BULAN'].unique(), ordered=True)
 df_mie = df_mie[df_mie['BULAN']>='January 2024']
 pivot1=df_mie.pivot(index='Nama Cabang', columns='BULAN', values='Kuantitas').reset_index().fillna(0)
-pivot1.iloc[:,1:] = pivot1.iloc[:,1:].astype(float)
+pivot1.iloc[:,1:] = pivot1.iloc[:,1:].astype(float64)
 
 gb = GridOptionsBuilder.from_dataframe(pivot1)
 gb.configure_column(pivot1.columns[0], pinned="left")
@@ -98,6 +98,9 @@ for col in pivot1.columns[1:]:  # Kolom kedua dan seterusnya
     gb.configure_column(col, width=150)
 #gb.configure_default_column(filterable=True, sortable=True)
 gb.configure_column(pivot1.columns[0], filter="text")
+for col in pivot1.select_dtypes(include=['float64', 'int64']).columns:
+    gb.configure_column(col, cellStyle=f'background: linear-gradient(to right, #ffcccc 0%, #ff6666 100%);')
+
 grid_options = gb.build()
 
 AgGrid(
