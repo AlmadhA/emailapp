@@ -98,7 +98,24 @@ for col in pivot1.columns[1:]:  # Kolom kedua dan seterusnya
     gb.configure_column(col, width=150)
 #gb.configure_default_column(filterable=True, sortable=True)
 gb.configure_column(pivot1.columns[0], filter="text")
+gradient_css = """
+    function(params) {
+        const value = params.value;
+        const min = 700; // Sesuaikan dengan minimum data Anda
+        const max = 1500; // Sesuaikan dengan maksimum data Anda
+        const ratio = (value - min) / (max - min);
+        const red = Math.min(255, Math.round(255 * (1 - ratio)));
+        const green = Math.min(255, Math.round(255 * ratio));
+        return {
+            backgroundColor: `rgb(${red}, ${green}, 150)`, // Gradient dari merah ke hijau
+            color: 'black'  // Warna teks
+        };
+    }
+"""
 
+# Terapkan fungsi CSS ke kolom kedua hingga terakhir
+for col in pivot1.columns[1:]:
+    gb.configure_column(col, cellStyle=gradient_css)
 grid_options = gb.build()
 
 AgGrid(
