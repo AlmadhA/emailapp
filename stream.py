@@ -98,13 +98,11 @@ for col in pivot1.columns[1:]:  # Kolom kedua dan seterusnya
     gb.configure_column(col, width=150)
 #gb.configure_default_column(filterable=True, sortable=True)
 gb.configure_column(pivot1.columns[0], filter="text")
-for col in pivot1.select_dtypes(include=['float64', 'int64']).columns:
-    gb.configure_column(col, cellStyle=f'background: linear-gradient(to right, #ffcccc 0%, #ff6666 100%);')
 
 grid_options = gb.build()
 
 AgGrid(
-    pivot1,
+    pivot1.style.format(lambda x: '' if x==0 else x).background_gradient(cmap='Reds', axis=1, subset=pivot1.columns[1:]),
     gridOptions=grid_options,
     fit_columns_on_grid_load=False,
     allow_unsafe_jscode=True, # Nonaktifkan fit otomatis pada grid load
