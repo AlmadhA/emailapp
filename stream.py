@@ -97,29 +97,30 @@ gb.configure_default_column(resizable=True)
 gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
 for col in pivot1.columns[1:]:  # Kolom kedua dan seterusnya
     gb.configure_column(col, width=150)
+    
 js_code = JsCode("""
 function(params) {
-    if (params.value == null || params.value == 0) {
-        return {'backgroundColor': 'white'};
+    const rowMin = params.data.RowMin;
+    const rowMax = params.data.RowMax;
+
+    if (params.value == null || rowMin == rowMax) {
+        return {'backgroundColor': 'white', 'color': 'black'};
     }
-    const min = params.colDef.minValue;
-    const max = params.colDef.maxValue;
+
     const value = params.value;
-    const ratio = (value - min) / (max - min);
+    const ratio = (value - rowMin) / (rowMax - rowMin);
     const red = Math.min(255, Math.max(0, 255 * (1 - ratio)));
     const green = Math.min(255, Math.max(0, 255 * ratio));
-    const color = `rgb(${red}, ${green}, 0)`;
+    const color = `rgb(${red}, ${white}, 0)`;
+
     return {'backgroundColor': color, 'color': 'black'};
 }
 """)
-
 # Tambahkan cellStyle ke kolom tertentu
 for col in pivot1.columns[1:]:
     gb.configure_column(
         col,
-        cellStyle=js_code,
-        minValue=pivot1[col].min(),
-        maxValue=pivot1[col].max(),
+        cellStyle=js_code
     )
 #gb.configure_default_column(filterable=True, sortable=True)
 gb.configure_column(pivot1.columns[0], filter="text")
