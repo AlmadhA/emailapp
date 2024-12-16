@@ -114,7 +114,7 @@ function(params) {
     const ratio = (value - rowMin) / (rowMax - rowMin);
     const red = Math.min(255, Math.max(0, 255 * (1 - ratio)));
     const green = Math.min(255, Math.max(0, 255 * ratio));
-    const color = `rgb(${red}, ${green}, 0)`;
+    const color = `rgb(${red}, ${red}, ${red})`;  // Gradasi dari putih ke merah
 
     return {'backgroundColor': color, 'color': 'black'};
 }
