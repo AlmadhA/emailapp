@@ -97,7 +97,7 @@ gb.configure_default_column(resizable=True)
 gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
 for col in pivot1.columns[1:]:  # Kolom kedua dan seterusnya
     gb.configure_column(col, width=150)
-js_code = """
+js_code = JsCode("""
 function(params) {
     if (params.value == null || params.value == 0) {
         return {'backgroundColor': 'white'};
@@ -111,7 +111,7 @@ function(params) {
     const color = `rgb(${red}, ${green}, 0)`;
     return {'backgroundColor': color, 'color': 'black'};
 }
-"""
+""")
 
 # Tambahkan cellStyle ke kolom tertentu
 for col in df.columns[1:]:
