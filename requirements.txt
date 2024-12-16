@@ -1,5 +1,7 @@
 lxml
 openpyxl
-fuzzywuzzy
-streamlit
-html5lib
+gdown
+matplotlib
+seaborn
+plotly
+streamlit-aggrid
