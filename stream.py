@@ -88,15 +88,11 @@ df_mie['Tanggal'] = pd.to_datetime(df_mie['BULAN'], format='%B %Y')
 df_mie['BULAN'] = pd.Categorical(df_mie['BULAN'], categories=df_mie.sort_values('Tanggal')['BULAN'].unique(), ordered=True)
 df_mie = df_mie[df_mie['BULAN']>='January 2024']
 pivot1=df_mie.pivot(index='Nama Cabang', columns='BULAN', values='Kuantitas').reset_index().fillna(0)
-pivot1.iloc[:,1:] = pivot1.iloc[:,1:].astype('int')
+#pivot1.iloc[:,1:] = pivot1.iloc[:,1:].astype('int')
 
 
 gb = GridOptionsBuilder.from_dataframe(pivot1)
-gb.configure_column(pivot1.columns[0], pinned="left")
-gb.configure_default_column(resizable=True)
-gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
-#gb.configure_default_column(filterable=True, sortable=True)
-gb.configure_column(pivot1.columns[0], filter="text")
+
 
 js_code = JsCode("""
 function(params) {
@@ -122,8 +118,6 @@ for col in pivot1.columns[1:-2]:
         col, width=150,
         cellStyle=js_code
     )
-
-
 
 grid_options = gb.build()
 
