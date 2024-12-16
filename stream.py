@@ -126,7 +126,7 @@ for col in pivot1.columns[1:-2]:
         col,
         cellStyle=js_code
     )
-for col in pivot1.columns[1:]:
+for col in pivot1.columns[1:-2]:
     gb.configure_column(col, width=150)
     
 grid_options = gb.build()
