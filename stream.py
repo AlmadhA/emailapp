@@ -112,13 +112,9 @@ function(params) {
 
     const value = params.value;
     const ratio = (value - rowMin) / (rowMax - rowMin);
-    
-    // Mendefinisikan gradasi dari putih ke merah pastel
-    const red = Math.min(255, Math.max(200, 255 * ratio));  // Merah pastel
-    const green = Math.min(255, Math.max(200, 255 * (1 - ratio)));  // Merah pastel tanpa hijau
-    const blue = Math.min(255, Math.max(200, 255 * (1 - ratio)));  // Merah pastel tanpa biru
-    
-    const color = `rgb(${red}, ${green}, ${blue})`;  // Gradasi dari putih ke merah pastel
+    const red = Math.min(255, Math.max(0, 255 * (1 - ratio)));
+    const green = Math.min(255, Math.max(0, 255 * ratio));
+    const color = `rgb(${red}, ${green}, 0)`;
 
     return {'backgroundColor': color, 'color': 'black'};
 }
