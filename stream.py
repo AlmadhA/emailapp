@@ -90,14 +90,6 @@ df_mie = df_mie[df_mie['BULAN']>='January 2024']
 pivot1=df_mie.pivot(index='Nama Cabang', columns='BULAN', values='Kuantitas').reset_index().fillna(0)
 pivot1.iloc[:,1:] = pivot1.iloc[:,1:].astype('float64')
 
-gb = GridOptionsBuilder.from_dataframe(pivot1)
-gb.configure_column(pivot1.columns[0], pinned="left")
-gb.configure_default_column(resizable=True)
-gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
-for col in pivot1.columns[1:]:  # Kolom kedua dan seterusnya
-    gb.configure_column(col, width=150)
-#gb.configure_default_column(filterable=True, sortable=True)
-gb.configure_column(pivot1.columns[0], filter="text")
 gradient_css = """
     function(params) {
         const value = params.value;
@@ -112,10 +104,16 @@ gradient_css = """
         };
     }
 """
+gb = GridOptionsBuilder.from_dataframe(pivot1)
+gb.configure_column(pivot1.columns[0], pinned="left")
+gb.configure_default_column(resizable=True)
+gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
+for col in pivot1.columns[1:]:  # Kolom kedua dan seterusnya
+    gb.configure_column(col, width=150, cellStyle=gradient_css)
+#gb.configure_default_column(filterable=True, sortable=True)
+gb.configure_column(pivot1.columns[0], filter="text")
 
-# Terapkan fungsi CSS ke kolom kedua hingga terakhir
-for col in pivot1.columns[1:]:
-    gb.configure_column(col, cellStyle=gradient_css)
+
 grid_options = gb.build()
 
 AgGrid(
