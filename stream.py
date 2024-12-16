@@ -112,10 +112,10 @@ function(params) {
 
     const value = params.value;
     const ratio = (value - rowMin) / (rowMax - rowMin);
-
-    // Skema warna merah (Reds) dengan satu warna dominan
-    const red = Math.min(255, Math.max(0, 255 * (1 - ratio)));
-    const color = `rgb(${red}, ${red}, ${red})`;  // Gradasi dari putih ke merah
+    // Gradient dari putih ke merah
+    const red = Math.min(255, Math.max(0, 255 * ratio));
+    const green = Math.min(255, Math.max(0, 255 * (1 - ratio)));
+    const color = `rgb(${red}, ${green}, ${green})`;  // Hijau 0, Merah 255
 
     return {'backgroundColor': color, 'color': 'black'};
 }
