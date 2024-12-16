@@ -126,15 +126,14 @@ for col in pivot1.columns[1:-2]:
         col,
         cellStyle=js_code
     )
-for col in pivot1.columns[1:-2]:
-    gb.configure_column(
-        col, width=150)
+for col in pivot1.columns[1:]:
+    gb.configure_column(col, width=150)
+    
 grid_options = gb.build()
 
 AgGrid(
     pivot1,
     gridOptions=grid_options,
-    fit_columns_on_grid_load=False,
     allow_unsafe_jscode=True,
     height=400,
 )
