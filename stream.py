@@ -93,13 +93,13 @@ pivot1.iloc[:,1:] = pivot1.iloc[:,1:].astype('float64')
 gradient_css = """
     function(params) {
         const value = params.value;
-        const min = 700; // Sesuaikan dengan minimum data Anda
-        const max = 1500; // Sesuaikan dengan maksimum data Anda
+        const min = 700;  // Nilai minimum
+        const max = 1500; // Nilai maksimum
         const ratio = (value - min) / (max - min);
         const red = Math.min(255, Math.round(255 * (1 - ratio)));
         const green = Math.min(255, Math.round(255 * ratio));
         return {
-            backgroundColor: `rgb(${red}, ${green}, 150)`, // Gradient dari merah ke hijau
+            backgroundColor: `rgb(${red}, ${green}, 150)`,  // Warna gradient
             color: 'black'  // Warna teks
         };
     }
@@ -119,7 +119,8 @@ grid_options = gb.build()
 AgGrid(
     pivot1.style.background_gradient(cmap='Reds', axis=1, subset=pivot1.columns[1:]),
     gridOptions=grid_options,
-    fit_columns_on_grid_load=False, # Nonaktifkan fit otomatis pada grid load
+    fit_columns_on_grid_load=False,
+    allow_unsafe_jscode=True,# Nonaktifkan fit otomatis pada grid load
     height=400,
 )
 st.dataframe(pivot1.fillna(0), use_container_width=True, hide_index=True)
