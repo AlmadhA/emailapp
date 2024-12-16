@@ -95,7 +95,9 @@ gb = GridOptionsBuilder.from_dataframe(pivot1)
 gb.configure_column(pivot1.columns[0], pinned="left")
 gb.configure_default_column(resizable=True)
 gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
-    
+#gb.configure_default_column(filterable=True, sortable=True)
+gb.configure_column(pivot1.columns[0], filter="text")
+
 js_code = JsCode("""
 function(params) {
     const rowMin = params.data.RowMin;
@@ -120,8 +122,7 @@ for col in pivot1.columns[1:-2]:
         col, width=150,
         cellStyle=js_code
     )
-#gb.configure_default_column(filterable=True, sortable=True)
-gb.configure_column(pivot1.columns[0], filter="text")
+
 
 
 grid_options = gb.build()
