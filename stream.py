@@ -94,8 +94,14 @@ gb.configure_column(pivot1.columns[0], pinned="left")
 gb.configure_default_column(resizable=True)
 gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
 grid_options = gb.build()
-AgGrid(pivot1.fillna(0), gridOptions=grid_options, fit_columns_on_grid_load=True, height=400)
-
+AgGrid(
+    pivot1.fillna(0),
+    gridOptions=grid_options,
+    fit_columns_on_grid_load=False,  # Nonaktifkan fit otomatis pada grid load
+    enable_enterprise_modules=False,
+    allow_unsafe_jscode=True,  # Dibutuhkan untuk autoSizeColumns
+    height=400,
+)
 st.dataframe(pivot1.fillna(0), use_container_width=True, hide_index=True)
 total = pd.DataFrame((pivot1.iloc[:,1:].sum(axis=0).values).reshape(1,len(pivot1.columns)-1),columns=pivot1.columns[1:])
 total['Nama Cabang'] ='TOTAL'
