@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 import plotly.graph_objs as go
-import streamlit as st
+from st_aggrid import AgGrid, GridOptionsBuilder
 
 st.set_page_config(layout="wide")
 def download_file_from_github(url, save_path):
@@ -88,6 +88,13 @@ df_mie['Tanggal'] = pd.to_datetime(df_mie['BULAN'], format='%B %Y')
 df_mie['BULAN'] = pd.Categorical(df_mie['BULAN'], categories=df_mie.sort_values('Tanggal')['BULAN'].unique(), ordered=True)
 df_mie = df_mie[df_mie['BULAN']>='January 2024']
 pivot1=df_mie.pivot(index='Nama Cabang', columns='BULAN', values='Kuantitas').reset_index()
+
+gb = GridOptionsBuilder.from_dataframe(pivot1.fillna(0))
+gb.configure_default_column(resizable=True)
+gb.configure_grid_options(domLayout='autoHeight')  # Menyesuaikan tinggi tabel
+grid_options = gb.build()
+AgGrid(df, gridOptions=grid_options, fit_columns_on_grid_load=True)
+
 st.dataframe(pivot1.fillna(0), use_container_width=True, hide_index=True)
 total = pd.DataFrame((pivot1.iloc[:,1:].sum(axis=0).values).reshape(1,len(pivot1.columns)-1),columns=pivot1.columns[1:])
 total['Nama Cabang'] ='TOTAL'
