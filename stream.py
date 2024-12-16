@@ -102,7 +102,7 @@ gb.configure_column(pivot1.columns[0], filter="text")
 grid_options = gb.build()
 
 AgGrid(
-    pivot1.style.background_gradient(cmap='Reds', axis=1, subset=pivot1.columns[1:]),
+    pivot1,
     gridOptions=grid_options,
     fit_columns_on_grid_load=False,
     allow_unsafe_jscode=True, 
