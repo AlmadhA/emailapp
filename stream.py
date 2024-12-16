@@ -114,12 +114,12 @@ function(params) {
 """)
 
 # Tambahkan cellStyle ke kolom tertentu
-for col in df.columns[1:]:
+for col in pivot1.columns[1:]:
     gb.configure_column(
         col,
         cellStyle=js_code,
-        minValue=df[col].min(),
-        maxValue=df[col].max(),
+        minValue=pivot1[col].min(),
+        maxValue=pivot1[col].max(),
     )
 #gb.configure_default_column(filterable=True, sortable=True)
 gb.configure_column(pivot1.columns[0], filter="text")
