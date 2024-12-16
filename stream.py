@@ -93,7 +93,7 @@ gb = GridOptionsBuilder.from_dataframe(pivot1.fillna(0))
 gb.configure_column(pivot1.columns[0], pinned="left")
 gb.configure_default_column(resizable=True)
 gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
-for col in df.columns[1:]:  # Kolom kedua dan seterusnya
+for col in pivot1.columns[1:]:  # Kolom kedua dan seterusnya
     gb.configure_column(col, width=150)
 grid_options = gb.build()
 AgGrid(
