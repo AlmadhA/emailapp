@@ -94,7 +94,7 @@ gb.configure_column(pivot1.columns[0], pinned="left")
 gb.configure_default_column(resizable=True)
 gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
 grid_options = gb.build()
-AgGrid(pivot1.fillna(0), gridOptions=grid_options, fit_columns_on_grid_load=True)
+AgGrid(pivot1.fillna(0), gridOptions=grid_options, fit_columns_on_grid_load=True, height=400)
 
 st.dataframe(pivot1.fillna(0), use_container_width=True, hide_index=True)
 total = pd.DataFrame((pivot1.iloc[:,1:].sum(axis=0).values).reshape(1,len(pivot1.columns)-1),columns=pivot1.columns[1:])
