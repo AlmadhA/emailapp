@@ -117,7 +117,7 @@ function(params) {
 }
 """)
 # Tambahkan cellStyle ke kolom tertentu
-for col in pivot1.columns[1:-2]:
+for col in pivot1.columns[1:]:
     gb.configure_column(
         col,
         cellStyle=js_code
