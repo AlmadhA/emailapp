@@ -95,12 +95,13 @@ gb.configure_default_column(resizable=True)
 gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
 for col in pivot1.columns[1:]:  # Kolom kedua dan seterusnya
     gb.configure_column(col, width=150)
+gb.configure_default_column(filterable=True, sortable=True)
 grid_options = gb.build()
 
 AgGrid(
     pivot1.fillna(0),
     gridOptions=grid_options,
-    fit_columns_on_grid_load=True,  # Nonaktifkan fit otomatis pada grid load
+    fit_columns_on_grid_load=False,  # Nonaktifkan fit otomatis pada grid load
     height=400,
 )
 st.dataframe(pivot1.fillna(0), use_container_width=True, hide_index=True)
