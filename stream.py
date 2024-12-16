@@ -88,7 +88,7 @@ df_mie['Tanggal'] = pd.to_datetime(df_mie['BULAN'], format='%B %Y')
 df_mie['BULAN'] = pd.Categorical(df_mie['BULAN'], categories=df_mie.sort_values('Tanggal')['BULAN'].unique(), ordered=True)
 df_mie = df_mie[df_mie['BULAN']>='January 2024']
 pivot1=df_mie.pivot(index='Nama Cabang', columns='BULAN', values='Kuantitas').reset_index().fillna(0)
-pivot1.iloc[:,1:] = pivot1.iloc[:,1:].astype('float64')
+#pivot1.iloc[:,1:] = pivot1.iloc[:,1:].astype('float64')
 
 gb = GridOptionsBuilder.from_dataframe(pivot1)
 gb.configure_column(pivot1.columns[0], pinned="left")
@@ -102,9 +102,9 @@ gb.configure_column(pivot1.columns[0], filter="text")
 grid_options = gb.build()
 
 AgGrid(
-    pivot1,
+    pivot1.style.background_gradient(cmap='Reds', axis=1, subset=pivot1.columns[1:]),
     gridOptions=grid_options,
-    fit_columns_on_grid_load=False # Nonaktifkan fit otomatis pada grid load
+    fit_columns_on_grid_load=False, # Nonaktifkan fit otomatis pada grid load
     height=400,
 )
 st.dataframe(pivot1.fillna(0), use_container_width=True, hide_index=True)
