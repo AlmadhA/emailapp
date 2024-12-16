@@ -90,7 +90,7 @@ df_mie = df_mie[df_mie['BULAN']>='January 2024']
 pivot1=df_mie.pivot(index='Nama Cabang', columns='BULAN', values='Kuantitas').reset_index()
 
 gb = GridOptionsBuilder.from_dataframe(pivot1.fillna(0))
-gb.configure_column(pivot1.columns[0], pinned="left")
+#gb.configure_column(pivot1.columns[0], pinned="left")
 gb.configure_default_column(resizable=True)
 gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
 for col in pivot1.columns[1:]:  # Kolom kedua dan seterusnya
