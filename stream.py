@@ -90,13 +90,7 @@ df_mie = df_mie[df_mie['BULAN']>='January 2024']
 pivot1=df_mie.pivot(index='Nama Cabang', columns='BULAN', values='Kuantitas').reset_index().fillna(0)
 pivot1.iloc[:,1:] = pivot1.iloc[:,1:].astype('float64')
 
-
-gb = GridOptionsBuilder.from_dataframe(pivot1)
-gb.configure_column(pivot1.columns[0], pinned="left")
-gb.configure_default_column(resizable=True)
-gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
-for col in pivot1.columns[1:]:  # Kolom kedua dan seterusnya
-    gradient_css = JsCode("""
+gradient_css = JsCode("""
     function(params) {
         const value = params.value;
         const min = 700;  // Nilai minimum
@@ -110,6 +104,11 @@ for col in pivot1.columns[1:]:  # Kolom kedua dan seterusnya
         };
     }
 """)
+gb = GridOptionsBuilder.from_dataframe(pivot1)
+gb.configure_column(pivot1.columns[0], pinned="left")
+gb.configure_default_column(resizable=True)
+gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
+for col in pivot1.columns[1:]:  # Kolom kedua dan seterusnya
     gb.configure_column(col, width=150, cellStyle=gradient_css)
 #gb.configure_default_column(filterable=True, sortable=True)
 gb.configure_column(pivot1.columns[0], filter="text")
@@ -119,7 +118,9 @@ grid_options = gb.build()
 
 AgGrid(
     pivot1,
-    gridOptions=grid_options,# Nonaktifkan fit otomatis pada grid load
+    gridOptions=grid_options,
+    fit_columns_on_grid_load=False,
+    allow_unsafe_jscode=True,# Nonaktifkan fit otomatis pada grid load
     height=400,
 )
 st.dataframe(pivot1.fillna(0), use_container_width=True, hide_index=True)
