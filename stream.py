@@ -105,7 +105,8 @@ AgGrid(
     pivot1.style.background_gradient(cmap='Reds', axis=1, subset=pivot1.columns[1:]),
     gridOptions=grid_options,
     fit_columns_on_grid_load=False,
-    allow_unsafe_jscode=True, # Nonaktifkan fit otomatis pada grid load
+    allow_unsafe_jscode=True, 
+    enable_enterprise_modules=True), # Nonaktifkan fit otomatis pada grid load
     height=400,
 )
 st.dataframe(pivot1.fillna(0), use_container_width=True, hide_index=True)
