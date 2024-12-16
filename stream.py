@@ -88,7 +88,7 @@ df_mie['Tanggal'] = pd.to_datetime(df_mie['BULAN'], format='%B %Y')
 df_mie['BULAN'] = pd.Categorical(df_mie['BULAN'], categories=df_mie.sort_values('Tanggal')['BULAN'].unique(), ordered=True)
 df_mie = df_mie[df_mie['BULAN']>='January 2024']
 pivot1=df_mie.pivot(index='Nama Cabang', columns='BULAN', values='Kuantitas').reset_index().fillna(0)
-pivot1.iloc[:,1:] = pivot1.iloc[:,1:].astype('float64')
+pivot1.iloc[:,1:] = pivot1.iloc[:,1:].astype('int')
 
 
 gb = GridOptionsBuilder.from_dataframe(pivot1)
