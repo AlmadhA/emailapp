@@ -88,7 +88,8 @@ df_mie['Tanggal'] = pd.to_datetime(df_mie['BULAN'], format='%B %Y')
 df_mie['BULAN'] = pd.Categorical(df_mie['BULAN'], categories=df_mie.sort_values('Tanggal')['BULAN'].unique(), ordered=True)
 df_mie = df_mie[df_mie['BULAN']>='January 2024']
 pivot1=df_mie.pivot(index='Nama Cabang', columns='BULAN', values='Kuantitas').reset_index().fillna(0)
-#pivot1.iloc[:,1:] = pivot1.iloc[:,1:].astype('int')
+
+pivot1.iloc[:,1:] = pivot1.iloc[:,1:].astype('int')
 pivot1['RowMin'] = pivot1.iloc[:, 1:].min(axis=1)
 pivot1['RowMax'] = pivot1.iloc[:, 1:].max(axis=1)
 
@@ -132,7 +133,7 @@ AgGrid(
     pivot1,
     gridOptions=grid_options,
     fit_columns_on_grid_load=False,
-    allow_unsafe_jscode=True,# Nonaktifkan fit otomatis pada grid load
+    allow_unsafe_jscode=True,
     height=400,
 )
 st.dataframe(pivot1.fillna(0), use_container_width=True, hide_index=True)
