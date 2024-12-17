@@ -11,6 +11,7 @@ import seaborn as sns
 
 import plotly.graph_objs as go
 from st_aggrid import AgGrid, GridOptionsBuilder, JsCode
+from matplotlib.colors import LinearSegmentedColormap, to_hex
 
 st.set_page_config(layout="wide")
 def download_file_from_github(url, save_path):
