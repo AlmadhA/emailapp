@@ -113,8 +113,8 @@ def get_color(value, vmin, vmax, cmap):
 
 gb = GridOptionsBuilder.from_dataframe(pivot1)
 gb.configure_column(pivot1.columns[0], pinned="left",  filter="text")
-#gb.configure_default_column(resizable=True)
-#gb.configure_grid_options(domLayout='normal') 
+gb.configure_default_column(resizable=True)
+gb.configure_grid_options(domLayout='normal') 
 
 
 cmap = create_white_to_red_cmap()
@@ -138,8 +138,6 @@ for col_idx, col in enumerate(pivot1.columns[1:]):
         """)
     )
 
-for col in pivot1.columns[1:]:  # Kolom kedua dan seterusnya
-    gb.configure_column(col, width=150)
     
 grid_options = gb.build()
 
