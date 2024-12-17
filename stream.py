@@ -112,10 +112,10 @@ function(params) {
 
     const value = params.value;
     const ratio = (value - rowMin) / (rowMax - rowMin);
-    
-    // Menggunakan matplotlib colors untuk menghasilkan gradasi pastel
-    const color = 'rgb(' + Math.round(255 * ratio) + ',' + Math.round(255 * (1 - ratio)) + ',' + 200 + ')';
-    
+    const red = Math.min(255, Math.max(0, 255 * (1 - ratio)));
+    const green = Math.min(255, Math.max(0, 255 * ratio));
+    const color = `rgb(${red}, ${green}, 0)`;
+
     return {'backgroundColor': color, 'color': 'black'};
 }
 """)
