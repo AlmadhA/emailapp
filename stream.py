@@ -112,11 +112,9 @@ def get_color(value, vmin, vmax, cmap):
 
 
 gb = GridOptionsBuilder.from_dataframe(pivot1)
-gb.configure_column(pivot1.columns[0], pinned="left")
+gb.configure_column(pivot1.columns[0], pinned="left",filter="text")
 gb.configure_default_column(resizable=True)
 gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
-#gb.configure_default_column(filterable=True, sortable=True)
-gb.configure_column(pivot1.columns[0], filter="text")
 
 cmap = create_white_to_red_cmap()
 
@@ -126,7 +124,7 @@ row_colors = pivot1.iloc[:, 1:].apply(lambda row: row_gradient_colors(row, cmap)
 # Menambahkan cellStyle untuk setiap kolom numerik
 for col_idx, col in enumerate(pivot1.columns[1:]):
     gb.configure_column(
-        col,
+        col, width=150,
         cellStyle=JsCode(f"""
         function(params) {{
             const colors = {row_colors.apply(lambda x: x[col_idx]).tolist()};
@@ -139,16 +137,13 @@ for col_idx, col in enumerate(pivot1.columns[1:]):
         """)
     )
 
-for col in pivot1.columns[1:]:
-    gb.configure_column(col, width=150)
     
 grid_options = gb.build()
 
 AgGrid(
     pivot1,
     gridOptions=grid_options,
-    allow_unsafe_jscode=True,
-    height=400,
+    allow_unsafe_jscode=True
 )
 st.dataframe(pivot1.fillna(0), use_container_width=True, hide_index=True)
 total = pd.DataFrame((pivot1.iloc[:,1:].sum(axis=0).values).reshape(1,len(pivot1.columns)-1),columns=pivot1.columns[1:])
