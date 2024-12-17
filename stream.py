@@ -125,7 +125,7 @@ row_colors = pivot1.iloc[:, 1:].apply(lambda row: row_gradient_colors(row, cmap)
 # Menambahkan cellStyle untuk setiap kolom numerik
 for col_idx, col in enumerate(pivot1.columns[1:]):
     gb.configure_column(
-        col,
+        col, width=150,
         cellStyle=JsCode(f"""
         function(params) {{
             const colors = {row_colors.apply(lambda x: x[col_idx]).tolist()};
@@ -143,7 +143,7 @@ grid_options = gb.build()
 
 AgGrid(
     pivot1,
-    gridOptions=grid_options,
+    gridOptions=grid_options, fit_columns_on_grid_load=False,
     allow_unsafe_jscode=True
 )
 
