@@ -100,7 +100,7 @@ gb.configure_default_column(resizable=True)
 gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
 #gb.configure_default_column(filterable=True, sortable=True)
 gb.configure_column(pivot1.columns[0], filter="text")
-
+cmap = plt.get_cmap('YlOrRd')
 js_code = JsCode("""
 function(params) {
     const rowMin = params.data.RowMin;
@@ -112,10 +112,10 @@ function(params) {
 
     const value = params.value;
     const ratio = (value - rowMin) / (rowMax - rowMin);
-    const red = Math.min(255, Math.max(0, 255 * (1 - ratio)));
-    const green = Math.min(255, Math.max(0, 255 * ratio));
-    const color = `rgb(${red}, ${green}, 0)`;
-
+    
+    // Menggunakan matplotlib colors untuk menghasilkan gradasi pastel
+    const color = 'rgb(' + Math.round(255 * ratio) + ',' + Math.round(255 * (1 - ratio)) + ',' + 200 + ')';
+    
     return {'backgroundColor': color, 'color': 'black'};
 }
 """)
