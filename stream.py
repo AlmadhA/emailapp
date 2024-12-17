@@ -112,9 +112,9 @@ def get_color(value, vmin, vmax, cmap):
 
 
 gb = GridOptionsBuilder.from_dataframe(pivot1)
-gb.configure_column(pivot1.columns[0], pinned="left",  filter="text")
-gb.configure_default_column(resizable=True)
-gb.configure_grid_options(domLayout='normal') 
+#gb.configure_column(pivot1.columns[0], pinned="left",  filter="text")
+#gb.configure_default_column(resizable=True)
+#gb.configure_grid_options(domLayout='normal') 
 
 
 cmap = create_white_to_red_cmap()
@@ -125,7 +125,17 @@ row_colors = pivot1.iloc[:, 1:].apply(lambda row: row_gradient_colors(row, cmap)
 # Menambahkan cellStyle untuk setiap kolom numerik
 for col_idx, col in enumerate(pivot1.columns[1:]):
     gb.configure_column(
-        col, width=150
+        col, width=150,
+        cellStyle=JsCode(f"""
+        function(params) {{
+            const colors = {row_colors.apply(lambda x: x[col_idx]).tolist()};
+            return {{
+                'backgroundColor': colors[params.node.rowIndex],
+                'color': 'black',
+                'textAlign': 'center'
+            }};
+        }}
+        """)
     )
 
     
