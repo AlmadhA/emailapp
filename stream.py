@@ -114,7 +114,7 @@ def get_color(value, vmin, vmax, cmap):
 gb = GridOptionsBuilder.from_dataframe(pivot1)
 gb.configure_column(pivot1.columns[0], pinned="left",  filter="text")
 gb.configure_default_column(resizable=True)
-gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
+gb.configure_grid_options(domLayout='normal') 
 
 cmap = create_white_to_red_cmap()
 
@@ -143,7 +143,6 @@ grid_options = gb.build()
 AgGrid(
     pivot1,
     gridOptions=grid_options,
-    fit_columns_on_grid_load=True,
     allow_unsafe_jscode=True
 )
 
