@@ -11,6 +11,7 @@ import seaborn as sns
 
 import plotly.graph_objs as go
 from st_aggrid import AgGrid, GridOptionsBuilder, JsCode
+from matplotlib.colors import LinearSegmentedColormap, to_hex
 
 st.set_page_config(layout="wide")
 def download_file_from_github(url, save_path):
@@ -90,10 +91,26 @@ df_mie = df_mie[df_mie['BULAN']>='January 2024']
 pivot1=df_mie.pivot(index='Nama Cabang', columns='BULAN', values='Kuantitas').reset_index().fillna(0)
 
 pivot1.iloc[:,1:] = pivot1.iloc[:,1:].astype('int')
-pivot1['RowMin'] = pivot1.iloc[:, 1:].min(axis=1)
-pivot1['RowMax'] = pivot1.iloc[:, 1:].max(axis=1)
 
-# Membuat GridOptions dengan AgGrid
+def create_white_to_red_cmap():
+    pastel_cmap = LinearSegmentedColormap.from_list(
+        "white_red",
+        [(0, (1.0, 1.0, 1.0)),  # Putih
+         (1, (1.0, 0.5, 0.5))]  # Merah pastel
+    )
+    return pastel_cmap
+
+def row_gradient_colors(row, cmap):
+    vmin, vmax = row.min(), row.max()  # Nilai min dan max dalam satu baris
+    colors = [get_color(value, vmin, vmax, cmap) for value in row]
+    return colors
+
+def get_color(value, vmin, vmax, cmap):
+    norm_value = (value - vmin) / (vmax - vmin) if vmax > vmin else 0
+    rgba_color = cmap(norm_value)  # Ambil warna dari colormap
+    return to_hex(rgba_color)      # Konversi ke HEX
+
+
 gb = GridOptionsBuilder.from_dataframe(pivot1.drop(columns=["RowMin", "RowMax"]))
 gb.configure_column(pivot1.columns[0], pinned="left")
 gb.configure_default_column(resizable=True)
@@ -101,33 +118,28 @@ gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
 #gb.configure_default_column(filterable=True, sortable=True)
 gb.configure_column(pivot1.columns[0], filter="text")
 
-#cmap = plt.get_cmap('Reds')
-js_code = JsCode("""
-function(params) {
-    const rowMin = params.data.RowMin;
-    const rowMax = params.data.RowMax;
+cmap = create_white_to_red_cmap()
 
-    if (params.value == null || rowMin == rowMax) {
-        return {'backgroundColor': 'white', 'color': 'black'};
-    }
+row_colors = pivot1.iloc[:, 1:].apply(lambda row: row_gradient_colors(row, cmap), axis=1)
 
-    const value = params.value;
-    const ratio = (value - rowMin) / (rowMax - rowMin);
-    
-    // Menggunakan matplotlib colors untuk menghasilkan gradasi pastel
-    const color = 'rgb(' + Math.round(255 * ratio) + ',' + Math.round(255 * (1 - ratio)) + ',' + 100 + ')';
-    
-    return {'backgroundColor': color, 'color': 'black'};
-}
-""")
 
-# Tambahkan cellStyle ke kolom tertentu
-for col in pivot1.columns[1:-2]:
+# Menambahkan cellStyle untuk setiap kolom numerik
+for col_idx, col in enumerate(pivot1.columns[1:]):
     gb.configure_column(
         col,
-        cellStyle=js_code
+        cellStyle=JsCode(f"""
+        function(params) {{
+            const colors = {row_colors.apply(lambda x: x[col_idx]).tolist()};
+            return {{
+                'backgroundColor': colors[params.node.rowIndex],
+                'color': 'black',
+                'textAlign': 'center'
+            }};
+        }}
+        """)
     )
-for col in pivot1.columns[1:-2]:
+
+for col in pivot1.columns[1:]:
     gb.configure_column(col, width=150)
     
 grid_options = gb.build()
