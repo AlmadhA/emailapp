@@ -100,7 +100,8 @@ gb.configure_default_column(resizable=True)
 gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
 #gb.configure_default_column(filterable=True, sortable=True)
 gb.configure_column(pivot1.columns[0], filter="text")
-cmap = plt.get_cmap('Reds')
+
+#cmap = plt.get_cmap('Reds')
 js_code = JsCode("""
 function(params) {
     const rowMin = params.data.RowMin;
