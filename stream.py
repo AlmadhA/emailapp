@@ -112,9 +112,9 @@ def get_color(value, vmin, vmax, cmap):
 
 
 gb = GridOptionsBuilder.from_dataframe(pivot1)
-gb.configure_column(pivot1.columns[0], pinned="left",filter="text")
-gb.configure_default_column(resizable=True)
-gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
+#gb.configure_column(pivot1.columns[0], pinned="left",filter="text")
+#gb.configure_default_column(resizable=True)
+#gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
 
 cmap = create_white_to_red_cmap()
 
