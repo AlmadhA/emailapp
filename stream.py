@@ -111,7 +111,7 @@ def get_color(value, vmin, vmax, cmap):
     return to_hex(rgba_color)      # Konversi ke HEX
 
 
-gb = GridOptionsBuilder.from_dataframe(pivot1.drop(columns=["RowMin", "RowMax"]))
+gb = GridOptionsBuilder.from_dataframe(pivot1)
 gb.configure_column(pivot1.columns[0], pinned="left")
 gb.configure_default_column(resizable=True)
 gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
