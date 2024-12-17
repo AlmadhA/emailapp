@@ -112,9 +112,9 @@ def get_color(value, vmin, vmax, cmap):
 
 
 gb = GridOptionsBuilder.from_dataframe(pivot1)
-#gb.configure_column(pivot1.columns[0], pinned="left",filter="text")
-#gb.configure_default_column(resizable=True)
-#gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
+gb.configure_column(pivot1.columns[0], pinned="left",filter="text")
+gb.configure_default_column(resizable=True)
+gb.configure_grid_options(domLayout='normal')  # Menyesuaikan tinggi tabel
 
 cmap = create_white_to_red_cmap()
 
@@ -145,7 +145,7 @@ AgGrid(
     gridOptions=grid_options,
     allow_unsafe_jscode=True
 )
-st.dataframe(pivot1.fillna(0), use_container_width=True, hide_index=True)
+
 total = pd.DataFrame((pivot1.iloc[:,1:].sum(axis=0).values).reshape(1,len(pivot1.columns)-1),columns=pivot1.columns[1:])
 total['Nama Cabang'] ='TOTAL'
 st.dataframe(total.loc[:,[total.columns[-1]]+total.columns[:-1].to_list()], use_container_width=True, hide_index=True)
