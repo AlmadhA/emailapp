@@ -137,7 +137,7 @@ for col_idx, col in enumerate(pivot1.columns[1:]):
 
 column_defs = []
 for col in pivot1.columns[1:]: 
-    column_defs.append({'headerName': col, 'field': col, 'width': 150})
+    column_defs.append({'headerName': col, 'field': col, 'width': 200})
 
 
 # Mengonfigurasi grid untuk menggunakan columnDefs yang telah diubah
