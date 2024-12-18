@@ -122,7 +122,7 @@ row_colors = pivot1.iloc[:, 1:].apply(lambda row: row_gradient_colors(row, cmap)
 # Menambahkan cellStyle untuk setiap kolom numerik
 for col_idx, col in enumerate(pivot1.columns[1:]):
     gb.configure_column(
-        col,width=150,
+        col,width=2,
         cellStyle=JsCode(f"""
         function(params) {{
             const colors = {row_colors.apply(lambda x: x[col_idx]).tolist()};
@@ -136,8 +136,7 @@ for col_idx, col in enumerate(pivot1.columns[1:]):
     )
 
 
-#gb.configure_grid_options(suppressColumnToolPanel=True)
-
+gb.configure_grid_options(suppressColumnToolPanel=True)
 gb.configure_column(pivot1.columns[0], pinned="left",  filter="text")
 gb.configure_default_column(resizable=True,filterable=True, sortable=True)
 
