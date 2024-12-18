@@ -136,7 +136,7 @@ for col_idx, col in enumerate(pivot1.columns[1:]):
     )
 
 for col in pivot1.columns[1:]:
-    gb.configure_column(field=col, header_name=col, width=120)
+    gb.configure_column(field=col, header_name=col, width=150)
 
 gb.configure_column(pivot1.columns[0], pinned="left",  filter="text", autoSizeColumns=True)
 #gb.configure_default_column(resizable=True)
