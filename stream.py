@@ -122,7 +122,7 @@ row_colors = pivot1.iloc[:, 1:].apply(lambda row: row_gradient_colors(row, cmap)
 # Menambahkan cellStyle untuk setiap kolom numerik
 for col_idx, col in enumerate(pivot1.columns[1:]):
     gb.configure_column(
-        col,width=2,
+        col,width=150,
         cellStyle=JsCode(f"""
         function(params) {{
             const colors = {row_colors.apply(lambda x: x[col_idx]).tolist()};
@@ -145,7 +145,7 @@ grid_options = gb.build()
 total = pd.DataFrame((pivot1.iloc[:,1:].sum(axis=0).values).reshape(1,len(pivot1.columns)-1),columns=pivot1.columns[1:])
 total['Nama Cabang'] ='TOTAL'
 AgGrid(pd.concat([pivot1,total], ignore_index=True),
-    gridOptions=grid_options,  fit_columns_on_grid_load=True,width=2000, domLayout='normal',
+    gridOptions=grid_options,  fit_columns_on_grid_load=True, width=2000, domLayout='auto', enableHorizontalScrollbar=True,
     allow_unsafe_jscode=True)
 
 st.dataframe(total.loc[:,[total.columns[-1]]+total.columns[:-1].to_list()], use_container_width=True, hide_index=True)
