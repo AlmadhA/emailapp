@@ -136,7 +136,7 @@ for col_idx, col in enumerate(pivot1.columns[1:]):
     )
 
 
-gb.configure_grid_options(suppressColumnToolPanel=True)
+#gb.configure_grid_options(suppressColumnToolPanel=True)
 
 gb.configure_column(pivot1.columns[0], pinned="left",  filter="text")
 gb.configure_default_column(resizable=True,filterable=True, sortable=True)
