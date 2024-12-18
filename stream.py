@@ -145,7 +145,7 @@ gb.configure_columns(column_defs)
 gb.configure_default_column(resizable=True)
 gb.configure_grid_options(domLayout='normal') 
 gb.configure_default_column(filterable=True, sortable=True) 
-go_builder.configure_grid_options(alwaysShowHorizontalScroll = True)
+gb.configure_grid_options(alwaysShowHorizontalScroll = True)
 
 
 grid_options = gb.build()
