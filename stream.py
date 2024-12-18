@@ -142,6 +142,8 @@ gb.configure_column(pivot1.columns[0], pinned="left",  filter="text")
 gb.configure_default_column(resizable=True,filterable=True, sortable=True)
 
 grid_options = gb.build()
+gridOptions["suppressAutoSize"] = False 
+gridOptions["domLayout"] = "autoHeight"
 
 total = pd.DataFrame((pivot1.iloc[:,1:].sum(axis=0).values).reshape(1,len(pivot1.columns)-1),columns=pivot1.columns[1:])
 total['Nama Cabang'] ='TOTAL'
