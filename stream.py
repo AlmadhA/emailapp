@@ -139,8 +139,6 @@ column_defs = []
 for col in pivot1.columns[1:]: 
     column_defs.append({'headerName': col, 'field': col, 'width': 300})
 
-
-# Mengonfigurasi grid untuk menggunakan columnDefs yang telah diubah
 gb.configure_columns(column_defs)
 
 #gb.configure_column(pivot1.columns[0], pinned="left",  filter="text", autoSizeColumns=True)
