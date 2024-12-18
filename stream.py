@@ -140,7 +140,6 @@ for col_idx, col in enumerate(pivot1.columns[1:]):
 #gb.configure_grid_options(suppressColumnToolPanel=True)
 gb.configure_column(pivot1.columns[0], pinned="left",  filter="text")
 gb.configure_default_column(resizable=True,filterable=True, sortable=True)
-gb.configure_pagination(paginationPageSize=10)
 grid_options = gb.build()
 #grid_options["domLayout"] = "autoHeight"
 
