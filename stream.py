@@ -148,7 +148,7 @@ AgGrid(
     pd.concat([pivot1,total], ignore_index=True),
     gridOptions=grid_options, fit_columns_on_grid_load=True,
     allow_unsafe_jscode=True, enable_enterprise_modules=True,
-     columns_auto_size_mode=ColumnsAutoSizeMode.NO_AUTOSIZE 
+     columns_auto_size_mode=ColumnsAutoSizeMode.FIT_ALL_COLUMNS_TO_VIEW
 )
 st.dataframe(total.loc[:,[total.columns[-1]]+total.columns[:-1].to_list()], use_container_width=True, hide_index=True)
 df_mie3 = df_mie.merge(df_days, how='left')
