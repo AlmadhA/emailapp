@@ -135,6 +135,9 @@ for col_idx, col in enumerate(pivot1.columns[1:]):
         """)
     )
 
+for col in pivot1.columns[1:]:
+    gb.configure_column([{'headerName': col, 'field': col, 'width': 150}])
+
 #gb.configure_column(pivot1.columns[0], pinned="left",  filter="text")
 #gb.configure_default_column(resizable=True)
 #gb.configure_grid_options(domLayout='normal') 
