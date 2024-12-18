@@ -135,8 +135,13 @@ for col_idx, col in enumerate(pivot1.columns[1:]):
         """)
     )
 
-for col in pivot1.columns[1:]:
-    gb.configure_column(field=col, header_name=col, width=150)
+column_defs = []
+for col in pivot1.columns[1:]: 
+    column_defs.append({'headerName': col, 'field': col, 'width': 150})
+
+
+# Mengonfigurasi grid untuk menggunakan columnDefs yang telah diubah
+gb.configure_columns(column_defs)
 
 gb.configure_column(pivot1.columns[0], pinned="left",  filter="text", autoSizeColumns=True)
 #gb.configure_default_column(resizable=True)
