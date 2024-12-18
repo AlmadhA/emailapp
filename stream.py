@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 import plotly.graph_objs as go
-from st_aggrid import AgGrid, GridOptionsBuilder, JsCode
+from st_aggrid import AgGrid, GridOptionsBuilder, JsCode, ColumnsAutoSizeMode
 from matplotlib.colors import LinearSegmentedColormap, to_hex
 
 st.set_page_config(layout="wide")
@@ -137,7 +137,7 @@ for col_idx, col in enumerate(pivot1.columns[1:]):
 
 gb.configure_column(pivot1.columns[0], pinned="left",  filter="text")
 gb.configure_default_column(resizable=False)
-#gb.configure_grid_options(domLayout='normal') 
+gb.configure_grid_options(domLayout='normal') 
 gb.configure_default_column(filterable=True, sortable=True)   
 
 grid_options = gb.build()
@@ -147,7 +147,8 @@ total['Nama Cabang'] ='TOTAL'
 AgGrid(
     pd.concat([pivot1,total], ignore_index=True),
     gridOptions=grid_options, fit_columns_on_grid_load=True,
-    allow_unsafe_jscode=True, enable_enterprise_modules=True
+    allow_unsafe_jscode=True, enable_enterprise_modules=True,
+     columns_auto_size_mode=ColumnsAutoSizeMode.NO_AUTOSIZE 
 )
 st.dataframe(total.loc[:,[total.columns[-1]]+total.columns[:-1].to_list()], use_container_width=True, hide_index=True)
 df_mie3 = df_mie.merge(df_days, how='left')
