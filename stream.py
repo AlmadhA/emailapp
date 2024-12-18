@@ -144,7 +144,7 @@ for col in pivot1.columns[1:]:
 gb.configure_columns(column_defs)
 
 #gb.configure_column(pivot1.columns[0], pinned="left",  filter="text", autoSizeColumns=True)
-#gb.configure_default_column(resizable=True)
+gb.configure_default_column(resizable=True)
 #gb.configure_grid_options(domLayout='normal') 
 gb.configure_default_column(filterable=True, sortable=True)   
 
