@@ -135,10 +135,10 @@ for col_idx, col in enumerate(pivot1.columns[1:]):
         """)
     )
 
-gb.configure_column(pivot1.columns[0], pinned="left",  filter="text")
-gb.configure_default_column(resizable=True)
-gb.configure_grid_options(domLayout='normal') 
-gb.configure_default_column(filterable=True, sortable=True)   
+#gb.configure_column(pivot1.columns[0], pinned="left",  filter="text")
+#gb.configure_default_column(resizable=True)
+#gb.configure_grid_options(domLayout='normal') 
+#gb.configure_default_column(filterable=True, sortable=True)   
 
 grid_options = gb.build()
 
@@ -147,8 +147,8 @@ total['Nama Cabang'] ='TOTAL'
 AgGrid(
     pd.concat([pivot1,total], ignore_index=True),
     gridOptions=grid_options, fit_columns_on_grid_load=True,
-    allow_unsafe_jscode=True, enable_enterprise_modules=True
-)
+    allow_unsafe_jscode=True)
+
 st.dataframe(total.loc[:,[total.columns[-1]]+total.columns[:-1].to_list()], use_container_width=True, hide_index=True)
 df_mie3 = df_mie.merge(df_days, how='left')
 #df_mie3['AVG_SALES'] = df_mie3['QTY'] / df_mie3['days'] 
