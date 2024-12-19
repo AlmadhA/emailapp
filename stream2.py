@@ -3,30 +3,26 @@ from streamlit_extras.metric_cards import style_metric_cards
 
 
 import streamlit as st
+from datetime import datetime
 
-wch_colour_box = (0,204,102)
-wch_colour_font = (0,0,0)
-fontsize = 18
-valign = "left"
-iconname = "fas fa-asterisk"
-sline = "Observations"
-lnk = '<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">'
-i = 123
+# Menampilkan header
+st.title("Pilih Bulan dan Tahun")
 
-htmlstr = f"""<p style='background-color: rgb({wch_colour_box[0]}, 
-                                              {wch_colour_box[1]}, 
-                                              {wch_colour_box[2]}, 0.75); 
-                        color: rgb({wch_colour_font[0]}, 
-                                   {wch_colour_font[1]}, 
-                                   {wch_colour_font[2]}, 0.75); 
-                        font-size: {fontsize}px; 
-                        border-radius: 7px; 
-                        padding-left: 12px; 
-                        padding-top: 18px; 
-                        padding-bottom: 18px; 
-                        line-height:25px;'>
-                        <i class='{iconname} fa-xs'></i> {i}
-                        </style><BR><span style='font-size: 14px; 
-                        margin-top: 0;'>{sline}</style></span></p>"""
+# Mengatur format bulan dan tahun
+today = datetime.today()
+current_year = today.year
+current_month = today.month
 
-st.markdown(lnk + htmlstr, unsafe_allow_html=True)
+# Pilihan untuk bulan/tahun awal
+start_date = st.date_input("Pilih Bulan/Tahun Awal", min_value=datetime(current_year-10, 1, 1), max_value=datetime(current_year, current_month, 1))
+# Pilihan untuk bulan/tahun akhir
+end_date = st.date_input("Pilih Bulan/Tahun Akhir", min_value=start_date, max_value=datetime(current_year, current_month, 1))
+
+# Mengambil bulan dan tahun dari input pengguna
+start_month_year = f"{start_date.month:02d}/{start_date.year}"
+end_month_year = f"{end_date.month:02d}/{end_date.year}"
+
+# Menampilkan hasil pilihan bulan dan tahun
+st.write(f"Bulan/Tahun Awal: {start_month_year}")
+st.write(f"Bulan/Tahun Akhir: {end_month_year}")
+
