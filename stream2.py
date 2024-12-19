@@ -1,17 +1,8 @@
 import streamlit as st
 
-# Menampilkan metrik dengan HTML untuk warna dan styling tambahan
-st.markdown("""
-    <style>
-        .metric-value {
-            font-size: 30px;
-            color: #FF6347;
-        }
-        .metric-label {
-            font-size: 20px;
-            color: #4682B4;
-        }
-    </style>
-    <div class="metric-label">Revenue</div>
-    <div class="metric-value">$10,000</div>
-""", unsafe_allow_html=True)
+# Gambar atau ikon untuk mempercantik tampilan
+st.image("https://www.example.com/icon.png", width=50)
+
+# Menampilkan metrik dengan desain lebih menarik
+st.metric(label="Profit", value="$15,000", delta="+25%", delta_color="inverse")
+st.metric(label="New Users", value="850", delta="-5%", delta_color="normal")
