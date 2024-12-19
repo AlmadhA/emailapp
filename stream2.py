@@ -1,14 +1,10 @@
 import streamlit as st
-import pandas as pd
-import numpy as np
+import time
 
-# Simulasi DataFrame
-data = pd.DataFrame({
-    "Metric": ["Revenue", "Visitors", "Profit", "Users"],
-    "Value": [5000, 3500, 2000, 1200],
-    "Change": [500, -200, 250, 100]
-})
+# Menampilkan progress bar
+st.write("Loading metrics...")
 
-# Menampilkan metrik berdasarkan data
-for index, row in data.iterrows():
-    st.metric(label=row["Metric"], value=f"${row['Value']}", delta=f"{row['Change']}")
+progress_bar = st.progress(0)
+for i in range(100):
+    progress_bar.progress(i + 1)
+    time.sleep(0.1)  # Simulasi delay
