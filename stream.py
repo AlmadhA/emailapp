@@ -11,9 +11,68 @@ import seaborn as sns
 
 import plotly.graph_objs as go
 from st_aggrid import AgGrid, GridOptionsBuilder, JsCode, ColumnsAutoSizeMode
+from streamlit_extras.metric_cards import style_metric_cards
 from matplotlib.colors import LinearSegmentedColormap, to_hex
 
-st.set_page_config(layout="wide")
+def create_dual_axis_chart(data, x_column, y_bar_column, y_line_column, title):
+    fig = go.Figure()
+
+    # Menambahkan bar chart
+    fig.add_trace(
+        go.Bar(
+            x=data[x_column],
+            y=data[y_bar_column],
+            name=y_bar_column,
+            marker_color='#DE7C7D',
+            yaxis='y1'
+        )
+    )
+
+    # Menambahkan line chart
+    fig.add_trace(
+        go.Scatter(
+            x=data[x_column],
+            y=data[y_line_column],
+            name=y_line_column,
+            mode='lines+markers',
+            line=dict(color='black', width=4),
+            yaxis='y2'
+        )
+    )
+
+    # Menyesuaikan layout untuk dua sumbu y
+    fig.update_layout(
+        title=title,
+        xaxis=dict(title=x_column),
+        yaxis=dict(
+            title=y_bar_column,
+            titlefont=dict(color='#DE7C7D'),
+            tickfont=dict(color='#DE7C7D'),
+            range=[5000000, 25000000]
+        ),
+        yaxis2=dict(
+            title=y_line_column,
+            titlefont=dict(color="black"),
+            tickfont=dict(color="black"),
+            overlaying='y',
+            side='right',
+            range=[130, 250]
+        ),
+        legend=dict(x=0.1, y=1.1, orientation='h'),
+        template="plotly_white",
+        margin=dict(l=50, r=50, t=40, b=40),
+        paper_bgcolor="white",  # Warna background luar (canvas), termasuk margin
+        plot_bgcolor="white"
+    )
+    return fig
+
+
+
+st.set_page_config(
+    page_title='Dashboard Promix',
+    layout='wide'
+)
+
 def download_file_from_github(url, save_path):
     response = requests.get(url)
     if response.status_code == 200:
@@ -60,7 +119,6 @@ if 'df_item' not in locals():
         # Menggabungkan semua DataFrame menjadi satu
         df_mie = pd.concat(df_mie, ignore_index=True)
         
-st.title('Dashboard - Promix (WEBSMART)')
 
 days_in_month = {
     'January': 31,
@@ -145,11 +203,8 @@ grid_options = gb.build()
 
 total = pd.DataFrame((pivot1.iloc[:,1:].sum(axis=0).values).reshape(1,len(pivot1.columns)-1),columns=pivot1.columns[1:])
 total['Nama Cabang'] ='TOTAL'
-AgGrid(pd.concat([pivot1,total], ignore_index=True),
-    gridOptions=grid_options,  fit_columns_on_grid_load=False, width='100%',
-    allow_unsafe_jscode=True)
 
-st.dataframe(total.loc[:,[total.columns[-1]]+total.columns[:-1].to_list()], use_container_width=True, hide_index=True)
+
 df_mie3 = df_mie.merge(df_days, how='left')
 #df_mie3['AVG_SALES'] = df_mie3['QTY'] / df_mie3['days'] 
 df_mie3['AVG_SALES(-Cancel nota)'] = df_mie3['Kuantitas'] / df_mie3['days'] 
@@ -157,11 +212,22 @@ df_mie3['AVG_SALES(-Cancel nota)'] = df_mie3['Kuantitas'] / df_mie3['days']
 df_mie3['Tanggal'] = pd.to_datetime(df_mie3['BULAN'], format='%b %Y')
 df_mie3['BULAN'] = pd.Categorical(df_mie3['BULAN'], categories=df_mie3.sort_values('Tanggal')['BULAN'].unique(), ordered=True)
 
-pivot1 = df_mie3[(df_mie3['BULAN'].str.contains('2024')) & (df_mie3['Kuantitas']>0)].pivot(index='CABANG',columns='BULAN',values='AVG_SALES(-Cancel nota)').reset_index()
-total = pd.DataFrame((pivot1.iloc[:,1:].mean(axis=0).values).reshape(1,len(pivot1.columns)-1),columns=pivot1.columns[1:])
-total['CABANG']='AVG DAILY'+(pivot1['CABANG'].str.len().max()+22)*' '
+pivot2 = df_mie3[(df_mie3['BULAN'].str.contains('2024')) & (df_mie3['Kuantitas']>0)].pivot(index='CABANG',columns='BULAN',values='AVG_SALES(-Cancel nota)').reset_index()
+avg = pd.DataFrame((pivot2.iloc[:,1:].mean(axis=0).values).reshape(1,len(pivot2.columns)-1),columns=pivot2.columns[1:])
+avg['CABANG']='AVG DAILY'+(pivot2['CABANG'].str.len().max()+22)*' '
 
-st.dataframe(total.loc[:,[total.columns[-1]]+total.columns[:-1].to_list()], use_container_width=True, hide_index=True)
+col = st.columns(4)
+with col[0]:
+    st.header("Dashboard - Promix (WEBSMART)")
+with col[1]:
+    st.metric(label="Total Sales (Qty)", value=f'{pivot1.iloc[:,-1].sum():,.0f}', delta=f"{(pivot1.iloc[:,-1].sum()-pivot1.iloc[:,-2].sum())/pivot1.iloc[:,-2].sum()*100:.2f}%", delta_color="normal")
+with col[2]:
+    st.metric(label="Total Cabang", value=f'{pivot1[pivot1[pivot1.columns[-1]]>0].iloc[:,-1].count()}', delta=int(pivot1[pivot1[pivot1.columns[-1]]>0].iloc[:,-1].count()-pivot1[pivot1[pivot1.columns[-2]]>0].iloc[:,-2].count()), delta_color="normal")
+with col[3]:
+    st.metric(label="Avg. Daily Sales", value=f'{avg.iloc[:,-2].sum():,.2f}', delta=f"{(avg.iloc[:,-2].sum()-avg.iloc[:,-3].sum())/avg.iloc[:,-3].sum()*100:.2f}%", delta_color="normal")
+
+style_metric_cards(border_left_color='#DE7C7D')
+
 
 df_mie = df_mie.merge(df_days, how='left')
 df_mie['AVG_SALES(-Cancel nota)'] = df_mie['Kuantitas'] / df_mie['days'] 
@@ -175,5 +241,17 @@ df_mie2 = df_mie2[df_mie2['BULAN'].str.contains('2024')]
 df_mie2['Tanggal'] = pd.to_datetime(df_mie2['BULAN'], format='%b %Y')
 df_mie2['BULAN'] = pd.Categorical(df_mie2['BULAN'], categories=df_mie2.sort_values('Tanggal')['BULAN'].unique(), ordered=True)
 df_mie2 = df_mie2.sort_values('BULAN').T
+
+
+fig = create_dual_axis_chart(df_mie2.T.iloc[:,:2].merge(total.iloc[:,:-1].T,how='left',on='BULAN').rename(columns={0:'Total Sales'})
+, 'BULAN', 'Total Sales', 'Total Cabang',' ')
+st.plotly_chart(fig, use_container_width=True)
+
+AgGrid(pivot1,
+    gridOptions=grid_options,  fit_columns_on_grid_load=False, width='100%',
+    allow_unsafe_jscode=True)
+st.dataframe(total.loc[:,[total.columns[-1]]+total.columns[:-1].to_list()], use_container_width=True, hide_index=True)
+st.dataframe(avg.loc[:,[avg.columns[-1]]+avg.columns[:-1].to_list()], use_container_width=True, hide_index=True)
+
 df_mie2.columns = df_mie2.iloc[0,:]
 st.dataframe(df_mie2.iloc[[1,2,3],:].reset_index().rename(columns={'index':'BULAN'}), use_container_width=True, hide_index=True)
