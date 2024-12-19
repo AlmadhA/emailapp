@@ -1,7 +1,6 @@
 import streamlit as st
 from streamlit_extras.metric_cards import style_metric_cards
-# Gambar atau ikon untuk mempercantik tampilan
-st.image("https://www.example.com/icon.png", width=50)
+
 
 # Menampilkan metrik dengan desain lebih menarik
 st.metric(label="Profit", value="$15,000", delta="+25%", delta_color="inverse")
