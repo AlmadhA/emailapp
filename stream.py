@@ -142,8 +142,8 @@ df_days2['BULAN'] = df_days2['BULAN'].str.replace('2023','2024')
 df_days = pd.concat([df_days,df_days2]) 
 df_days.loc[df_days[df_days['BULAN']=='February 2024'].index,'days'] = 29
 
-col = st.columns(4)
-with col[0]:
+col_1 = st.columns(4)
+with col_1[0]:
     st.header("Dashboard - Promix (WEBSMART)")
     # Mendapatkan tahun saat ini
     current_year = datetime.today().year
@@ -237,11 +237,11 @@ avg = pd.DataFrame((pivot2.iloc[:,1:].mean(axis=0).values).reshape(1,len(pivot2.
 avg['CABANG']='AVG DAILY'+(pivot2['CABANG'].str.len().max()+22)*' '
 
 
-with col[1]:
+with col_1[1]:
     st.metric(label="Total Sales (Qty)", value=f'{pivot1.iloc[:,-1].sum():,.0f}', delta=f"{(pivot1.iloc[:,-1].sum()-pivot1.iloc[:,-2].sum())/pivot1.iloc[:,-2].sum()*100:.2f}%", delta_color="normal")
-with col[2]:
+with col_1[2]:
     st.metric(label="Total Cabang", value=f'{pivot1[pivot1[pivot1.columns[-1]]>0].iloc[:,-1].count()}', delta=int(pivot1[pivot1[pivot1.columns[-1]]>0].iloc[:,-1].count()-pivot1[pivot1[pivot1.columns[-2]]>0].iloc[:,-2].count()), delta_color="normal")
-with col[3]:
+with col_1[3]:
     st.metric(label="Avg. Daily Sales", value=f'{avg.iloc[:,-2].sum():,.2f}', delta=f"{(avg.iloc[:,-2].sum()-avg.iloc[:,-3].sum())/avg.iloc[:,-3].sum()*100:.2f}%", delta_color="normal")
 
 style_metric_cards(border_left_color='#DE7C7D')
