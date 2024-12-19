@@ -8,7 +8,7 @@ import gdown
 import tempfile
 import matplotlib.pyplot as plt
 import seaborn as sns
-
+from datetime import datetime
 import plotly.graph_objs as go
 from st_aggrid import AgGrid, GridOptionsBuilder, JsCode, ColumnsAutoSizeMode
 from streamlit_extras.metric_cards import style_metric_cards
@@ -142,6 +142,26 @@ df_days2['BULAN'] = df_days2['BULAN'].str.replace('2023','2024')
 df_days = pd.concat([df_days,df_days2]) 
 df_days.loc[df_days[df_days['BULAN']=='February 2024'].index,'days'] = 29
 
+col = st.columns(4)
+with col[0]:
+    st.header("Dashboard - Promix (WEBSMART)")
+    # Mendapatkan tahun saat ini
+    current_year = datetime.today().year
+    
+    # Daftar bulan dalam format singkatan (misalnya Jan, Feb, Mar, ...)
+    months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    
+    # Daftar tahun (misalnya 10 tahun terakhir hingga tahun sekarang)
+    years = [str(i) for i in range(current_year-10, current_year+1)]
+    
+    # Pilihan bulan dan tahun awal
+    start_month = st.selectbox("Pilih Bulan Awal", months)
+    start_year = st.selectbox("Pilih Tahun Awal", years)
+    
+    # Pilihan bulan dan tahun akhir
+    end_month = st.selectbox("Pilih Bulan Akhir", months)
+    end_year = st.selectbox("Pilih Tahun Akhir", years)
+    
 df_mie = df_mie.groupby(['BULAN','CABANG','Nama Cabang'])[['Kuantitas']].sum().reset_index()
 df_mie['Tanggal'] = pd.to_datetime(df_mie['BULAN'], format='%B %Y')
 df_mie['BULAN'] = df_mie['Tanggal'].dt.strftime('%b %Y')
@@ -216,9 +236,7 @@ pivot2 = df_mie3[(df_mie3['BULAN'].str.contains('2024')) & (df_mie3['Kuantitas']
 avg = pd.DataFrame((pivot2.iloc[:,1:].mean(axis=0).values).reshape(1,len(pivot2.columns)-1),columns=pivot2.columns[1:])
 avg['CABANG']='AVG DAILY'+(pivot2['CABANG'].str.len().max()+22)*' '
 
-col = st.columns(4)
-with col[0]:
-    st.header("Dashboard - Promix (WEBSMART)")
+
 with col[1]:
     st.metric(label="Total Sales (Qty)", value=f'{pivot1.iloc[:,-1].sum():,.0f}', delta=f"{(pivot1.iloc[:,-1].sum()-pivot1.iloc[:,-2].sum())/pivot1.iloc[:,-2].sum()*100:.2f}%", delta_color="normal")
 with col[2]:
