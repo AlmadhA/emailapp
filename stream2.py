@@ -1,14 +1,14 @@
 import streamlit as st
-import plotly.express as px
+import pandas as pd
+import numpy as np
 
-# Data untuk grafik
-df = pd.DataFrame({
-    "Category": ["A", "B", "C", "D"],
-    "Value": [10, 20, 30, 40]
+# Simulasi DataFrame
+data = pd.DataFrame({
+    "Metric": ["Revenue", "Visitors", "Profit", "Users"],
+    "Value": [5000, 3500, 2000, 1200],
+    "Change": [500, -200, 250, 100]
 })
 
-fig = px.bar(df, x="Category", y="Value", title="Sample Bar Chart")
-st.plotly_chart(fig)
-
-# Menampilkan metrik di bawah grafik
-st.metric(label="Total Sales", value="$40,000", delta="+15%")
+# Menampilkan metrik berdasarkan data
+for index, row in data.iterrows():
+    st.metric(label=row["Metric"], value=f"${row['Value']}", delta=f"{row['Change']}")
