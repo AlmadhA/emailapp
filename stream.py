@@ -173,7 +173,7 @@ pivot1=df_mie.pivot(index='Nama Cabang', columns='BULAN', values='Kuantitas').re
 
 pivot1.iloc[:,1:] = pivot1.iloc[:,1:].astype('int')
 
-def create_white_to_yellow_cmap():
+def create_white_to_red_cmap():
     # Membuat gradient dari putih ke kuning '#f4b41a'
     yellow_cmap = LinearSegmentedColormap.from_list(
         "white_yellow",  # Nama colormap
