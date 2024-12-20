@@ -64,7 +64,7 @@ def create_dual_axis_chart(data, x_column, y_bar_column, y_line_column, title):
         margin=dict(l=50, r=50, t=40, b=40),
         paper_bgcolor="white",  # Warna background luar (canvas), termasuk margin
         plot_bgcolor="white",
-        width=900
+        width=1300
     )
     return fig
 
