@@ -219,7 +219,7 @@ for col_idx, col in enumerate(pivot1.columns[1:]):
 
 #gb.configure_grid_options(suppressColumnToolPanel=True)
 header_style = {'backgroundColor': '#143d59', 'color': 'white', 'fontWeight': 'bold'}
-for col in pivot1.columns():
+for col in pivot1.columns:
     gb.configure_column(headerStyle=header_style)
 gb.configure_column(pivot1.columns[0], pinned="left",  filter="text", cellStyle={'backgroundColor': '#143d59', 'color': 'white'})
 gb.configure_default_column(resizable=True,filterable=True, sortable=True)
