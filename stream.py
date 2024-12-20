@@ -170,9 +170,7 @@ with col[2]:
     start_year = st.selectbox("Pilih Tahun Awal", years)
     end_year = st.selectbox("Pilih Tahun Akhir", years)
 
-col_1 = st.columns(4)
-with col_1[0]:
-    st.write('')
+
         
 df_mie = df_mie.groupby(['BULAN','CABANG','Nama Cabang'])[['Kuantitas']].sum().reset_index()
 df_mie['Tanggal'] = pd.to_datetime(df_mie['BULAN'], format='%B %Y')
@@ -251,7 +249,9 @@ pivot2 = df_mie3[(df_mie3['BULAN'].str.contains('2024')) & (df_mie3['Kuantitas']
 avg = pd.DataFrame((pivot2.iloc[:,1:].mean(axis=0).values).reshape(1,len(pivot2.columns)-1),columns=pivot2.columns[1:])
 avg['CABANG']='AVG DAILY'+(pivot2['CABANG'].str.len().max()+22)*' '
 
-
+col_1 = st.columns(4)
+with col_1[0]:
+    st.write('')
 with col_1[1]:
     st.text(' ')
     st.text(' ')
