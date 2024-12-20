@@ -4,6 +4,23 @@ from datetime import datetime
 # Menampilkan judul aplikasi
 st.title("Pilih Bulan dan Tahun")
 
+# Menggunakan st.metric untuk menampilkan metrik
+st.metric(label="Sales", value="1000", delta="+100")
+
+# Mengubah warna font dengan st.markdown
+st.markdown(
+    """
+    <style>
+    .streamlit-expanderHeader {
+        color: red;
+    }
+    .css-1v3fvcr {
+        color: blue;
+    }
+    </style>
+    """, unsafe_allow_html=True
+)
+
 # Mendapatkan tahun saat ini
 current_year = datetime.today().year
 
