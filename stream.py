@@ -249,25 +249,6 @@ pivot2 = df_mie3[(df_mie3['BULAN'].str.contains('2024')) & (df_mie3['Kuantitas']
 avg = pd.DataFrame((pivot2.iloc[:,1:].mean(axis=0).values).reshape(1,len(pivot2.columns)-1),columns=pivot2.columns[1:])
 avg['CABANG']='AVG DAILY'+(pivot2['CABANG'].str.len().max()+22)*' '
 
-col_1 = st.columns(4)
-with col_1[0]:
-    st.write('')
-with col_1[1]:
-    st.text(' ')
-    st.text(' ')
-    st.metric(label="Total Sales (Qty)", value=f'{pivot1.iloc[:,-1].sum():,.0f}', delta=f"{(pivot1.iloc[:,-1].sum()-pivot1.iloc[:,-2].sum())/pivot1.iloc[:,-2].sum()*100:.2f}%", delta_color="normal")
-with col_1[2]:
-    st.text(' ')
-    st.text(' ')
-    st.metric(label="Total Cabang", value=f'{pivot1[pivot1[pivot1.columns[-1]]>0].iloc[:,-1].count()}', delta=int(pivot1[pivot1[pivot1.columns[-1]]>0].iloc[:,-1].count()-pivot1[pivot1[pivot1.columns[-2]]>0].iloc[:,-2].count()), delta_color="normal")
-with col_1[3]:
-    st.text(' ')
-    st.text(' ')
-    st.metric(label="Avg. Daily Sales", value=f'{avg.iloc[:,-2].sum():,.2f}', delta=f"{(avg.iloc[:,-2].sum()-avg.iloc[:,-3].sum())/avg.iloc[:,-3].sum()*100:.2f}%", delta_color="normal")
-
-style_metric_cards(background_color='#143d59',border_left_color='#FFFFFF',border_size_px=0)
-
-
 df_mie = df_mie.merge(df_days, how='left')
 df_mie['AVG_SALES(-Cancel nota)'] = df_mie['Kuantitas'] / df_mie['days'] 
 
@@ -281,26 +262,47 @@ df_mie2['Tanggal'] = pd.to_datetime(df_mie2['BULAN'], format='%b %Y')
 df_mie2['BULAN'] = pd.Categorical(df_mie2['BULAN'], categories=df_mie2.sort_values('Tanggal')['BULAN'].unique(), ordered=True)
 df_mie2 = df_mie2.sort_values('BULAN').T
 
+grafik_tab, data_tab, = st.tabs(["GRAFIK", "DATA"])
+with grafik_tab:
+    col_1 = st.columns(4)
+    with col_1[0]:
+        st.write('')
+    with col_1[1]:
+        st.text(' ')
+        st.text(' ')
+        st.metric(label="Total Sales (Qty)", value=f'{pivot1.iloc[:,-1].sum():,.0f}', delta=f"{(pivot1.iloc[:,-1].sum()-pivot1.iloc[:,-2].sum())/pivot1.iloc[:,-2].sum()*100:.2f}%", delta_color="normal")
+    with col_1[2]:
+        st.text(' ')
+        st.text(' ')
+        st.metric(label="Total Cabang", value=f'{pivot1[pivot1[pivot1.columns[-1]]>0].iloc[:,-1].count()}', delta=int(pivot1[pivot1[pivot1.columns[-1]]>0].iloc[:,-1].count()-pivot1[pivot1[pivot1.columns[-2]]>0].iloc[:,-2].count()), delta_color="normal")
+    with col_1[3]:
+        st.text(' ')
+        st.text(' ')
+        st.metric(label="Avg. Daily Sales", value=f'{avg.iloc[:,-2].sum():,.2f}', delta=f"{(avg.iloc[:,-2].sum()-avg.iloc[:,-3].sum())/avg.iloc[:,-3].sum()*100:.2f}%", delta_color="normal")
+    
+    style_metric_cards(background_color='#143d59',border_left_color='#FFFFFF',border_size_px=0)
 
-fig = create_dual_axis_chart(df_mie2.T.iloc[:,:2].merge(total.iloc[:,:-1].T,how='left',on='BULAN').rename(columns={0:'Total Sales'})
-, 'BULAN', 'Total Sales', 'Total Cabang',' ')
-with stylable_container(
-    key='grafik1',
-    css_styles="""
-        {   background-color: white;
-            border: 1px solid rgba(49, 51, 63, 0.2);
-            border-radius: 0.5rem;
-            padding: calc(1em - 1px)
-        }
-        """,
-):
-    st.plotly_chart(fig)#, use_container_width=True)
 
-AgGrid(pivot1,
-    gridOptions=grid_options,  fit_columns_on_grid_load=False, width='100%',
-    allow_unsafe_jscode=True)
-st.dataframe(total.loc[:,[total.columns[-1]]+total.columns[:-1].to_list()], use_container_width=True, hide_index=True)
-st.dataframe(avg.loc[:,[avg.columns[-1]]+avg.columns[:-1].to_list()], use_container_width=True, hide_index=True)
-
-df_mie2.columns = df_mie2.iloc[0,:]
-st.dataframe(df_mie2.iloc[[1,2,3],:].reset_index().rename(columns={'index':'BULAN'}), use_container_width=True, hide_index=True)
+    fig = create_dual_axis_chart(df_mie2.T.iloc[:,:2].merge(total.iloc[:,:-1].T,how='left',on='BULAN').rename(columns={0:'Total Sales'})
+    , 'BULAN', 'Total Sales', 'Total Cabang',' ')
+    with stylable_container(
+        key='grafik1',
+        css_styles="""
+            {   background-color: white;
+                border: 1px solid rgba(49, 51, 63, 0.2);
+                border-radius: 0.5rem;
+                padding: calc(1em - 1px)
+            }
+            """,
+    ):
+        st.plotly_chart(fig)#, use_container_width=True)
+    
+    AgGrid(pivot1,
+        gridOptions=grid_options,  fit_columns_on_grid_load=False, width='100%',
+        allow_unsafe_jscode=True)
+with data_tab:
+    st.dataframe(total.loc[:,[total.columns[-1]]+total.columns[:-1].to_list()], use_container_width=True, hide_index=True)
+    st.dataframe(avg.loc[:,[avg.columns[-1]]+avg.columns[:-1].to_list()], use_container_width=True, hide_index=True)
+    
+    df_mie2.columns = df_mie2.iloc[0,:]
+    st.dataframe(df_mie2.iloc[[1,2,3],:].reset_index().rename(columns={'index':'BULAN'}), use_container_width=True, hide_index=True)
