@@ -149,21 +149,19 @@ with col_1[0]:
     st.header("Dashboard - Promix (WEBSMART)")
     # Mendapatkan tahun saat ini
     current_year = datetime.today().year
-    
     # Daftar bulan dalam format singkatan (misalnya Jan, Feb, Mar, ...)
     months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     
     # Daftar tahun (misalnya 10 tahun terakhir hingga tahun sekarang)
     years = [str(i) for i in range(current_year-10, current_year+1)]
-    
-    # Pilihan bulan dan tahun awal
-    start_month = st.selectbox("Pilih Bulan Awal", months)
-    start_year = st.selectbox("Pilih Tahun Awal", years)
-    
-    # Pilihan bulan dan tahun akhir
-    end_month = st.selectbox("Pilih Bulan Akhir", months)
-    end_year = st.selectbox("Pilih Tahun Akhir", years)
-    
+    col_2 = st.columns(2)
+    with col_2[0]:
+        start_month = st.selectbox("Pilih Bulan Awal", months)    
+        end_month = st.selectbox("Pilih Bulan Akhir", months)
+    with col_2[1]:
+        start_year = st.selectbox("Pilih Tahun Awal", years)
+        end_year = st.selectbox("Pilih Tahun Akhir", years)
+        
 df_mie = df_mie.groupby(['BULAN','CABANG','Nama Cabang'])[['Kuantitas']].sum().reset_index()
 df_mie['Tanggal'] = pd.to_datetime(df_mie['BULAN'], format='%B %Y')
 df_mie['BULAN'] = df_mie['Tanggal'].dt.strftime('%b %Y')
