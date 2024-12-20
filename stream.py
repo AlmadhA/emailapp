@@ -297,10 +297,12 @@ with grafik_tab:
     ):
         st.plotly_chart(fig)#, use_container_width=True)
     
-    AgGrid(pivot1,
-        gridOptions=grid_options,  fit_columns_on_grid_load=False, width='100%',
-        allow_unsafe_jscode=True)
+
 with data_tab:
+    AgGrid(pivot1,
+    gridOptions=grid_options,  fit_columns_on_grid_load=False, width='100%',
+    allow_unsafe_jscode=True)
+    
     st.dataframe(total.loc[:,[total.columns[-1]]+total.columns[:-1].to_list()], use_container_width=True, hide_index=True)
     st.dataframe(avg.loc[:,[avg.columns[-1]]+avg.columns[:-1].to_list()], use_container_width=True, hide_index=True)
     
