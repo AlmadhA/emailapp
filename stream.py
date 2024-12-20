@@ -14,7 +14,7 @@ from st_aggrid import AgGrid, GridOptionsBuilder, JsCode, ColumnsAutoSizeMode
 from streamlit_extras.metric_cards import style_metric_cards
 from streamlit_extras.stylable_container import stylable_container
 from matplotlib.colors import LinearSegmentedColormap, to_hex
-a
+
 def create_dual_axis_chart(data, x_column, y_bar_column, y_line_column, title):
     fig = go.Figure()
 
@@ -241,7 +241,8 @@ avg['CABANG']='AVG DAILY'+(pivot2['CABANG'].str.len().max()+22)*' '
 
 
 with col_1[1]:
-    st.text(' '),st.text(' ')
+    st.text(' ')
+    st.text(' ')
     st.metric(label="Total Sales (Qty)", value=f'{pivot1.iloc[:,-1].sum():,.0f}', delta=f"{(pivot1.iloc[:,-1].sum()-pivot1.iloc[:,-2].sum())/pivot1.iloc[:,-2].sum()*100:.2f}%", delta_color="normal")
 with col_1[2]:
     st.metric(label="Total Cabang", value=f'{pivot1[pivot1[pivot1.columns[-1]]>0].iloc[:,-1].count()}', delta=int(pivot1[pivot1[pivot1.columns[-1]]>0].iloc[:,-1].count()-pivot1[pivot1[pivot1.columns[-2]]>0].iloc[:,-2].count()), delta_color="normal")
