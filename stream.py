@@ -275,7 +275,7 @@ with stylable_container(
         }
         """,
 ):
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig)#, use_container_width=True)
 
 AgGrid(pivot1,
     gridOptions=grid_options,  fit_columns_on_grid_load=False, width='100%',
