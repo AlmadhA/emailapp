@@ -144,9 +144,9 @@ df_days2['BULAN'] = df_days2['BULAN'].str.replace('2023','2024')
 df_days = pd.concat([df_days,df_days2]) 
 df_days.loc[df_days[df_days['BULAN']=='February 2024'].index,'days'] = 29
 
+st.header("Dashboard - Promix (WEBSMART)")
 col_1 = st.columns(4)
 with col_1[0]:
-    st.header("Dashboard - Promix (WEBSMART)")
     # Mendapatkan tahun saat ini
     current_year = datetime.today().year
     # Daftar bulan dalam format singkatan (misalnya Jan, Feb, Mar, ...)
