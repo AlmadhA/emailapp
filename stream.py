@@ -244,7 +244,7 @@ with col_1[2]:
 with col_1[3]:
     st.metric(label="Avg. Daily Sales", value=f'{avg.iloc[:,-2].sum():,.2f}', delta=f"{(avg.iloc[:,-2].sum()-avg.iloc[:,-3].sum())/avg.iloc[:,-3].sum()*100:.2f}%", delta_color="normal")
 
-style_metric_cards(bg_color='#143d59',border_left_color='#FFFFFF')
+style_metric_cards(background_color='#143d59',border_left_color='#FFFFFF')
 
 
 df_mie = df_mie.merge(df_days, how='left')
