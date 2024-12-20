@@ -23,7 +23,7 @@ def create_dual_axis_chart(data, x_column, y_bar_column, y_line_column, title):
             x=data[x_column],
             y=data[y_bar_column],
             name=y_bar_column,
-            marker_color='#372800',
+            marker_color='#143d59',
             yaxis='y1'
         )
     )
@@ -46,8 +46,8 @@ def create_dual_axis_chart(data, x_column, y_bar_column, y_line_column, title):
         xaxis=dict(title=x_column),
         yaxis=dict(
             title=y_bar_column,
-            titlefont=dict(color='#372800'),
-            tickfont=dict(color='#372800'),
+            titlefont=dict(color='#143d59'),
+            tickfont=dict(color='#143d59'),
             range=[5000000, 25000000]
         ),
         yaxis2=dict(
