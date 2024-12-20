@@ -144,9 +144,20 @@ df_days2['BULAN'] = df_days2['BULAN'].str.replace('2023','2024')
 df_days = pd.concat([df_days,df_days2]) 
 df_days.loc[df_days[df_days['BULAN']=='February 2024'].index,'days'] = 29
 
-st.header("Dashboard - Promix (WEBSMART)")
-col_1 = st.columns(4)
-with col_1[0]:
+col =  st.columns(3)
+with col[0]:
+    with stylable_container(
+        key='title',
+        css_styles="""
+            {   background-color: white;
+                border: 1px solid rgba(49, 51, 63, 0.2);
+                border-radius: 0.5rem;
+                padding: calc(1em - 1px)
+            }
+            """,
+    ):
+        st.header("Dashboard - Promix (WEBSMART)")
+with col[1]:
     # Mendapatkan tahun saat ini
     current_year = datetime.today().year
     # Daftar bulan dalam format singkatan (misalnya Jan, Feb, Mar, ...)
@@ -154,13 +165,15 @@ with col_1[0]:
     
     # Daftar tahun (misalnya 10 tahun terakhir hingga tahun sekarang)
     years = [str(i) for i in range(current_year-10, current_year+1)]
-    col_2 = st.columns(2)
-    with col_2[0]:
-        start_month = st.selectbox("Pilih Bulan Awal", months)    
-        end_month = st.selectbox("Pilih Bulan Akhir", months)
-    with col_2[1]:
-        start_year = st.selectbox("Pilih Tahun Awal", years)
-        end_year = st.selectbox("Pilih Tahun Akhir", years)
+    start_month = st.selectbox("Pilih Bulan Awal", months)    
+    end_month = st.selectbox("Pilih Bulan Akhir", months)
+with col[2]:
+    start_year = st.selectbox("Pilih Tahun Awal", years)
+    end_year = st.selectbox("Pilih Tahun Akhir", years)
+
+col_1 = st.columns(4)
+with col_1[0]:
+    st.write('')
         
 df_mie = df_mie.groupby(['BULAN','CABANG','Nama Cabang'])[['Kuantitas']].sum().reset_index()
 df_mie['Tanggal'] = pd.to_datetime(df_mie['BULAN'], format='%B %Y')
