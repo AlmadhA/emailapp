@@ -173,13 +173,14 @@ pivot1=df_mie.pivot(index='Nama Cabang', columns='BULAN', values='Kuantitas').re
 
 pivot1.iloc[:,1:] = pivot1.iloc[:,1:].astype('int')
 
-def create_white_to_red_cmap():
-    pastel_cmap = LinearSegmentedColormap.from_list(
-        "white_red",
-        [(0, (1.0, 1.0, 1.0)),  # Putih
-         (1, (1.0, 0.5, 0.5))]  # Merah pastel
+def create_white_to_yellow_cmap():
+    # Membuat gradient dari putih ke kuning '#f4b41a'
+    yellow_cmap = LinearSegmentedColormap.from_list(
+        "white_yellow",  # Nama colormap
+        [(0, (1.0, 1.0, 1.0)),  # Putih (R=1.0, G=1.0, B=1.0)
+         (1, (244/255, 180/255, 26/255))]  # Kuning '#f4b41a' (RGB normed value)
     )
-    return pastel_cmap
+    return yellow_cmap
 
 def row_gradient_colors(row, cmap):
     vmin, vmax = row.min(), row.max()  # Nilai min dan max dalam satu baris
