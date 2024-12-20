@@ -62,7 +62,28 @@ def create_dual_axis_chart(data, x_column, y_bar_column, y_line_column, title):
         template="plotly_white",
         margin=dict(l=50, r=50, t=40, b=40),
         paper_bgcolor="white",  # Warna background luar (canvas), termasuk margin
-        plot_bgcolor="white"
+        plot_bgcolor="white",
+        shapes=[
+            # Membuat kotak dengan border tumpul
+            {
+                'type': 'rect',
+                'x0': 0,
+                'y0': 0,
+                'x1': 1,
+                'y1': 1,
+                'xref': 'paper',
+                'yref': 'paper',
+                'line': {
+                    'color': '#000000',  # Warna border
+                    'width': 2  # Ketebalan border
+                },
+                'fillcolor': 'white',
+                'opacity': 0,  # Membuat background transparan
+                'layer': 'below',  # Membuat border berada di bawah grafik
+                'path': 'M 0,0 Q 0.1,0 0.1,0.1 L 0.9,0.1 Q 1,0.1 1,0.2 L 1,0.8 Q 1,0.9 0.9,1 L 0.1,1 Q 0,1 0,0.9 Z'
+                # Path yang mendefinisikan bentuk tumpul (round corner)
+            }
+        ]
     )
     return fig
 
