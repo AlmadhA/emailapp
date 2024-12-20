@@ -14,26 +14,7 @@ from st_aggrid import AgGrid, GridOptionsBuilder, JsCode, ColumnsAutoSizeMode
 from streamlit_extras.metric_cards import style_metric_cards
 from streamlit_extras.stylable_container import stylable_container
 from matplotlib.colors import LinearSegmentedColormap, to_hex
-st.markdown("""
-    <style>
-        /* Mengubah font pada tabs */
-        .css-1d391kg {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        
-        /* Menambahkan garis bawah pada tabs */
-        .st-bd {
-            border-bottom: 2px solid #4CAF50;  /* Warna garis bawah */
-        }
 
-        /* Menambahkan garis bawah hanya pada tab yang aktif */
-        .css-1ekvmgr {
-            border-bottom: 2px solid #FF5733; /* Warna garis bawah tab aktif */
-        }
-    </style>
-""", unsafe_allow_html=True)
 def create_dual_axis_chart(data, x_column, y_bar_column, y_line_column, title):
     fig = go.Figure()
 
@@ -281,6 +262,26 @@ df_mie2['Tanggal'] = pd.to_datetime(df_mie2['BULAN'], format='%b %Y')
 df_mie2['BULAN'] = pd.Categorical(df_mie2['BULAN'], categories=df_mie2.sort_values('Tanggal')['BULAN'].unique(), ordered=True)
 df_mie2 = df_mie2.sort_values('BULAN').T
 
+st.markdown("""
+    <style>
+        /* Mengubah font pada tabs */
+        .css-1d391kg {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        /* Menambahkan garis bawah pada tabs */
+        .st-bd {
+            border-bottom: 2px solid #4CAF50;  /* Warna garis bawah */
+        }
+
+        /* Menambahkan garis bawah hanya pada tab yang aktif */
+        .css-1ekvmgr {
+            border-bottom: 2px solid #FF5733; /* Warna garis bawah tab aktif */
+        }
+    </style>
+""", unsafe_allow_html=True)
 grafik_tab, data_tab, = st.tabs(["GRAFIK", "DATA"])
 with grafik_tab:
     col_1 = st.columns(4)
