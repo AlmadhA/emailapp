@@ -154,6 +154,7 @@ with col[0]:
             }
             """,
     ):
+        st.write(' ')
         st.header("Dashboard - Promix (WEBSMART)")
 with col[1]:
     # Mendapatkan tahun saat ini
