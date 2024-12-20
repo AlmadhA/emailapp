@@ -265,6 +265,7 @@ df_mie2 = df_mie2.sort_values('BULAN').T
 fig = create_dual_axis_chart(df_mie2.T.iloc[:,:2].merge(total.iloc[:,:-1].T,how='left',on='BULAN').rename(columns={0:'Total Sales'})
 , 'BULAN', 'Total Sales', 'Total Cabang',' ')
 with stylable_container(
+    key='grafik1',
     css_styles="""
         {   background-color: white;
             border: 1px solid rgba(49, 51, 63, 0.2);
