@@ -315,9 +315,8 @@ css = '''
 <style>
     .stTabs [data-baseweb="tab-highlight"] {
         background-color:teal;
-        color:#FFFFFF;
     }
-    .stTabs .stTabs__tab {
+    .stTabs {
         color: #FFFFFF;  /* Ganti warna font tab tidak aktif */
     }
 </style>
