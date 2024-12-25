@@ -319,7 +319,7 @@ css = '''
     }
 	.stTabs [data-baseweb="tab-list"] {
 		gap: 6px;
-  		border-bottom: 3px solid #143d59;
+  		border-bottom: 2px solid #143d59;
     }
 
 	.stTabs [data-baseweb="tab"] {
@@ -331,7 +331,7 @@ css = '''
 		gap: 1px;
   		padding-right: 10px;
       		padding-left: 10px;
-		padding-top: 2px;
+		padding-top: 0px;
 		padding-bottom: 0px;
     }
 </style>
