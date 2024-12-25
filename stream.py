@@ -315,7 +315,7 @@ css = '''
 <style>
     .stTabs [data-baseweb="tab-highlight"] {
         background-color:teal;
-        color:white;
+        color:#FFFFFF;
     }
 </style>
 '''
