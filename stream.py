@@ -266,7 +266,7 @@ custom_css = """
     /* Custom style for the active tab */
     .stTabs > .tablist > .react-tabs__tab--selected {
         background-color: #0e1117;
-        color: #ffffff;
+        color: #f4b41a;
         font-family: 'Courier New', Courier, monospace;
     }
     /* Custom style for all tabs */
