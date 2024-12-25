@@ -314,7 +314,7 @@ with data_tab:
 css = '''
 <style>
     .stTabs [data-baseweb="tab-highlight"] {
-        background-color:teal;
+        background-color:white;
         color:#FFFFFF;
     }
 	.stTabs [data-baseweb="tab-list"] {
