@@ -324,7 +324,7 @@ css = '''
 
 	.stTabs [data-baseweb="tab"] {
 		height: 30px;
-  		border-radius: 20px 20px 0 0;
+  		border-radius: 10px 10px 0 0;
         color: white;
         white-space: pre-wrap;
 		background-color: #143d59;
