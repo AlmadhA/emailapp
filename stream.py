@@ -317,6 +317,9 @@ css = '''
         background-color:teal;
         color:#FFFFFF;
     }
+    .stTabs .stTabs__tab {
+        color: #FFFFFF;  /* Ganti warna font tab tidak aktif */
+    }
 </style>
 '''
 
