@@ -317,8 +317,8 @@ css = '''
         background-color:teal;
         color:#FFFFFF;
     }
-    .stTabs {
-        color:#ffffff;
+    .stTabs [data-baseweb="tab"] {
+        color:white;
     }
 </style>
 '''
