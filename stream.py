@@ -317,8 +317,19 @@ css = '''
         background-color:teal;
         color:#FFFFFF;
     }
-    .stTabs [data-baseweb="tab"] {
-        color:white;
+	.stTabs [data-baseweb="tab-list"] {
+		gap: 2px;
+    }
+
+	.stTabs [data-baseweb="tab"] {
+		height: 50px;
+        color: white;
+        white-space: pre-wrap;
+		background-color: #f4b41a;
+		border-radius: 4px 4px 0px 0px;
+		gap: 1px;
+		padding-top: 10px;
+		padding-bottom: 10px;
     }
 </style>
 '''
