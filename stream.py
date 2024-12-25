@@ -318,7 +318,7 @@ css = '''
         color:#FFFFFF;
     }
 	.stTabs [data-baseweb="tab-list"] {
-		gap: 4px;
+		gap: 6px;
     }
 
 	.stTabs [data-baseweb="tab"] {
@@ -330,8 +330,8 @@ css = '''
 		gap: 1px;
   		padding-right: 10px;
       		padding-left: 10px;
-		padding-top: 10px;
-		padding-bottom: 10px;
+		padding-top: 6px;
+		padding-bottom: 6px;
     }
 </style>
 '''
