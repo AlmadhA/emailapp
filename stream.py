@@ -311,24 +311,18 @@ with data_tab:
     st.dataframe(df_mie2.iloc[[1,2,3],:].reset_index().rename(columns={'index':'BULAN'}), use_container_width=True, hide_index=True)
 
 
-
-# Custom CSS to inject
-custom_css = """
+css = '''
 <style>
-    /* Custom style for the active tab */
-    .stTabs > .tablist > .react-tabs__tab--selected {
-        background-color: #0e1117;
-        color: #ffffff;
-        font-family: 'Courier New', Courier, monospace;
+    .stTabs [data-baseweb="tab-highlight"] {
+        background-color:teal;
+        color:#FFFFFF;
     }
-    /* Custom style for all tabs */
-    .stTabs > .tablist > .react-tabs__tab {
-        background-color: #e8e8e8;
-        color: #4f4f4f;
-        font-family: 'Courier New', Courier, monospace;
+    .stTabs {
+        color:#ffffff;
     }
 </style>
-"""
+'''
 
-st.markdown(custom_css, unsafe_allow_html=True)
+st.markdown(css, unsafe_allow_html=True)
+
 
