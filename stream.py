@@ -315,8 +315,10 @@ css = '''
 <style>
     .stTabs [data-baseweb="tab-highlight"] {
         background-color:teal;
+        color:white;
     }
 </style>
 '''
 
 st.markdown(css, unsafe_allow_html=True)
+
