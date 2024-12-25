@@ -330,8 +330,8 @@ css = '''
 		gap: 1px;
   		padding-right: 10px;
       		padding-left: 10px;
-		padding-top: 6px;
-		padding-bottom: 6px;
+		padding-top: 2px;
+		padding-bottom: 2px;
     }
 </style>
 '''
