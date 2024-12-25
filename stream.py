@@ -326,7 +326,7 @@ css = '''
         color: white;
         white-space: pre-wrap;
 		background-color: #143d59;
-		border-radius: 4px 4px 0px 0px;
+		border-radius: 0px 0px 0px 0px;
 		gap: 1px;
   		padding-right: 10px;
       		padding-left: 10px;
