@@ -261,28 +261,7 @@ df_mie2 = df_mie2[df_mie2['BULAN'].str.contains('2024')]
 df_mie2['Tanggal'] = pd.to_datetime(df_mie2['BULAN'], format='%b %Y')
 df_mie2['BULAN'] = pd.Categorical(df_mie2['BULAN'], categories=df_mie2.sort_values('Tanggal')['BULAN'].unique(), ordered=True)
 df_mie2 = df_mie2.sort_values('BULAN').T
-st.markdown("""
-<style>
 
-	.stTabs [data-baseweb="tab-list"] {
-		gap: 2px;
-    }
-
-	.stTabs [data-baseweb="tab"] {
-		height: 50px;
-        white-space: pre-wrap;
-		background-color: #F0F2F6;
-		border-radius: 4px 4px 0px 0px;
-		gap: 1px;
-		padding-top: 10px;
-		padding-bottom: 10px;
-    }
-
-	.stTabs [aria-selected="true"] {
-  		background-color: #FFFFFF;
-	}
-
-</style>""", unsafe_allow_html=True)
 
 grafik_tab, data_tab, = st.tabs(["GRAFIK", "DATA"])
 with grafik_tab:
@@ -330,3 +309,26 @@ with data_tab:
     
     df_mie2.columns = df_mie2.iloc[0,:]
     st.dataframe(df_mie2.iloc[[1,2,3],:].reset_index().rename(columns={'index':'BULAN'}), use_container_width=True, hide_index=True)
+
+st.markdown("""
+<style>
+
+	.stTabs [data-baseweb="tab-list"] {
+		gap: 2px;
+    }
+
+	.stTabs [data-baseweb="tab"] {
+		height: 50px;
+        white-space: pre-wrap;
+		background-color: #F0F2F6;
+		border-radius: 4px 4px 0px 0px;
+		gap: 1px;
+		padding-top: 10px;
+		padding-bottom: 10px;
+    }
+
+	.stTabs [aria-selected="true"] {
+  		background-color: #FFFFFF;
+	}
+
+</style>""", unsafe_allow_html=True)
