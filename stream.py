@@ -261,7 +261,24 @@ df_mie2 = df_mie2[df_mie2['BULAN'].str.contains('2024')]
 df_mie2['Tanggal'] = pd.to_datetime(df_mie2['BULAN'], format='%b %Y')
 df_mie2['BULAN'] = pd.Categorical(df_mie2['BULAN'], categories=df_mie2.sort_values('Tanggal')['BULAN'].unique(), ordered=True)
 df_mie2 = df_mie2.sort_values('BULAN').T
+custom_css = """
+<style>
+    /* Custom style for the active tab */
+    .stTabs > .tablist > .react-tabs__tab--selected {
+        background-color: #0e1117;
+        color: #ffffff;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    /* Custom style for all tabs */
+    .stTabs > .tablist > .react-tabs__tab {
+        background-color: #e8e8e8;
+        color: #4f4f4f;
+        font-family: 'Courier New', Courier, monospace;
+    }
+</style>
+"""
 
+st.markdown(custom_css, unsafe_allow_html=True)
 
 grafik_tab, data_tab, = st.tabs(["GRAFIK", "DATA"])
 with grafik_tab:
