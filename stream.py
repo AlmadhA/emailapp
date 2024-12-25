@@ -310,25 +310,21 @@ with data_tab:
     df_mie2.columns = df_mie2.iloc[0,:]
     st.dataframe(df_mie2.iloc[[1,2,3],:].reset_index().rename(columns={'index':'BULAN'}), use_container_width=True, hide_index=True)
 
-st.markdown("""
+custom_css = """
 <style>
-
-	.stTabs [data-baseweb="tab-list"] {
-		gap: 2px;
+    /* Custom style for the active tab */
+    .stTabs > .tablist > .react-tabs__tab--selected {
+        background-color: #0e1117;
+        color: #ffffff;
+        font-family: 'Courier New', Courier, monospace;
     }
-
-	.stTabs [data-baseweb="tab"] {
-		height: 50px;
-        white-space: pre-wrap;
-		background-color: #F0F2F6;
-		border-radius: 4px 4px 0px 0px;
-		gap: 1px;
-		padding-top: 10px;
-		padding-bottom: 10px;
+    /* Custom style for all tabs */
+    .stTabs > .tablist > .react-tabs__tab {
+        background-color: #e8e8e8;
+        color: #4f4f4f;
+        font-family: 'Courier New', Courier, monospace;
     }
+</style>
+"""
 
-	.stTabs [aria-selected="true"] {
-  		background-color: #FFFFFF;
-	}
-
-</style>""", unsafe_allow_html=True)
+st.markdown(custom_css, unsafe_allow_html=True)
