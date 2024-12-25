@@ -319,6 +319,7 @@ css = '''
     }
 	.stTabs [data-baseweb="tab-list"] {
 		gap: 6px;
+  		border-bottom: 3px solid #143d59;
     }
 
 	.stTabs [data-baseweb="tab"] {
