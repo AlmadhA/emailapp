@@ -261,24 +261,28 @@ df_mie2 = df_mie2[df_mie2['BULAN'].str.contains('2024')]
 df_mie2['Tanggal'] = pd.to_datetime(df_mie2['BULAN'], format='%b %Y')
 df_mie2['BULAN'] = pd.Categorical(df_mie2['BULAN'], categories=df_mie2.sort_values('Tanggal')['BULAN'].unique(), ordered=True)
 df_mie2 = df_mie2.sort_values('BULAN').T
-custom_css = """
+st.markdown("""
 <style>
-    /* Custom style for the active tab */
-    .stTabs > .tablist > .react-tabs__tab--selected {
-        background-color: #0e1117;
-        color: #f4b41a;
-        font-family: 'Courier New', Courier, monospace;
-    }
-    /* Custom style for all tabs */
-    .stTabs > .tablist > .react-tabs__tab {
-        background-color: #e8e8e8;
-        color: #4f4f4f;
-        font-family: 'Courier New', Courier, monospace;
-    }
-</style>
-"""
 
-st.markdown(custom_css, unsafe_allow_html=True)
+	.stTabs [data-baseweb="tab-list"] {
+		gap: 2px;
+    }
+
+	.stTabs [data-baseweb="tab"] {
+		height: 50px;
+        white-space: pre-wrap;
+		background-color: #F0F2F6;
+		border-radius: 4px 4px 0px 0px;
+		gap: 1px;
+		padding-top: 10px;
+		padding-bottom: 10px;
+    }
+
+	.stTabs [aria-selected="true"] {
+  		background-color: #FFFFFF;
+	}
+
+</style>""", unsafe_allow_html=True)
 
 grafik_tab, data_tab, = st.tabs(["GRAFIK", "DATA"])
 with grafik_tab:
