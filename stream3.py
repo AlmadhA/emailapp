@@ -1,6 +1,6 @@
 import streamlit as st
 import requests
-a
+az
 def run_stream_script(url):
     # Mengunduh file dari GitHub
     response = requests.get(url)
