@@ -11,12 +11,12 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
     
-
+    
     st.markdown(
         """
-        <a href="https://dashboard-harga-barang.streamlit.app/" onclick="window.open(this.href, '_self'); return false;" style="text-decoration:none;">
-        <div style="background-color:#982B1C;padding:20px;text-align:center;border-radius:10px;color:black; font-family:Roboto,sans-serif; font-size: 16px;">
-        <strong style="color:white;">Analisis Harga Barang</strong>
+        <a href='https://dashboard-harga-barang.streamlit.app/' onclick="window.location.href=this.href; return false;" style='text-decoration:none;'>
+        <div style='background-color:#982B1C;padding:20px;text-align:center;border-radius:10px;color:black; font-family:Roboto,sans-serif; font-size: 16px;'>
+        <strong style='color:white;'>Analisis Harga Barang</strong>
         </div>
         </a>
         """,
