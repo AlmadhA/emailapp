@@ -1,10 +1,15 @@
 import streamlit as st
-import webbrowser
-import streamlit.components.v1 as components
-st.sidebar.title('Dashboard')
+from st_pages import Page, Section, show_pages, add_page_title, hide_pages
 
-# Menambahkan beberapa link ke GitHub lainnya di sidebar
-if st.sidebar.button('Harga Barang'):
-    webbrowser.open('https://dashboard-harga-barang.streamlit.app/', new=0)
-if st.sidebar.button('Safety Stock'):
-    webbrowser.open('https://dashboard-safetystock.streamlit.app/', new=0)
+add_page_title()
+
+show_pages(
+    [   
+        Page("https://dashboard-harga-barang.streamlit.app/", "DE Zoomcamp", "💻"),
+
+        # # 2024 Content
+        Section("DE Zoomcamp 2024", "🧙‍♂️"),
+        Page("https://dashboard-harga-barang.streamlit.app/", "📚", in_section=True),
+        Page("https://dashboard-safetystock.streamlit.app/", "Module 1 Introduction & Prerequisites", "1️⃣", in_section=True)])
+
+
