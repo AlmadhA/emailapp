@@ -79,10 +79,6 @@ def create_dual_axis_chart(data, x_column, y_bar_column, y_line_column, title):
 
 
 
-st.set_page_config(
-    page_title='Dashboard Promix',
-    layout='wide'
-)
 
 def download_file_from_github(url, save_path):
     response = requests.get(url)
