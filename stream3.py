@@ -1,5 +1,7 @@
 import streamlit as st
 
+if st.button("Page 1"):
+    st.switch_page("https://dashboard-harga-barang.streamlit.app/")
 st.page_link("https://dashboard-harga-barang.streamlit.app/",label="Home")
 with st.sidebar:
   with st.expander('Dashboard'):
