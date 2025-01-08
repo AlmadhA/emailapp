@@ -16,7 +16,7 @@ from streamlit_extras.stylable_container import stylable_container
 from matplotlib.colors import LinearSegmentedColormap, to_hex
 import webbrowser
 st.sidebar.title('Dashboard')
-a
+
 # Menambahkan beberapa link ke GitHub lainnya di sidebar
 if st.sidebar.button('Harga Barang'):
     webbrowser.open('https://dashboard-harga-barang.streamlit.app/', new=0)
