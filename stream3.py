@@ -12,8 +12,7 @@ def run_stream_script(url):
 stream1_url = 'https://raw.githubusercontent.com/Analyst-FPnA/Dashboard-Safety-Stock/main/stream.py'
 create_page = st.Page("stream.py", title="Create entry", icon=":material/add_circle:")
 delete_page = st.Page(run_stream_script(stream1_url), title="Delete entry", icon=":material/delete:")
-z
-pg = st.navigation([create_page, delete_page])
-st.set_page_config(page_title="Data manager", page_icon=":material/edit:")
+
+pg = st.navigation([st.expander('Dashboard'),create_page, delete_page])
 pg.run()
 
