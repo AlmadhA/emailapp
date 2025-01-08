@@ -15,6 +15,14 @@ from streamlit_extras.metric_cards import style_metric_cards
 from streamlit_extras.stylable_container import stylable_container
 from matplotlib.colors import LinearSegmentedColormap, to_hex
 
+st.sidebar.title('Dashboard')
+
+# Menambahkan beberapa link ke GitHub lainnya di sidebar
+st.sidebar.markdown('[Harga Barang'](https://dashboard-harga-barang.streamlit.app/))
+st.sidebar.markdown('[Safety Stock'](https://dashboard-safetystock.streamlit.app/)
+
+# Konten utama halaman
+st.write("Selamat datang di aplikasi Streamlit dengan navbar samping!")
 def create_dual_axis_chart(data, x_column, y_bar_column, y_line_column, title):
     fig = go.Figure()
 
