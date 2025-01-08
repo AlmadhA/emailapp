@@ -2,7 +2,11 @@ import streamlit as st
 
 if st.button("Page 1"):
     st.switch_page("https://dashboard-harga-barang.streamlit.app/")
-st.Page("stream.py", title="First page", icon="🔥", url_path='https://dashboard-harga-barang.streamlit.app/')
+create_page = st.Page("stream.py", title="Create entry", icon=":material/add_circle:")
+delete_page = st.Page("stream2.py", title="Delete entry", icon=":material/delete:")
+
+pg = st.navigation([create_page, delete_page])
+
 st.page_link("https://dashboard-harga-barang.streamlit.app/",label="Home")
 with st.sidebar:
   with st.expander('Dashboard'):
