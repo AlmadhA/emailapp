@@ -14,7 +14,7 @@ from st_aggrid import AgGrid, GridOptionsBuilder, JsCode, ColumnsAutoSizeMode
 from streamlit_extras.metric_cards import style_metric_cards
 from streamlit_extras.stylable_container import stylable_container
 from matplotlib.colors import LinearSegmentedColormap, to_hex
-
+import webbrowser
 st.sidebar.title('Dashboard')
 
 # Menambahkan beberapa link ke GitHub lainnya di sidebar
