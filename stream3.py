@@ -15,7 +15,7 @@ def run_lead():
     run_stream_script(stream1_url)
 
 create_page = st.Page(run_lead, title="Create entry", icon=":material/add_circle:")
-delete_page = st.Page("stream2.py", title="Delete entry", icon=":material/delete:")
+delete_page = st.page_link("stream.py", label="Home", icon="🏠")
   
 pg = st.navigation([create_page, delete_page])
 
