@@ -14,16 +14,8 @@ from st_aggrid import AgGrid, GridOptionsBuilder, JsCode, ColumnsAutoSizeMode
 from streamlit_extras.metric_cards import style_metric_cards
 from streamlit_extras.stylable_container import stylable_container
 from matplotlib.colors import LinearSegmentedColormap, to_hex
-import webbrowser
-st.sidebar.title('Dashboard')
 
-# Menambahkan beberapa link ke GitHub lainnya di sidebar
-if st.sidebar.button('Harga Barang'):
-    webbrowser.open('https://dashboard-harga-barang.streamlit.app/', new=0)
-if st.sidebar.button('Safety Stock'):
-    webbrowser.open('https://dashboard-safetystock.streamlit.app/', new=0)
-# Konten utama halaman
-st.write("Selamat datang di aplikasi Streamlit dengan navbar samping!")
+
 def create_dual_axis_chart(data, x_column, y_bar_column, y_line_column, title):
     fig = go.Figure()
 
