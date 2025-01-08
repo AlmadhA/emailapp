@@ -13,11 +13,10 @@ def run_stream_script(url):
 def run_lead():
     stream1_url = 'https://raw.githubusercontent.com/Analyst-FPnA/Leadtime/main/Internal.py'
     run_stream_script(stream1_url)
+
+create_page = st.Page(run_lead, title="Create entry", icon=":material/add_circle:")
+delete_page = st.Page("stream2.py", title="Delete entry", icon=":material/delete:")
   
-with st.expander('Dashboard'):
-  create_page = st.Page(run_lead, title="Create entry", icon=":material/add_circle:")
-  delete_page = st.Page("stream2.py", title="Delete entry", icon=":material/delete:")
-  
-  pg = st.navigation([create_page, delete_page])
+pg = st.navigation([create_page, delete_page])
 
 
