@@ -18,9 +18,10 @@ from matplotlib.colors import LinearSegmentedColormap, to_hex
 st.sidebar.title('Dashboard')
 
 # Menambahkan beberapa link ke GitHub lainnya di sidebar
-st.sidebar.markdown('[Harga Barang](https://dashboard-harga-barang.streamlit.app/)')
-st.sidebar.markdown('[Safety Stock](https://dashboard-safetystock.streamlit.app/)')
-
+if st.sidebar.button('Harga Barang'):
+    webbrowser.open('https://dashboard-harga-barang.streamlit.app/', new=0)
+if st.sidebar.button('Safety Stock'):
+    webbrowser.open('https://dashboard-safetystock.streamlit.app/', new=0)
 # Konten utama halaman
 st.write("Selamat datang di aplikasi Streamlit dengan navbar samping!")
 def create_dual_axis_chart(data, x_column, y_bar_column, y_line_column, title):
