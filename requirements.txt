@@ -6,4 +6,4 @@ seaborn
 plotly
 streamlit-aggrid
 streamlit_extras
-streamlit-pages
+st-pages
