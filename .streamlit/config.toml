@@ -2,7 +2,6 @@
 primaryColor = "#2c2e3a"
 backgroundColor = "#f8f4fc"
 secondaryBackgroundColor = "#141619"
-textColor = "#ffffff"
 #font = "sans serif"
 
 #[theme]
