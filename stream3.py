@@ -14,7 +14,7 @@ df = pd.DataFrame(data)
 # Pastikan Anda memiliki file GeoJSON yang sesuai dengan data provinsi Indonesia
 with urlopen('https://github.com/superpikar/indonesia-geojson/blob/master/indonesia-province.json?raw=true') as response:
     geojson_data = json.load(response)
-geojson_data = pd.DataFrame(requests.get('https://github.com/superpikar/indonesia-geojson/blob/master/indonesia-province.json').json())
+#geojson_data = pd.DataFrame(requests.get('https://github.com/superpikar/indonesia-geojson/blob/master/indonesia-province.json').json())
 # Inisialisasi peta
 m = folium.Map(location=[-0.4471383, 117.1655734], zoom_start=3)
 #geojson_data
@@ -24,7 +24,7 @@ folium.Choropleth(
     name='choropleth',
     data=df,
     columns=['Provinsi', 'Rata-rata Harga'],
-    key_on='feature.properties.Propinsi',  # Sesuaikan dengan nama properti di GeoJSON
+    key_on='properties.Propinsi',  # Sesuaikan dengan nama properti di GeoJSON
     fill_color='YlOrRd',  # Warna gradient
     fill_opacity=0.7,
     line_opacity=0.2,
