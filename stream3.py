@@ -14,5 +14,5 @@ df = pd.DataFrame(data)
 # Pastikan Anda memiliki file GeoJSON yang sesuai dengan data provinsi Indonesia
 with urlopen('https://github.com/superpikar/indonesia-geojson/blob/master/indonesia-province.json?raw=true') as response:
     geojson_data = json.load(response)
-geojson_data
+#geojson_data
 
