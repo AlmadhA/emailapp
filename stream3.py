@@ -12,9 +12,7 @@ df = pd.DataFrame(data)
 
 # Membaca file GeoJSON provinsi Indonesia
 # Pastikan Anda memiliki file GeoJSON yang sesuai dengan data provinsi Indonesia
-with urlopen('https://github.com/superpikar/indonesia-geojson/blob/master/indonesia-province.json?raw=true') as response:
-    geojson_data = json.load(response)
-geojson_data
+geojson_data = pd.DataFrame(requests.get('https://github.com/superpikar/indonesia-geojson/blob/master/indonesia-province.json?raw=true').json())
 # Inisialisasi peta
 m = folium.Map(location=[-0.4471383, 117.1655734], zoom_start=3)
 #geojson_data
