@@ -4,15 +4,15 @@ import json
 
 # Contoh DataFrame yang berisi nama provinsi dan rata-rata harga
 data = {
-    'Provinsi': ['Jawa Barat', 'Jawa Timur', 'Bali', 'Sumatera Utara', 'DKI Jakarta'],
+    'Provinsi': ['JAWA BARAT', 'Jawa Timur', 'Bali', 'Sumatera Utara', 'DKI Jakarta'],
     'Rata-rata Harga': [15000, 12000, 18000, 14000, 20000]
 }
 df = pd.DataFrame(data)
 
 # Membaca file GeoJSON provinsi Indonesia
 # Pastikan Anda memiliki file GeoJSON yang sesuai dengan data provinsi Indonesia
-with open('indonesia_provinces.geojson') as f:
-    geojson_data = json.load(f)
+with urlopen('https://github.com/superpikar/indonesia-geojson/blob/master/indonesia-province.json?raw=true') as response:
+    geojson_data = json.load(response)
 
 # Inisialisasi peta
 m = folium.Map(location=[-2.5, 118], zoom_start=5)
