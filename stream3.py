@@ -1,7 +1,7 @@
 import folium
 import pandas as pd
 import json
-
+from urllib.request import urlopen
 # Contoh DataFrame yang berisi nama provinsi dan rata-rata harga
 data = {
     'Provinsi': ['JAWA BARAT', 'Jawa Timur', 'Bali', 'Sumatera Utara', 'DKI Jakarta'],
