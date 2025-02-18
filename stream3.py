@@ -4,8 +4,8 @@ import json
 from urllib.request import urlopen
 # Contoh DataFrame yang berisi nama provinsi dan rata-rata harga
 data = {
-    'Provinsi': ['JAWA BARAT', 'JAWA TIMUR', 'Bali', 'Sumatera Utara', 'DKI Jakarta'],
-    'Rata-rata Harga': [15000, 12000, 18000, 14000, 20000]
+    'Provinsi': ['JAWA BARAT', 'JAWA TIMUR'],
+    'Rata-rata Harga': [15000, 12000]
 }
 df = pd.DataFrame(data)
 
