@@ -12,11 +12,14 @@ df = pd.DataFrame(data)
 
 # Membaca file GeoJSON provinsi Indonesia
 # Pastikan Anda memiliki file GeoJSON yang sesuai dengan data provinsi Indonesia
-with urlopen('https://github.com/superpikar/indonesia-geojson/blob/master/indonesia-province.json?raw=true') as response:
-    geojson_data = json.load(response)# Inisialisasi peta
+#with urlopen('https://github.com/superpikar/indonesia-geojson/blob/master/indonesia-province.json?raw=true') as response:
+#    geojson_data = json.load(response)# Inisialisasi peta
     
 m = folium.Map(location=[-0.4471383, 117.1655734], zoom_start=3)
-#geojson_data
+geojson_data = requests.get(
+    "https://github.com/superpikar/indonesia-geojson/blob/master/indonesia-province.json?raw=true"
+).json()
+
 # Menambahkan choropleth dengan data harga
 folium.Choropleth(
     geo_data=geojson_data,
