@@ -1,16 +1,37 @@
-import streamlit as st
+import folium
 import pandas as pd
-import requests
+import json
 
+# Contoh DataFrame yang berisi nama provinsi dan rata-rata harga
+data = {
+    'Provinsi': ['Jawa Barat', 'Jawa Timur', 'Bali', 'Sumatera Utara', 'DKI Jakarta'],
+    'Rata-rata Harga': [15000, 12000, 18000, 14000, 20000]
+}
+df = pd.DataFrame(data)
 
+# Membaca file GeoJSON provinsi Indonesia
+# Pastikan Anda memiliki file GeoJSON yang sesuai dengan data provinsi Indonesia
+with open('indonesia_provinces.geojson') as f:
+    geojson_data = json.load(f)
 
-stream1_url = 'https://raw.githubusercontent.com/Analyst-FPnA/Dashboard-Safety-Stock/main/stream.py'
-create_page = st.Page("stream.py", title="Create entry", icon=":material/add_circle:")
-delete_page = st.Page("stream2.py", title="Delete entry", icon=":material/delete:")
+# Inisialisasi peta
+m = folium.Map(location=[-2.5, 118], zoom_start=5)
 
-pg = st.navigation([
-                    create_page, delete_page], expanded=True)
-pg.run()
+# Menambahkan choropleth dengan data harga
+folium.Choropleth(
+    geo_data=geojson_data,
+    name='choropleth',
+    data=df,
+    columns=['Provinsi', 'Rata-rata Harga'],
+    key_on='feature.properties.NAME_1',  # Sesuaikan dengan nama properti di GeoJSON
+    fill_color='YlOrRd',  # Warna gradient
+    fill_opacity=0.7,
+    line_opacity=0.2,
+    legend_name='Rata-rata Harga Barang',
+).add_to(m)
 
+# Menambahkan kontrol layer
+folium.LayerControl().add_to(m)
 
-
+# Menyimpan peta ke file HTML
+m.save('peta_harga_barang_indonesia.html')
