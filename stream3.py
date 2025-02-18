@@ -20,7 +20,6 @@ m = folium.Map(location=[-2.5, 118], zoom_start=5)
 # Menambahkan choropleth dengan data harga
 folium.Choropleth(
     geo_data=geojson_data,
-    name='choropleth',
     data=df,
     columns=['Provinsi', 'Rata-rata Harga'],
     key_on='feature.properties.Propinsi',  # Sesuaikan dengan nama properti di GeoJSON
