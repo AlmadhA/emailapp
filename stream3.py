@@ -17,7 +17,7 @@ with urlopen('https://github.com/superpikar/indonesia-geojson/blob/master/indone
 geojson_data = pd.DataFrame(requests.get('https://github.com/superpikar/indonesia-geojson/blob/master/indonesia-province.json?raw=true').json())
 # Inisialisasi peta
 m = folium.Map(location=[-2.5, 118], zoom_start=5)
-
+geojson_data
 # Menambahkan choropleth dengan data harga
 folium.Choropleth(
     geo_data=geojson_data,
