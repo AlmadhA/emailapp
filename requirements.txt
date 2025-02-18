@@ -7,3 +7,4 @@ plotly
 streamlit-aggrid
 streamlit_extras
 st-pages
+folium
