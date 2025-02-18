@@ -26,7 +26,7 @@ folium.Choropleth(
     name='choropleth',
     data=df,
     columns=['Provinsi', 'Rata-rata Harga'],
-    key_on='feature.properties.Propinsi',  # Sesuaikan dengan nama properti di GeoJSON
+    key_on='feature.Propinsi',  # Sesuaikan dengan nama properti di GeoJSON
     fill_color='YlOrRd',  # Warna gradient
     fill_opacity=0.7,
     line_opacity=0.2,
