@@ -21,6 +21,7 @@ geojson_data
 # Menambahkan choropleth dengan data harga
 folium.Choropleth(
     geo_data=geojson_data,
+    name='choropleth',
     data=df,
     columns=['Provinsi', 'Rata-rata Harga'],
     key_on='feature.properties.Propinsi',  # Sesuaikan dengan nama properti di GeoJSON
