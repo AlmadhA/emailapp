@@ -33,7 +33,6 @@ for feature in geojson_data['features']:
     provinsi = feature['properties']['Propinsi']
     harga = df.loc[df['Provinsi'] == provinsi, 'Rata-rata Harga'].values
     if harga.size>0:
-        harga
         feature['properties']['Rata-rata Harga'] = float(harga[0])
     else:
         feature['properties']['Rata-rata Harga'] = None
@@ -62,7 +61,12 @@ folium.GeoJson(
         fields=["Propinsi", "Rata-rata Harga"],  # Sesuaikan dengan kolom yang ada pada GeoJSON
         aliases=["Provinsi:", "Rata-rata Harga:"],  # Label yang akan ditampilkan di tooltip
         localize=True
-    )
+    ),
+    style_function=lambda x: {
+        'fillOpacity': 0.7,  # Set opasitas area
+        'weight': 0,  # Menghilangkan garis perbatasan
+        'color': 'white'  # Menghilangkan warna garis perbatasan
+    }
 ).add_to(m)
 
 # Menambahkan kontrol layer
