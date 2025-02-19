@@ -5,7 +5,7 @@ import json
 from urllib.request import urlopen
 import requests
 from streamlit_folium import folium_static
-a
+
 # Contoh DataFrame yang berisi nama provinsi dan rata-rata harga
 data = {
     'Provinsi': ['JAWA BARAT', 'JAWA TIMUR'],
