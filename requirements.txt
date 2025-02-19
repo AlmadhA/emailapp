@@ -6,5 +6,6 @@ seaborn
 plotly
 streamlit-aggrid
 streamlit_extras
+streamlit_folium
 st-pages
 folium
