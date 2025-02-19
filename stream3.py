@@ -5,6 +5,7 @@ import json
 from urllib.request import urlopen
 import requests
 from streamlit_folium import folium_static
+from folium.plugins import GeoJsonTooltip
  
 # Contoh DataFrame yang berisi nama provinsi dan rata-rata harga
 data = {
@@ -36,7 +37,16 @@ folium.Choropleth(
     line_opacity=0.2,
     legend_name='Rata-rata Harga Barang',
 ).add_to(m)
-         
+
+folium.GeoJson(
+    geojson_data,
+    name="Provinsi",
+    tooltip=GeoJsonTooltip(
+        fields=["Propinsi", "Rata-rata Harga"],  # Sesuaikan dengan kolom yang ada pada GeoJSON
+        aliases=["Provinsi:", "Rata-rata Harga:"],  # Label yang akan ditampilkan di tooltip
+        localize=True
+    )
+).add_to(m)
 # Menambahkan kontrol layer
 folium.LayerControl().add_to(m)
 folium_static(m)
