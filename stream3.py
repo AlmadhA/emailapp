@@ -3,7 +3,7 @@ import pandas as pd
 import json
 from urllib.request import urlopen
 import requests
-import st
+import streamlit as st
 
 # Contoh DataFrame yang berisi nama provinsi dan rata-rata harga
 data = {
