@@ -4,7 +4,7 @@ import pandas as pd
 from folium import GeoJsonTooltip
 from streamlit_folium import folium_static
 import streamlit as st
- a
+
 # Contoh DataFrame yang berisi nama provinsi dan rata-rata harga
 data = {
     'Provinsi': ['JAWA BARAT', 'JAWA TIMUR'],
