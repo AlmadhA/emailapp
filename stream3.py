@@ -2,7 +2,7 @@ import folium
 import requests
 import pandas as pd
 from folium import GeoJsonTooltip
-
+from streamlit_folium import folium_static
 import streamlit as st
  
 # Contoh DataFrame yang berisi nama provinsi dan rata-rata harga
@@ -32,7 +32,7 @@ geojson_data_with_prices = []
 for feature in geojson_data['features']:
     provinsi = feature['properties']['Propinsi']
     harga = df.loc[df['Provinsi'] == provinsi, 'Rata-rata Harga'].values
-    if harga:
+    if harga.size>0:
         feature['properties']['Rata-rata Harga'] = harga[0]
     geojson_data_with_prices.append(feature)
 
@@ -66,7 +66,7 @@ folium.GeoJson(
 folium.LayerControl().add_to(m)
 
 # Menampilkan peta
-from streamlit_folium import folium_static
+
 folium_static(m)
 
 # Menyimpan peta ke file HTML
