@@ -6,7 +6,7 @@ from urllib.request import urlopen
 import requests
 from streamlit_folium import folium_static
 from folium.plugins import GeoJsonTooltip
-a
+
 # Contoh DataFrame yang berisi nama provinsi dan rata-rata harga
 data = {
     'Provinsi': ['JAWA BARAT', 'JAWA TIMUR'],
