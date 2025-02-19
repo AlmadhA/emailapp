@@ -50,7 +50,7 @@ folium.Choropleth(
     key_on='properties.Propinsi',  # Sesuaikan dengan nama properti di GeoJSON
     fill_color='YlOrRd',  # Warna gradient
     fill_opacity=0.7,
-    line_opacity=0.2,
+    line_opacity=0.05,
     legend_name='Rata-rata Harga Barang',
 ).add_to(m)
 
