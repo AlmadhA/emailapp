@@ -37,7 +37,7 @@ folium.Choropleth(
     line_opacity=0.2,
     legend_name='Rata-rata Harga Barang',
 ).add_to(m)
-
+ 
 folium.GeoJson(
     geojson_data,
     name="Provinsi",
