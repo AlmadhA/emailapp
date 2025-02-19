@@ -41,6 +41,8 @@ folium.Choropleth(
 for feature in geojson_data['features']:
     province_name = feature['properties']['Propinsi']
     # Cari rata-rata harga untuk provinsi ini dari DataFrame
+    province_name
+    df[df['Provinsi'] == province_name]['Rata-rata Harga']
     price = df[df['Provinsi'] == province_name]['Rata-rata Harga'].values[0]
     
     # Menambahkan tooltip pada setiap provinsi
