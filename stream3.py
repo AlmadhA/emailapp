@@ -13,7 +13,6 @@ data = {
 
 df = pd.DataFrame(data)
 
-
 # Buat peta
 m = folium.Map(location=[-0.4471383, 117.1655734], zoom_start=5)
 
