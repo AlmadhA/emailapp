@@ -7,7 +7,7 @@ import streamlit as st
 
 # Contoh DataFrame yang berisi nama provinsi dan rata-rata harga
 data = {
-    'Provinsi': ['JAWA BARAT', 'JAWA TIMUR', 'JAWA TENGAH', PROBANTEN],
+    'Provinsi': ['JAWA BARAT', 'JAWA TIMUR', 'JAWA TENGAH', 'PROBANTEN'],
     'Rata-rata Harga': [15000, 12000, 14000,9000]
 }
 
