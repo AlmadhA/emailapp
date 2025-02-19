@@ -34,7 +34,7 @@ for feature in geojson_data['features']:
     harga = df.loc[df['Provinsi'] == provinsi, 'Rata-rata Harga'].values
     if harga.size>0:
         harga
-        feature['properties']['Rata-rata Harga'] = harga[0]
+        feature['properties']['Rata-rata Harga'] = float(harga[0])
     else:
         feature['properties']['Rata-rata Harga'] = None
     geojson_data_with_prices.append(feature)
