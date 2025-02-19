@@ -3,11 +3,16 @@ import requests
 import pandas as pd
 from folium import GeoJsonTooltip
 
-# Contoh DataFrame (df berisi data dengan kolom 'Provinsi' dan 'Rata-rata Harga')
-# df = pd.DataFrame({
-#     'Provinsi': ['Aceh', 'Bali', 'Jakarta', ...],
-#     'Rata-rata Harga': [10000, 15000, 20000, ...]
-# })
+import streamlit as st
+
+# Contoh DataFrame yang berisi nama provinsi dan rata-rata harga
+data = {
+    'Provinsi': ['JAWA BARAT', 'JAWA TIMUR'],
+    'Rata-rata Harga': [15000, 12000]
+}
+
+df = pd.DataFrame(data)
+
 
 # Buat peta
 m = folium.Map(location=[-0.4471383, 117.1655734], zoom_start=5)
