@@ -40,19 +40,18 @@ folium.Choropleth(
 # Menambahkan tooltip untuk menampilkan rata-rata harga ketika kursor diarahkan
 for feature in geojson_data['features']:
     province_name = feature['properties']['Propinsi']
-    if province_name in df['Provinsi'].values:
-        # Cari rata-rata harga untuk provinsi ini dari DataFrame
-        price = df[df['Provinsi'] == province_name]['Rata-rata Harga'].values[0]
-        
-        # Menambahkan tooltip pada setiap provinsi
-        folium.GeoJsonTooltip(
-            fields=['Propinsi'],  # Menampilkan nama provinsi
-            aliases=['Provinsi'],  # Alias untuk nama field
-            localize=True
-        ).add_to(folium.GeoJson(
-            feature,
-            tooltip=folium.Tooltip(f'{province_name}: {price} IDR', sticky=True)
-        ).add_to(m))
+    # Cari rata-rata harga untuk provinsi ini dari DataFrame
+    price = df[df['Provinsi'] == province_name]['Rata-rata Harga'].values[0]
+    
+    # Menambahkan tooltip pada setiap provinsi
+    folium.GeoJsonTooltip(
+        fields=['Propinsi'],  # Menampilkan nama provinsi
+        aliases=['Provinsi'],  # Alias untuk nama field
+        localize=True
+    ).add_to(folium.GeoJson(
+        feature,
+        tooltip=folium.Tooltip(f'{province_name}: {price} IDR', sticky=True)
+    ).add_to(m))
         
 # Menambahkan kontrol layer
 folium.LayerControl().add_to(m)
