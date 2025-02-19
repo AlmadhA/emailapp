@@ -42,7 +42,7 @@ folium.GeoJson(
     geojson_data,
     name="Provinsi",
     tooltip=GeoJsonTooltip(
-        fields=["ProVinsi", "Rata-rata Harga"],  # Sesuaikan dengan kolom yang ada pada GeoJSON
+        fields=["Propinsi", "Rata-rata Harga"],  # Sesuaikan dengan kolom yang ada pada GeoJSON
         aliases=["Provinsi:", "Rata-rata Harga:"],  # Label yang akan ditampilkan di tooltip
         localize=True
     )
