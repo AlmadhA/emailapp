@@ -38,8 +38,8 @@ folium.Choropleth(
 ).add_to(m)
 
 # Menambahkan tooltip untuk menampilkan rata-rata harga ketika kursor diarahkan
-for feature in geojson_data['features']:
-    province_name = feature['properties']['Propinsi']
+for feature in geojson_data['properties']:
+    province_name = feature['Propinsi']
     # Cari rata-rata harga untuk provinsi ini dari DataFrame
     price = df[df['Provinsi'] == province_name]['Rata-rata Harga'].values[0]
     
