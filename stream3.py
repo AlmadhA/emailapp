@@ -68,7 +68,7 @@ folium.GeoJson(
         'color': 'white'  # Menghilangkan warna garis perbatasan
     }
 ).add_to(m)
-
+folium.TileLayer('cartodbpositron', control=False).add_to(m)
 # Menambahkan kontrol layer
 folium.LayerControl().add_to(m)
 
