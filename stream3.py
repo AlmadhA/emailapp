@@ -25,7 +25,7 @@ geojson_data = requests.get(
 # Asumsikan 'Propinsi' adalah kolom di GeoJSON yang berisi nama provinsi yang sama dengan kolom di df
 
 # Pastikan bahwa nama kolom 'Provinsi' di df sama dengan 'Propinsi' di GeoJSON
-df['Provinsi'] = df['Provinsi'].str.title()  # Menyamakannya dengan format nama di GeoJSON
+#df['Provinsi'] = df['Provinsi'].str.title()  # Menyamakannya dengan format nama di GeoJSON
 
 # Gabungkan df ke dalam GeoJSON berdasarkan 'Provinsi' dan 'Propinsi'
 geojson_data_with_prices = []
@@ -33,6 +33,7 @@ for feature in geojson_data['features']:
     provinsi = feature['properties']['Propinsi']
     harga = df.loc[df['Provinsi'] == provinsi, 'Rata-rata Harga'].values
     if harga.size>0:
+        harga
         feature['properties']['Rata-rata Harga'] = harga[0]
     else:
         feature['properties']['Rata-rata Harga'] = None
