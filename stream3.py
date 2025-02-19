@@ -63,7 +63,7 @@ folium.GeoJson(
         localize=True
     ),
     style_function=lambda x: {
-        'fillOpacity': 0.7,  # Set opasitas area
+        #'fillOpacity': 0.7,  # Set opasitas area
         'weight': 0,  # Menghilangkan garis perbatasan
         'color': 'white'  # Menghilangkan warna garis perbatasan
     }
