@@ -4,7 +4,7 @@ import pandas as pd
 import json
 from urllib.request import urlopen
 import requests
-
+from streamlit_folium import folium_static
 
 # Contoh DataFrame yang berisi nama provinsi dan rata-rata harga
 data = {
@@ -38,6 +38,7 @@ folium.Choropleth(
 ).add_to(m)
 
 # Menambahkan kontrol layer
-st.plotly_chart(folium.LayerControl().add_to(m), use_container_width=True)
+folium.LayerControl().add_to(m)
+folium_static(m)
 # Menyimpan peta ke file HTML
 #m.save('peta_harga_barang_indonesia.html')
