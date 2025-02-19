@@ -36,16 +36,14 @@ folium.Choropleth(
     line_opacity=0.2,
     legend_name='Rata-rata Harga Barang',
 ).add_to(m)
-for feature in geojson_data['features']:
+
 # Menambahkan tooltip untuk menampilkan rata-rata harga ketika kursor diarahkan
-    province_name = feature['properties']['Propinsi'].strip().upper()  # Standarkan nama provinsi
-    
-    # Mencocokkan nama provinsi dengan DataFrame (pastikan formatnya sama)
-    matching_row = df[df['Provinsi'].str.strip().str.upper() == province_name]
-    
-    # Jika ditemukan, tampilkan harga
-    if not matching_row.empty:
-        price = matching_row['Rata-rata Harga'].values[0]
+for feature in geojson_data['features']:
+    province_name = feature['properties']['Propinsi']
+    if province_name in df['Provinsi'].values:
+        # Cari rata-rata harga untuk provinsi ini dari DataFrame
+        price = df[df['Provinsi'] == province_name]['Rata-rata Harga'].values[0]
+        
         # Menambahkan tooltip pada setiap provinsi
         folium.GeoJsonTooltip(
             fields=['Propinsi'],  # Menampilkan nama provinsi
@@ -54,16 +52,6 @@ for feature in geojson_data['features']:
         ).add_to(folium.GeoJson(
             feature,
             tooltip=folium.Tooltip(f'{province_name}: {price} IDR', sticky=True)
-        ).add_to(m))
-    else:
-        # Jika provinsi tidak ditemukan di DataFrame, bisa memberi nilai default atau pesan
-        folium.GeoJsonTooltip(
-            fields=['Propinsi'],  # Menampilkan nama provinsi
-            aliases=['Provinsi'],  # Alias untuk nama field
-            localize=True
-        ).add_to(folium.GeoJson(
-            feature,
-            tooltip=folium.Tooltip(f'{province_name}: Data Tidak Tersedia', sticky=True)
         ).add_to(m))
         
 # Menambahkan kontrol layer
