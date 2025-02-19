@@ -36,7 +36,7 @@ folium.Choropleth(
     line_opacity=0.2,
     legend_name='Rata-rata Harga Barang',
 ).add_to(m)
-
+for feature in geojson_data['features']:
 # Menambahkan tooltip untuk menampilkan rata-rata harga ketika kursor diarahkan
     province_name = feature['properties']['Propinsi'].strip().upper()  # Standarkan nama provinsi
     
