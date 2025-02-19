@@ -1,9 +1,10 @@
+import streamlit as st
 import folium
 import pandas as pd
 import json
 from urllib.request import urlopen
 import requests
-import streamlit as st
+
 
 # Contoh DataFrame yang berisi nama provinsi dan rata-rata harga
 data = {
