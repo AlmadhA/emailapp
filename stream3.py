@@ -17,9 +17,10 @@ df = pd.DataFrame(data)
 m = folium.Map(location=[-0.4471383, 117.1655734], zoom_start=5)
 
 # Mendapatkan data geojson
-geojson_data = requests.get(
-    "https://github.com/okzapradhana/indonesia-city-geojson/blob/master/indonesia-cities.json?raw=true"
-).json()
+if geojson_data is None:
+    geojson_data = requests.get(
+        "https://github.com/okzapradhana/indonesia-city-geojson/blob/master/indonesia-cities.json?raw=true"
+    ).json()
 
 # Gabungkan data GeoJSON dengan DataFrame df berdasarkan provinsi
 # Asumsikan 'Name' adalah kolom di GeoJSON yang berisi nama provinsi yang sama dengan kolom di df
