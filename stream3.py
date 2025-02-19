@@ -7,7 +7,7 @@ import streamlit as st
 
 # Contoh DataFrame yang berisi nama provinsi dan rata-rata harga
 data = {
-    'City': ['MALANG', 'KEDIRI', 'SURABAYA', 'JOMBANG'],
+    'Provinsi': ['JAWA BARAT', 'JAWA TIMUR', 'JAWA TENGAH', PROBANTEN],
     'Rata-rata Harga': [15000, 12000, 14000,9000]
 }
 
@@ -17,22 +17,21 @@ df = pd.DataFrame(data)
 m = folium.Map(location=[-0.4471383, 117.1655734], zoom_start=5)
 
 # Mendapatkan data geojson
-if 'geojson_data' not in locals():
-    geojson_data = requests.get(
-        "https://github.com/okzapradhana/indonesia-city-geojson/blob/master/indonesia-cities.json?raw=true"
-    ).json()
+geojson_data = requests.get(
+    "https://github.com/superpikar/indonesia-geojson/blob/master/indonesia-province.json?raw=true"
+).json()
 
 # Gabungkan data GeoJSON dengan DataFrame df berdasarkan provinsi
-# Asumsikan 'Name' adalah kolom di GeoJSON yang berisi nama provinsi yang sama dengan kolom di df
+# Asumsikan 'Propinsi' adalah kolom di GeoJSON yang berisi nama provinsi yang sama dengan kolom di df
 
-# Pastikan bahwa nama kolom 'City' di df sama dengan 'Name' di GeoJSON
-#df['City'] = df['City'].str.title()  # Menyamakannya dengan format nama di GeoJSON
+# Pastikan bahwa nama kolom 'Provinsi' di df sama dengan 'Propinsi' di GeoJSON
+#df['Provinsi'] = df['Provinsi'].str.title()  # Menyamakannya dengan format nama di GeoJSON
 
-# Gabungkan df ke dalam GeoJSON berdasarkan 'City' dan 'Name'
+# Gabungkan df ke dalam GeoJSON berdasarkan 'Provinsi' dan 'Propinsi'
 geojson_data_with_prices = []
 for feature in geojson_data['features']:
-    provinsi = feature['properties']['Name']
-    harga = df.loc[df['City'] == provinsi, 'Rata-rata Harga'].values
+    provinsi = feature['properties']['Propinsi']
+    harga = df.loc[df['Provinsi'] == provinsi, 'Rata-rata Harga'].values
     if harga.size>0:
         feature['properties']['Rata-rata Harga'] = float(harga[0])
     else:
@@ -46,8 +45,8 @@ folium.Choropleth(
     geo_data=geojson_data,
     name='choropleth',
     data=df,
-    columns=['City', 'Rata-rata Harga'],
-    key_on='properties.Name',  # Sesuaikan dengan nama properti di GeoJSON
+    columns=['Provinsi', 'Rata-rata Harga'],
+    key_on='properties.Propinsi',  # Sesuaikan dengan nama properti di GeoJSON
     fill_color='YlOrRd',  # Warna gradient
     fill_opacity=0.7,
     line_opacity=0.05,
@@ -57,10 +56,10 @@ folium.Choropleth(
 # Menambahkan GeoJson dengan Tooltip
 folium.GeoJson(
     geojson_data,
-    name="City",
+    name="Provinsi",
     tooltip=GeoJsonTooltip(
-        fields=["Name", "Rata-rata Harga"],  # Sesuaikan dengan kolom yang ada pada GeoJSON
-        aliases=["City:", "Rata-rata Harga:"],  # Label yang akan ditampilkan di tooltip
+        fields=["Propinsi", "Rata-rata Harga"],  # Sesuaikan dengan kolom yang ada pada GeoJSON
+        aliases=["Provinsi:", "Rata-rata Harga:"],  # Label yang akan ditampilkan di tooltip
         localize=True
     ),
     style_function=lambda x: {
