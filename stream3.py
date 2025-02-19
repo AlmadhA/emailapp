@@ -3,11 +3,13 @@ import pandas as pd
 import json
 from urllib.request import urlopen
 import requests
+
 # Contoh DataFrame yang berisi nama provinsi dan rata-rata harga
 data = {
     'Provinsi': ['JAWA BARAT', 'JAWA TIMUR'],
     'Rata-rata Harga': [15000, 12000]
 }
+
 df = pd.DataFrame(data)
 
 # Membaca file GeoJSON provinsi Indonesia
@@ -34,7 +36,6 @@ folium.Choropleth(
 ).add_to(m)
 
 # Menambahkan kontrol layer
-folium.LayerControl().add_to(m)
-
+st.plotly_chart(folium.LayerControl().add_to(m), use_container_width=True)
 # Menyimpan peta ke file HTML
 #m.save('peta_harga_barang_indonesia.html')
