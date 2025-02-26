@@ -168,7 +168,7 @@ with col[2]:
     end_year = st.selectbox("Pilih Tahun Akhir", years)
 
 
-        
+df_mie        
 df_mie = df_mie.groupby(['BULAN','CABANG','Nama Cabang'])[['Kuantitas']].sum().reset_index()
 df_mie['Tanggal'] = pd.to_datetime(df_mie['BULAN'], format='%B %Y')
 df_mie['BULAN'] = df_mie['Tanggal'].dt.strftime('%b %Y')
