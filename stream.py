@@ -48,13 +48,13 @@ def create_dual_axis_chart(data, x_column, y_bar_column, y_line_column, title):
         xaxis=dict(title=x_column),
         yaxis=dict(
             title=y_bar_column,
-            titlefont=dict(color='#143d59'),
+            #titlefont=dict(color='#143d59'),
             tickfont=dict(color='#143d59'),
             range=[5000000, 25000000]
         ),
         yaxis2=dict(
             title=y_line_column,
-            titlefont=dict(color="#f4b41a"),
+            #titlefont=dict(color="#f4b41a"),
             tickfont=dict(color="#f4b41a"),
             overlaying='y',
             side='right',
