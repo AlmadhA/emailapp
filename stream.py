@@ -37,10 +37,6 @@ grid_options.configure_column("Kategori", pivot=True)  # Kolom 'Kategori' bisa d
  # Aktifkan Pivot Mode
 
 # Aktifkan filter untuk semua kolom
-grid_options.configure_column("Tahun", filter=True)
-grid_options.configure_column("Kategori", filter=True)
-grid_options.configure_column("Pendapatan", filter=True)
-grid_options.configure_column("Biaya", filter=True)
 
 # Menampilkan AG-Grid dengan pengaturan Pivot Mode dan Filter
 grid_options = grid_options.build()
