@@ -20,11 +20,7 @@ from st_aggrid import AgGrid, GridOptionsBuilder
 
 
 # Contoh data
-def get_data_ex3():
-    df = pd.DataFrame(
-        np.random.randint(0, 100, 100).reshape(-1, 5), columns=list("abcde")
-    )
-    return df
+
 
 
 data = {
@@ -37,9 +33,9 @@ df = pd.DataFrame(data)
 
 # Mengonfigurasi grid options dengan Pivot Mode
 grid_options = GridOptionsBuilder.from_dataframe(df)  # Mengaktifkan pivot mode
-grid_options.configure_columns(["Tahun", "Kategori", "Pendapatan", "Biaya"])
-grid_options.configure_column("Pendapatan", aggFunc="sum")  # Menambahkan fungsi agregasi
-grid_options.configure_column("Biaya", aggFunc="sum")
+#grid_options.configure_columns(["Tahun", "Kategori", "Pendapatan", "Biaya"])
+#grid_options.configure_column("Pendapatan", aggFunc="sum")  # Menambahkan fungsi agregasi
+#grid_options.configure_column("Biaya", aggFunc="sum")
 grid_options.configure_side_bar()
 
 
