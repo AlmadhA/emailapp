@@ -20,15 +20,14 @@ from st_aggrid import AgGrid, GridOptionsBuilder
 
 
 # Contoh data
-def get_data_ex3():
-    df = pd.DataFrame(
-        np.random.randint(0, 100, 100).reshape(-1, 5), columns=list("abcde")
-    )
-    return df
+data = {
+    "Tahun": [2020, 2020, 2021, 2021],
+    "Kategori": ['A', 'B', 'A', 'B'],
+    "Pendapatan": [100, 150, 120, 180],
+    "Biaya": [50, 60, 55, 70]
+}
+df = pd.DataFrame(data)
 
-
-df = get_data_ex3()
-st.subheader("Setting a license")
 st.markdown("""
 Ag-grid (not this component, which is free) has its own [licensing options](https://www.ag-grid.com/documentation/react/licensing/). If you do have an license,
 you can load it though ```license_key``` parameter on grid call.  
