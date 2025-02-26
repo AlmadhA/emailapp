@@ -39,7 +39,7 @@ grid_options = grid_options.build()
 grid_options['pivotMode'] = True
 
 # Menampilkan tabel AG-Grid dengan pivot mode
-AgGrid(df, gridOptions=grid_options)
+AgGrid(df, gridOptions=grid_options, key = "enterprise_enabled_grid",    enable_enterprise_modules=True)
 
 def create_dual_axis_chart(data, x_column, y_bar_column, y_line_column, title):
     fig = go.Figure()
