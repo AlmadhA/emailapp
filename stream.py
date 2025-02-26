@@ -170,7 +170,7 @@ with col[2]:
 
 df_mie        
 df_mie = df_mie.groupby(['BULAN','CABANG','Nama Cabang'])[['Kuantitas']].sum().reset_index()
-df_mie['Tanggal'] = pd.to_datetime(df_mie['BULAN'], format='%B %Y')
+df_mie['Tanggal'] = pd.to_datetime(df_mie['BULAN'], format='%b-%y')
 df_mie['BULAN'] = df_mie['Tanggal'].dt.strftime('%b %Y')
 df_mie['BULAN'] = pd.Categorical(df_mie['BULAN'], categories=df_mie.sort_values('Tanggal')['BULAN'].unique(), ordered=True)
 df_mie = df_mie[df_mie['BULAN']>='Jan 2024']
