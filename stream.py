@@ -30,6 +30,7 @@ df = pd.DataFrame(data)
 
 # Mengonfigurasi grid options dengan Pivot Mode
 grid_options = GridOptionsBuilder.from_dataframe(df)
+grid_options.configure_columns(["Tahun", "Kategori", "Pendapatan", "Biaya"])
 grid_options.configure_column("Pendapatan", aggFunc="sum")  # Menambahkan fungsi agregasi
 grid_options.configure_column("Biaya", aggFunc="sum")
 
