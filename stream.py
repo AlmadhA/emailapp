@@ -57,8 +57,8 @@ AgGrid(
     df,
     go,
     enable_enterprise_modules=enable_enterprise,
-    license_key=license_key,
-    key=key,
+    #license_key=license_key,
+    #key=key,
 )
 
 
