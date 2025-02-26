@@ -18,8 +18,8 @@ from matplotlib.colors import LinearSegmentedColormap, to_hex
 import streamlit as st
 from st_aggrid import AgGrid, GridOptionsBuilder
 
+
 # Contoh data
-import pandas as pd
 data = {
     "Tahun": [2020, 2020, 2021, 2021],
     "Kategori": ['A', 'B', 'A', 'B'],
@@ -28,18 +28,24 @@ data = {
 }
 df = pd.DataFrame(data)
 
-# Mengonfigurasi grid options dengan Pivot Mode
+# Mengonfigurasi grid options dengan Pivot Mode dan Filter
 grid_options = GridOptionsBuilder.from_dataframe(df)
-grid_options.configure_columns(["Tahun", "Kategori", "Pendapatan", "Biaya"])
-grid_options.configure_column("Pendapatan", aggFunc="sum")  # Menambahkan fungsi agregasi
-grid_options.configure_column("Biaya", aggFunc="sum")
 
-# Menambahkan properti untuk pivot mode
+# Aktifkan Pivot Mode di AG-Grid
+grid_options.configure_column("Tahun", pivot=True)  # Kolom 'Tahun' bisa dipivot
+grid_options.configure_column("Kategori", pivot=True)  # Kolom 'Kategori' bisa dipivot
+grid_options.gridOptions['pivotMode'] = True  # Aktifkan Pivot Mode
+
+# Aktifkan filter untuk semua kolom
+grid_options.configure_column("Tahun", filter=True)
+grid_options.configure_column("Kategori", filter=True)
+grid_options.configure_column("Pendapatan", filter=True)
+grid_options.configure_column("Biaya", filter=True)
+
+# Menampilkan AG-Grid dengan pengaturan Pivot Mode dan Filter
 grid_options = grid_options.build()
-grid_options['pivotMode'] = True
+AgGrid(df, gridOptions=grid_options)
 
-# Menampilkan tabel AG-Grid dengan pivot mode
-AgGrid(df, gridOptions=grid_options, key = "enterprise_enabled_grid",    enable_enterprise_modules=True)
 
 def create_dual_axis_chart(data, x_column, y_bar_column, y_line_column, title):
     fig = go.Figure()
