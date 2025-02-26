@@ -27,30 +27,32 @@ def get_data_ex3():
     return df
 
 
-df = get_data_ex3()
-st.subheader("Setting a license")
-st.markdown("""
-Ag-grid (not this component, which is free) has its own [licensing options](https://www.ag-grid.com/documentation/react/licensing/). If you do have an license,
-you can load it though ```license_key``` parameter on grid call.  
-""")
+data = {
+    "Tahun": [2020, 2020, 2021, 2021],
+    "Kategori": ['A', 'B', 'A', 'B'],
+    "Pendapatan": [100, 150, 120, 180],
+    "Biaya": [50, 60, 55, 70]
+}
+df = pd.DataFrame(data)
+
+# Mengonfigurasi grid options dengan Pivot Mode
+grid_options = GridOptionsBuilder.from_dataframe(df)
+grid_options.configure_pivot_mode(True)  # Mengaktifkan pivot mode
+grid_options.configure_columns(["Tahun", "Kategori", "Pendapatan", "Biaya"])
+grid_options.configure_column("Pendapatan", aggFunc="sum")  # Menambahkan fungsi agregasi
+grid_options.configure_column("Biaya", aggFunc="sum")
+grid_options.configure_side_bar()
 
 
-enable_enterprise = st.checkbox("Enable Enterprise Features", True)
 
-
-key = "enterprise_disabled_grid"
 license_key = None
+key = "enterprise_enabled_grid"
 
-if enable_enterprise:
-    key = "enterprise_enabled_grid"
-    license_key = license_key
 
-go = GridOptionsBuilder.from_dataframe(df)
-go.configure_side_bar()
 
 AgGrid(
     df,
-    go.build(),
+    grid_options,
     enable_enterprise_modules=enable_enterprise,
     license_key=license_key,
     key=key,
