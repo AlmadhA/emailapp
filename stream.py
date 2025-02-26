@@ -34,10 +34,11 @@ grid_options.configure_column("Pendapatan", aggFunc="sum")  # Menambahkan fungsi
 grid_options.configure_column("Biaya", aggFunc="sum")
 
 # Menambahkan properti untuk pivot mode
-grid_options.gridOptions['pivotMode'] = True
+grid_options = grid_options.build()
+grid_options['pivotMode'] = True
 
 # Menampilkan tabel AG-Grid dengan pivot mode
-AgGrid(df, gridOptions=grid_options.build())
+AgGrid(df, gridOptions=grid_options)
 
 def create_dual_axis_chart(data, x_column, y_bar_column, y_line_column, title):
     fig = go.Figure()
