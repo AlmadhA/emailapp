@@ -168,7 +168,7 @@ with col[2]:
     end_year = st.selectbox("Pilih Tahun Akhir", years)
 
 
-df_mie        
+        
 df_mie = df_mie.groupby(['BULAN','CABANG','Nama Cabang'])[['Kuantitas']].sum().reset_index()
 df_mie['Tanggal'] = pd.to_datetime(df_mie['BULAN'], format='%b-%y')
 df_mie['BULAN'] = df_mie['Tanggal'].dt.strftime('%b %Y')
@@ -280,7 +280,6 @@ with grafik_tab:
     
     style_metric_cards(background_color='#143d59',border_left_color='#FFFFFF',border_size_px=0)
 
-    df_mie2.T.iloc[:,:2]
     fig = create_dual_axis_chart(df_mie2.T.iloc[:,:2].merge(total.iloc[:,:-1].T,how='left',on='BULAN').rename(columns={0:'Total Sales'})
     , 'BULAN', 'Total Sales', 'Total Cabang',' ')
     with stylable_container(
