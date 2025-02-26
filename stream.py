@@ -34,7 +34,7 @@ grid_options = GridOptionsBuilder.from_dataframe(df)
 # Aktifkan Pivot Mode di AG-Grid
 grid_options.configure_column("Tahun", pivot=True)  # Kolom 'Tahun' bisa dipivot
 grid_options.configure_column("Kategori", pivot=True)  # Kolom 'Kategori' bisa dipivot
-grid_options.gridOptions['pivotMode'] = True  # Aktifkan Pivot Mode
+ # Aktifkan Pivot Mode
 
 # Aktifkan filter untuk semua kolom
 grid_options.configure_column("Tahun", filter=True)
@@ -44,6 +44,7 @@ grid_options.configure_column("Biaya", filter=True)
 
 # Menampilkan AG-Grid dengan pengaturan Pivot Mode dan Filter
 grid_options = grid_options.build()
+grid_options['pivotMode'] = True 
 AgGrid(df, gridOptions=grid_options)
 
 
