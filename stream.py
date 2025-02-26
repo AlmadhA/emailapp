@@ -52,7 +52,7 @@ key = "enterprise_enabled_grid"
 AgGrid(
     df,
     grid_options,
-    enable_enterprise_modules=enable_enterprise,
+    enable_enterprise_modules=True,
     license_key=license_key,
     key=key,
 )
