@@ -48,9 +48,6 @@ if enable_enterprise:
     key = "enterprise_enabled_grid"
     license_key = license_key
 
-license_key = None
-key = "enterprise_enabled_grid"
-
 
 
 AgGrid(
