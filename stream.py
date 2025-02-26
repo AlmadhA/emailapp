@@ -280,7 +280,7 @@ with grafik_tab:
     
     style_metric_cards(background_color='#143d59',border_left_color='#FFFFFF',border_size_px=0)
 
-
+    df_mie2.T.iloc[:,:2]
     fig = create_dual_axis_chart(df_mie2.T.iloc[:,:2].merge(total.iloc[:,:-1].T,how='left',on='BULAN').rename(columns={0:'Total Sales'})
     , 'BULAN', 'Total Sales', 'Total Cabang',' ')
     with stylable_container(
