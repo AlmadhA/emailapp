@@ -33,12 +33,20 @@ df = pd.DataFrame(data)
 
 # Mengonfigurasi grid options dengan Pivot Mode
 grid_options = GridOptionsBuilder.from_dataframe(df)  # Mengaktifkan pivot mode
-#grid_options.configure_columns(["Tahun", "Kategori", "Pendapatan", "Biaya"])
-#grid_options.configure_column("Pendapatan", aggFunc="sum")  # Menambahkan fungsi agregasi
-#grid_options.configure_column("Biaya", aggFunc="sum")
+grid_options.configure_columns(["Tahun", "Kategori", "Pendapatan", "Biaya"])
+grid_options.configure_column("Pendapatan", aggFunc="sum")  # Menambahkan fungsi agregasi
+grid_options.configure_column("Biaya", aggFunc="sum")
 grid_options.configure_side_bar()
 
+enable_enterprise = st.checkbox("Enable Enterprise Features", True)
 
+
+key = "enterprise_disabled_grid"
+license_key = None
+
+if enable_enterprise:
+    key = "enterprise_enabled_grid"
+    license_key = license_key
 
 license_key = None
 key = "enterprise_enabled_grid"
@@ -48,7 +56,7 @@ key = "enterprise_enabled_grid"
 AgGrid(
     df,
     grid_options=grid_options,
-    enable_enterprise_modules=True,
+    enable_enterprise_modules=enable_enterprise,
     license_key=license_key,
     key=key,
 )
