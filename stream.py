@@ -15,6 +15,28 @@ from streamlit_extras.metric_cards import style_metric_cards
 from streamlit_extras.stylable_container import stylable_container
 from matplotlib.colors import LinearSegmentedColormap, to_hex
 
+import streamlit as st
+from st_aggrid import AgGrid, GridOptionsBuilder
+
+# Contoh data
+import pandas as pd
+data = {
+    "Tahun": [2020, 2020, 2021, 2021],
+    "Kategori": ['A', 'B', 'A', 'B'],
+    "Pendapatan": [100, 150, 120, 180],
+    "Biaya": [50, 60, 55, 70]
+}
+df = pd.DataFrame(data)
+
+# Mengonfigurasi grid options dengan Pivot Mode
+grid_options = GridOptionsBuilder.from_dataframe(df)
+grid_options.configure_pivot_mode(True)  # Mengaktifkan pivot mode
+grid_options.configure_columns(["Tahun", "Kategori", "Pendapatan", "Biaya"])
+grid_options.configure_column("Pendapatan", aggFunc="sum")  # Menambahkan fungsi agregasi
+grid_options.configure_column("Biaya", aggFunc="sum")
+
+# Menampilkan tabel AG-Grid dengan pivot mode
+AgGrid(df, gridOptions=grid_options.build())
 
 def create_dual_axis_chart(data, x_column, y_bar_column, y_line_column, title):
     fig = go.Figure()
