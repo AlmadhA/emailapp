@@ -87,7 +87,7 @@ go['autoGroupColumnDef'] = {
     'minWidth': 200,
     'pinned': 'left'
 }
-
+go['sideBar'] = True
 # Mengaktifkan Pivot Mode
 go['pivotMode'] = False
 
