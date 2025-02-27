@@ -54,9 +54,8 @@ go = GridOptionsBuilder.from_dataframe(df)
 #go['enableRowGroup'] = True
 #go['enablePivot'] = True
 
-go.configure_column("Biaya", rowGroup=True)  # Kolom 'country' menjadi Row Group
-go.configure_column("Kategori", pivot=True)  # Kolom 'sport' menjadi Pivot
-go.configure_column("Tahun", pivot=True)  # Kolom 'year' menjadi Pivot
+#go.configure_column("Biaya", rowGroup=True)  # Kolom 'country' menjadi Row Group
+go.configure_column("Kategori", rowGroup=True)  # Kolom 'sport' menjadi Pivot
 go.configure_column("Pendapatan", aggFunc="sum")  # Kolom 'gold' menggunakan agregasi sum
 
 # Menambahkan pengaturan default untuk kolom
