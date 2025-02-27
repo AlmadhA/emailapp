@@ -45,14 +45,46 @@ if enable_enterprise:
     license_key = license_key
 
 go = GridOptionsBuilder.from_dataframe(df)
-go.configure_side_bar()
-go.configure_column("Pendapatan", aggFunc="sum")  # Menambahkan fungsi agregasi
-go.configure_column("Biaya", aggFunc="sum")
-go.configure_column("Tahun", rowGroup=True)  # Kolom 'Tahun' akan menjadi row group
-go.configure_column("Kategori", pivot=True)  # Kolom 'Kategori' akan menjadi row group
-go=go.build()
-go['enableRowGroup'] = True
-go['enablePivot'] = True
+#go.configure_side_bar()
+#go.configure_column("Pendapatan", aggFunc="sum")  # Menambahkan fungsi agregasi
+#go.configure_column("Biaya", aggFunc="sum")
+#go.configure_column("Tahun", rowGroup=True)  # Kolom 'Tahun' akan menjadi row group
+#go.configure_column("Kategori", pivot=True)  # Kolom 'Kategori' akan menjadi row group
+#go=go.build()
+#go['enableRowGroup'] = True
+#go['enablePivot'] = True
+
+go.configure_column("Biaya", rowGroup=True)  # Kolom 'country' menjadi Row Group
+go.configure_column("Kategori", pivot=True)  # Kolom 'sport' menjadi Pivot
+go.configure_column("Tahun", pivot=True)  # Kolom 'year' menjadi Pivot
+go.configure_column("Pendapatan", aggFunc="sum")  # Kolom 'gold' menggunakan agregasi sum
+
+# Menambahkan pengaturan default untuk kolom
+go.configure_default_column(
+    flex=1,
+    minWidth=130,
+    enableValue=True,
+    enableRowGroup=True,
+    enablePivot=True
+)
+
+# Menambahkan pengaturan untuk auto group column (kolom grup otomatis)
+go.gridOptions['autoGroupColumnDef'] = {
+    'minWidth': 200,
+    'pinned': 'left'
+}
+
+# Mengaktifkan Pivot Mode
+go.gridOptions['pivotMode'] = True
+
+# Menambahkan sidebar untuk menampilkan kolom
+go.gridOptions['sideBar'] = "columns"
+
+# Mengaktifkan pivot panel agar selalu muncul
+go.gridOptions['pivotPanelShow'] = "always"
+
+# Membangun grid options
+go = go.build()
 AgGrid(
     df,
     go,
