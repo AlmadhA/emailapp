@@ -92,9 +92,15 @@ go['autoGroupColumnDef'] = {
 go['pivotMode'] = False
 
 # Menambahkan sidebar untuk menampilkan kolom
-go['sideBar'] = True
+go['sideBar'] = {
+    "toolPanels": [
+        {"id": "columns", "labelDefault": "Columns", "iconKey": "columns"},
+        {"id": "filters", "labelDefault": "Filters", "iconKey": "filter"}
+    ],  # Hanya menampilkan "Columns" dan "Filters", tanpa "Pivot"
+    "defaultToolPanel": None  # Tidak ada panel default saat pertama kali dibuka
+}
 # Membangun grid options
-go['pivotPanelShow'] = "never"
+#go['pivotPanelShow'] = "never"
 AgGrid(
     df,
     go,
