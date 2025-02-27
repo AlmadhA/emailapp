@@ -94,9 +94,6 @@ go['pivotMode'] = True
 # Menambahkan sidebar untuk menampilkan kolom
 go['sideBar'] = "columns"
 
-# Mengaktifkan pivot panel agar selalu muncul
-go['pivotPanelShow'] = "always"
-
 # Membangun grid options
 
 AgGrid(
