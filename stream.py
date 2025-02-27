@@ -65,6 +65,15 @@ go.configure_column("Nama Cabang", rowGroup=True)
 go.configure_column("Januari", aggFunc="sum",)
 go.configure_column("Februari", aggFunc="sum")
 go.configure_column("Maret", aggFunc="sum")
+
+# Tambahkan kolom baru untuk selisih antara Februari dan Maret
+# Gunakan valueGetter untuk menghitung selisih antara Februari dan Maret
+go.configure_column(
+    "Kenaikan Feb-Mar", 
+    valueGetter="x => x.data['Maret']",
+    headerName="Kenaikan Feb-Mar"
+)
+
 go.configure_default_column(
     flex=1,
     minWidth=130,
@@ -72,14 +81,6 @@ go.configure_default_column(
     enableRowGroup=True,
     enablePivot=True
 )
-# Tambahkan kolom baru untuk selisih antara Februari dan Maret
-# Gunakan valueGetter untuk menghitung selisih antara Februari dan Maret
-go.configure_column(
-    "Kenaikan Feb-Mar", 
-    valueGetter="x => x.data['Maret'] - x.data['Februari']",
-    headerName="Kenaikan Feb-Mar"
-)
-
 go = go.build()
 # Menambahkan pengaturan untuk auto group column (kolom grup otomatis)
 go['autoGroupColumnDef'] = {
