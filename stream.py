@@ -49,7 +49,7 @@ go.configure_side_bar()
 go.configure_column("Pendapatan", aggFunc="sum")  # Menambahkan fungsi agregasi
 go.configure_column("Biaya", aggFunc="sum")
 go.configure_column("Tahun", rowGroup=True, rowDrag= True)  # Kolom 'Tahun' akan menjadi row group
-go.configure_column("Kategori", rowGroup=True)  # Kolom 'Kategori' akan menjadi row group
+go.configure_column("Kategori", rowGroup=True, rowDrag= True)  # Kolom 'Kategori' akan menjadi row group
 go=go.build()
 go['enableRowGroup'] = True
 
