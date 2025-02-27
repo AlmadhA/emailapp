@@ -73,7 +73,7 @@ go.configure_column(
     valueGetter="x => x.data['Maret'] - x.data['Februari']",
     headerName="Kenaikan Feb-Mar"
 )
-)
+
 go = go.build()
 # Menambahkan pengaturan untuk auto group column (kolom grup otomatis)
 go['autoGroupColumnDef'] = {
