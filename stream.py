@@ -89,7 +89,7 @@ go['autoGroupColumnDef'] = {
 }
 
 # Mengaktifkan Pivot Mode
-go['pivotMode'] = True
+go['pivotMode'] = False
 
 # Menambahkan sidebar untuk menampilkan kolom
 go['sideBar'] = True
