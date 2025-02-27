@@ -94,7 +94,7 @@ go['pivotMode'] = True
 # Menambahkan sidebar untuk menampilkan kolom
 go['sideBar'] = True
 # Membangun grid options
-
+go['pivotPanelShow'] = "never"
 AgGrid(
     df,
     go,
