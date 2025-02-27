@@ -71,7 +71,7 @@ go.configure_column(field = "Maret", headerName="Maret",aggFunc="sum")
 go.configure_column(
     "Kenaikan Feb-Mar", 
     valueGetter="data.Maret",
-    headerName="Kenaikan Feb-Mar", pivot=True
+    headerName="Kenaikan Feb-Mar"
 )
 
 go.configure_default_column(
