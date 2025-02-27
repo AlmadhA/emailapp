@@ -92,7 +92,7 @@ go['autoGroupColumnDef'] = {
 go['pivotMode'] = True
 
 # Menambahkan sidebar untuk menampilkan kolom
-go['sideBar'] = "columns"
+#go['sideBar'] = "columns"
 
 # Membangun grid options
 
