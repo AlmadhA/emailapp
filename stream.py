@@ -69,7 +69,7 @@ go.configure_default_column(
 )
 
 # Menambahkan pengaturan untuk auto group column (kolom grup otomatis)
-go.gridOptions['autoGroupColumnDef'] = {
+go['autoGroupColumnDef'] = {
     'minWidth': 200,
     'pinned': 'left'
 }
