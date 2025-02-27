@@ -65,7 +65,13 @@ go.configure_column("Nama Cabang", rowGroup=True)
 go.configure_column("Januari", aggFunc="sum",)
 go.configure_column("Februari", aggFunc="sum")
 go.configure_column("Maret", aggFunc="sum")
-
+go.configure_default_column(
+    flex=1,
+    minWidth=130,
+    enableValue=True,
+    enableRowGroup=True,
+    enablePivot=True
+)
 # Tambahkan kolom baru untuk selisih antara Februari dan Maret
 # Gunakan valueGetter untuk menghitung selisih antara Februari dan Maret
 go.configure_column(
