@@ -82,12 +82,19 @@ go.configure_default_column(
     enablePivot=True
 )
 go = go.build()
+
 # Menambahkan pengaturan untuk auto group column (kolom grup otomatis)
 go['autoGroupColumnDef'] = {
     'minWidth': 200,
     'pinned': 'left'
 }
-go['sideBar'] = True
+go['sideBar'] = {
+    "toolPanels": [
+        {"id": "columns", "labelDefault": "Columns", "iconKey": "columns"},
+        {"id": "filters", "labelDefault": "Filters", "iconKey": "filter"}
+    ],  # Hanya menampilkan "Columns" dan "Filters", tanpa "Pivot"
+    "defaultToolPanel": ['columns', 'filters']  # Tidak ada panel default saat pertama kali dibuka
+}
 # Mengaktifkan Pivot Mode
 go['pivotMode'] = True
 
