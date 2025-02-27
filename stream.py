@@ -100,7 +100,7 @@ go['sideBar'] = {
     "defaultToolPanel": None  # Tidak ada panel default saat pertama kali dibuka
 }
 # Membangun grid options
-#go['pivotPanelShow'] = "never"
+go['pivotPanelShow'] = "never"
 AgGrid(
     df,
     go,
