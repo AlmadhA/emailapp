@@ -62,9 +62,9 @@ go.configure_column("Nama Cabang", rowGroup=True)
 #go.configure_column("Nama Barang", rowGroup=True)
 
 # Kolom yang digunakan untuk pivot
-go.configure_column(field = "Januari", aggFunc="sum",)
-go.configure_column(field = "Februari", aggFunc="sum")
-go.configure_column(field = "Maret", aggFunc="sum")
+go.configure_column(field = "Januari", headerName="Januari",aggFunc="sum",)
+go.configure_column(field = "Februari", headerName="Februari",aggFunc="sum")
+go.configure_column(field = "Maret", headerName="Maret",aggFunc="sum")
 
 # Tambahkan kolom baru untuk selisih antara Februari dan Maret
 # Gunakan valueGetter untuk menghitung selisih antara Februari dan Maret
