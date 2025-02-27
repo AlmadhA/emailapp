@@ -58,13 +58,13 @@ df = pd.DataFrame(data)
 go = GridOptionsBuilder.from_dataframe(df)
 # Kolom yang akan dikelompokkan
 go.configure_column("Nama Cabang", rowGroup=True)
-go.configure_column("Provinsi", rowGroup=True)
-go.configure_column("Nama Barang", rowGroup=True)
+#go.configure_column("Provinsi", rowGroup=True)
+#go.configure_column("Nama Barang", rowGroup=True)
 
 # Kolom yang digunakan untuk pivot
-go.configure_column("Januari", aggFunc="sum", pivot=True)
-go.configure_column("Februari", aggFunc="sum", pivot=True)
-go.configure_column("Maret", aggFunc="sum", pivot=True)
+go.configure_column("Januari", aggFunc="sum",)
+go.configure_column("Februari", aggFunc="sum")
+go.configure_column("Maret", aggFunc="sum")
 
 # Tambahkan kolom baru untuk selisih antara Februari dan Maret
 # Gunakan valueGetter untuk menghitung selisih antara Februari dan Maret
