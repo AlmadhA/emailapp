@@ -89,10 +89,10 @@ go['autoGroupColumnDef'] = {
 }
 go['sideBar'] = True
 # Mengaktifkan Pivot Mode
-go['pivotMode'] = False
+go['pivotMode'] = True
 
 # Membangun grid options
-go['pivotPanelShow'] = "never"
+go['pivotPanelShow'] = "always"
 AgGrid(
     df,
     go,
