@@ -67,7 +67,7 @@ go.configure_default_column(
     enableRowGroup=True,
     enablePivot=True
 )
-
+go = go.build()
 # Menambahkan pengaturan untuk auto group column (kolom grup otomatis)
 go['autoGroupColumnDef'] = {
     'minWidth': 200,
@@ -75,16 +75,16 @@ go['autoGroupColumnDef'] = {
 }
 
 # Mengaktifkan Pivot Mode
-go.gridOptions['pivotMode'] = True
+go['pivotMode'] = True
 
 # Menambahkan sidebar untuk menampilkan kolom
-go.gridOptions['sideBar'] = "columns"
+go['sideBar'] = "columns"
 
 # Mengaktifkan pivot panel agar selalu muncul
-go.gridOptions['pivotPanelShow'] = "always"
+go['pivotPanelShow'] = "always"
 
 # Membangun grid options
-go = go.build()
+
 AgGrid(
     df,
     go,
