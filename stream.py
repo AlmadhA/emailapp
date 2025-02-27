@@ -44,27 +44,35 @@ if enable_enterprise:
     key = "enterprise_enabled_grid"
     license_key = license_key
 
+
+data = {
+    "Nama Cabang": ["Cabang A", "Cabang B", "Cabang C"],
+    "Provinsi": ["Provinsi X", "Provinsi Y", "Provinsi Z"],
+    "Nama Barang": ["Barang 1", "Barang 2", "Barang 3"],
+    "Januari": [100, 200, 150],
+    "Februari": [120, 180, 160],
+    "Maret": [130, 190, 170],
+}
+
+df = pd.DataFrame(data)
 go = GridOptionsBuilder.from_dataframe(df)
-#go.configure_side_bar()
-#go.configure_column("Pendapatan", aggFunc="sum")  # Menambahkan fungsi agregasi
-#go.configure_column("Biaya", aggFunc="sum")
-#go.configure_column("Tahun", rowGroup=True)  # Kolom 'Tahun' akan menjadi row group
-#go.configure_column("Kategori", pivot=True)  # Kolom 'Kategori' akan menjadi row group
-#go=go.build()
-#go['enableRowGroup'] = True
-#go['enablePivot'] = True
+# Kolom yang akan dikelompokkan
+go.configure_column("Nama Cabang", rowGroup=True)
+go.configure_column("Provinsi", rowGroup=True)
+go.configure_column("Nama Barang", rowGroup=True)
 
-#go.configure_column("Biaya", rowGroup=True)  # Kolom 'country' menjadi Row Group
-go.configure_column("Kategori", rowGroup=True)  # Kolom 'sport' menjadi Pivot
-go.configure_column("Pendapatan", aggFunc="sum")  # Kolom 'gold' menggunakan agregasi sum
+# Kolom yang digunakan untuk pivot
+go.configure_column("Januari", aggFunc="sum", pivot=True)
+go.configure_column("Februari", aggFunc="sum", pivot=True)
+go.configure_column("Maret", aggFunc="sum", pivot=True)
 
-# Menambahkan pengaturan default untuk kolom
-go.configure_default_column(
-    flex=1,
-    minWidth=130,
-    enableValue=True,
-    enableRowGroup=True,
-    enablePivot=True
+# Tambahkan kolom baru untuk selisih antara Februari dan Maret
+# Gunakan valueGetter untuk menghitung selisih antara Februari dan Maret
+go.configure_column(
+    "Kenaikan Feb-Mar", 
+    valueGetter="x => x.data['Maret'] - x.data['Februari']",
+    headerName="Kenaikan Feb-Mar"
+)
 )
 go = go.build()
 # Menambahkan pengaturan untuk auto group column (kolom grup otomatis)
