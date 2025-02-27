@@ -70,8 +70,8 @@ go.configure_column(field = "Maret", headerName="Maret",aggFunc="sum")
 # Gunakan valueGetter untuk menghitung selisih antara Februari dan Maret
 go.configure_column(
     "Kenaikan Feb-Mar", 
-    valueGetter="x.data['Maret']",
-    headerName="Kenaikan Feb-Mar"
+    valueGetter="data.Maret",
+    headerName="Kenaikan Feb-Mar", pivot=True
 )
 
 go.configure_default_column(
