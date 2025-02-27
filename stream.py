@@ -70,7 +70,7 @@ go.configure_column("Maret", aggFunc="sum")
 # Gunakan valueGetter untuk menghitung selisih antara Februari dan Maret
 go.configure_column(
     "Kenaikan Feb-Mar", 
-    valueGetter="x => x.data['Maret']",
+    valueGetter="x.data['Maret']",
     headerName="Kenaikan Feb-Mar"
 )
 
