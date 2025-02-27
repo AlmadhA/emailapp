@@ -89,11 +89,7 @@ go['autoGroupColumnDef'] = {
     'pinned': 'left'
 }
 go['sideBar'] = {
-    "toolPanels": [
-        {"id": "columns", "labelDefault": "Columns", "iconKey": "columns"},
-        {"id": "filters", "labelDefault": "Filters", "iconKey": "filter"}
-    ],  # Hanya menampilkan "Columns" dan "Filters", tanpa "Pivot"
-    "defaultToolPanel": ['columns', 'filters']  # Tidak ada panel default saat pertama kali dibuka
+    "toolPanels": ['columns', 'filters']  # Tidak ada panel default saat pertama kali dibuka
 }
 # Mengaktifkan Pivot Mode
 go['pivotMode'] = True
