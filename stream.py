@@ -19,38 +19,21 @@ import streamlit as st
 from st_aggrid import AgGrid, GridOptionsBuilder
 from streamlit_elements import elements, mui
 
-with elements("multiple_children"):
+with elements("nested_children"):
 
-    # You have access to Material UI icons using: mui.icon.IconNameHere
+    # You can nest children using multiple 'with' statements.
     #
-    # Multiple children can be added in a single element.
-    #
-    # <Button>
-    #   <EmojiPeople />
-    #   <DoubleArrow />
-    #   Hello world
-    # </Button>
-
-    mui.Button(
-        mui.icon.EmojiPeople,
-        mui.icon.DoubleArrow,
-        "Button with multiple children"
-    )
-
-    # You can also add children to an element using a 'with' statement.
-    #
-    # <Button>
-    #   <EmojiPeople />
-    #   <DoubleArrow />
+    # <Paper>
     #   <Typography>
-    #     Hello world
+    #     <p>Hello world</p>
+    #     <p>Goodbye world</p>
     #   </Typography>
-    # </Button>
+    # </Paper>
 
-    with mui.Button:
-        mui.icon.EmojiPeople()
-        mui.icon.DoubleArrow()
-        mui.Typography("Button with multiple children")
+    with mui.Paper:
+        with mui.Typography:
+            html.p("Hello world")
+            html.p("Goodbye world")
 
 # Contoh data
 data = {
