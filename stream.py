@@ -55,50 +55,50 @@ data = {
 }
 
 df = pd.DataFrame(data)
-go = GridOptionsBuilder.from_dataframe(df)
+gb = GridOptionsBuilder.from_dataframe(df)
 # Kolom yang akan dikelompokkan
-go.configure_column("Nama Cabang", rowGroup=True)
+gb.configure_column("Nama Cabang", rowGroup=True)
 #go.configure_column("Provinsi", rowGroup=True)
 #go.configure_column("Nama Barang", rowGroup=True)
 
 # Kolom yang digunakan untuk pivot
-go.configure_column(field = "Januari", headerName="Januari",aggFunc="sum",)
-go.configure_column(field = "Februari", headerName="Februari",aggFunc="sum")
-go.configure_column(field = "Maret", headerName="Maret",aggFunc="sum")
+gb.configure_column(field = "Januari", headerName="Januari",aggFunc="sum",)
+gb.configure_column(field = "Februari", headerName="Februari",aggFunc="sum")
+gb.configure_column(field = "Maret", headerName="Maret",aggFunc="sum")
 
 # Tambahkan kolom baru untuk selisih antara Februari dan Maret
 # Gunakan valueGetter untuk menghitung selisih antara Februari dan Maret
-go.configure_column(
+gb.configure_column(
     "Kenaikan Feb-Mar", 
     valueGetter="data.Maret - data.Februari",
     headerName="Kenaikan Feb-Mar", aggFunc="sum"
 )
 
-go.configure_default_column(
+gb.configure_default_column(
     flex=1,
     minWidth=130,
     enableValue=True,
     enableRowGroup=True,
     enablePivot=True
 )
-go = go.build()
+gb = gb.build()
 
 # Menambahkan pengaturan untuk auto group column (kolom grup otomatis)
-go['autoGroupColumnDef'] = {
+gb['autoGroupColumnDef'] = {
     'minWidth': 200,
     'pinned': 'left'
 }
-go['sideBar'] = {
+gb['sideBar'] = {
     "toolPanels": ['columns', 'filters']  # Tidak ada panel default saat pertama kali dibuka
 }
 # Mengaktifkan Pivot Mode
-go['pivotMode'] = True
+gb['pivotMode'] = True
 
 # Membangun grid options
-go['pivotPanelShow'] = "always"
+gb['pivotPanelShow'] = "always"
 AgGrid(
     df,
-    go,
+    gb,
     enable_enterprise_modules=enable_enterprise,
     #license_key=license_key,
     #key=key,
