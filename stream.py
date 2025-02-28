@@ -17,7 +17,7 @@ from matplotlib.colors import LinearSegmentedColormap, to_hex
 import numpy as np
 import streamlit as st
 from st_aggrid import AgGrid, GridOptionsBuilder
-from streamlit_elements import elements, mui
+from streamlit_elements import elements, mui, html
 
 with elements("nested_children"):
 
