@@ -17,7 +17,11 @@ from matplotlib.colors import LinearSegmentedColormap, to_hex
 import numpy as np
 import streamlit as st
 from st_aggrid import AgGrid, GridOptionsBuilder
+from streamlit_elements import st_elements, mui
 
+st_elements(
+    mui.Button("Click me"),
+)
 
 # Contoh data
 data = {
