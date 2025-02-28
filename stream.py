@@ -19,21 +19,57 @@ import streamlit as st
 from st_aggrid import AgGrid, GridOptionsBuilder
 from streamlit_elements import elements, mui, html
 
-with elements("nested_children"):
+# This doesn't work, because button "pressed" state doesn't survive rerun, and pressing
+# any button triggers a rerun.
 
-    # You can nest children using multiple 'with' statements.
-    #
-    # <Paper>
-    #   <Typography>
-    #     <p>Hello world</p>
-    #     <p>Goodbye world</p>
-    #   </Typography>
-    # </Paper>
+st.write("# This doesn't work:")
 
-    with mui.Paper:
-        with mui.Typography:
-            html.p("Hello world")
-            html.p("Goodbye world")
+if st.button("Button1_take1"):
+    if st.button("Button2_take1"):
+        if st.button("Button3_take1"):
+            st.write("Button3")
+
+# So, instead, we use session state to store the "pressed" state of each button, and
+# make each button press toggle that entry in the session state.
+
+st.write("# This works:")
+
+if "button1" not in st.session_state:
+    st.session_state["button1"] = False
+
+if "button2" not in st.session_state:
+    st.session_state["button2"] = False
+
+if "button3" not in st.session_state:
+    st.session_state["button3"] = False
+
+if st.button("Button1"):
+    st.session_state["button1"] = not st.session_state["button1"]
+
+if st.session_state["button1"]:
+    if st.button("Button2"):
+        st.session_state["button2"] = not st.session_state["button2"]
+
+if st.session_state["button1"] and st.session_state["button2"]:
+    if st.button("Button3"):
+        # toggle button3 session state
+        st.session_state["button3"] = not st.session_state["button3"]
+
+if st.session_state["button3"]:
+    st.write("**Button3!!!**")
+
+
+# Print the session state to make it easier to see what's happening
+st.write(
+    f"""
+    ## Session state:
+    {st.session_state["button1"]=}
+
+    {st.session_state["button2"]=}
+
+    {st.session_state["button3"]=}
+    """
+)
 
 # Contoh data
 data = {
