@@ -23,7 +23,7 @@ def authenticate_google_sheets():
             flow = InstalledAppFlow.from_client_secrets_file(
                 'credentials.json', SCOPES)
             # Tentukan port untuk menjalankan server lokal dan membuka browser
-            creds = flow.run_local_server(port=0)
+            creds = flow.run_local_server(port=0)  # Menggunakan port 0, agar sistem memilih port yang tersedia
 
         # Simpan token untuk penggunaan berikutnya
         with open('token.json', 'w') as token:
