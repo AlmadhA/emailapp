@@ -1,47 +1,73 @@
 import streamlit as st
-from datetime import datetime
+import pandas as pd
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
+from googleapiclient.discovery import build
+import os
 
-# Menampilkan judul aplikasi
-st.title("Pilih Bulan dan Tahun")
+# SCOPES untuk membaca dan mengedit Google Sheets
+SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 
-# Menggunakan st.metric untuk menampilkan metrik
-st.metric(label="Sales", value="1000", delta="+100")
+# Fungsi untuk autentikasi ke Google API menggunakan OAuth 2.0
+def authenticate_google_sheets():
+    creds = None
+    if os.path.exists('token.json'):
+        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+    
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(
+                'credentials.json', SCOPES)
+            creds = flow.run_local_server(port=0)
+        
+        with open('token.json', 'w') as token:
+            token.write(creds.to_json())
+    
+    return creds
 
-# Mengubah warna font dengan st.markdown
-st.markdown(
-    """
-    <style>
-    .streamlit-expanderHeader {
-        color: red;
-    }
-    .css-1v3fvcr {
-        color: blue;
-    }
-    </style>
-    """, unsafe_allow_html=True
-)
+# Fungsi untuk membaca data dari Google Sheets
+def read_sheet(spreadsheet_id, range_name):
+    creds = authenticate_google_sheets()
+    service = build('sheets', 'v4', credentials=creds)
+    sheet = service.spreadsheets()
+    result = sheet.values().get(spreadsheetId=spreadsheet_id, range=range_name).execute()
+    values = result.get('values', [])
+    return pd.DataFrame(values)
 
-# Mendapatkan tahun saat ini
-current_year = datetime.today().year
+# Fungsi untuk autentikasi pengguna berdasarkan email
+def authenticate_user(email):
+    access_control_df = pd.read_csv('database.csv')  # Membaca data akses
+    user_access = access_control_df[access_control_df['Email'] == email]
+    
+    if not user_access.empty:
+        return user_access['File ID'].tolist()  # Mengembalikan list ID file yang bisa diakses
+    else:
+        return []
 
-# Daftar bulan dalam format singkatan (misalnya Jan, Feb, Mar, ...)
-months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+# Streamlit UI
+st.title('Google Sheets Access App')
 
-# Daftar tahun (misalnya 10 tahun terakhir hingga tahun sekarang)
-years = [str(i) for i in range(current_year-10, current_year+1)]
+# Autentikasi pengguna melalui Google
+email = st.text_input("Enter your email address:")
 
-# Pilihan bulan dan tahun awal
-start_month = st.selectbox("Pilih Bulan Awal", months)
-start_year = st.selectbox("Pilih Tahun Awal", years)
-
-# Pilihan bulan dan tahun akhir
-end_month = st.selectbox("Pilih Bulan Akhir", months)
-end_year = st.selectbox("Pilih Tahun Akhir", years)
-
-# Menampilkan hasil dalam format %b %Y (misalnya Jan 2024)
-start_date = f"{start_month} {start_year}"
-end_date = f"{end_month} {end_year}"
-
-# Menampilkan pilihan
-st.write(f"Bulan/Tahun Awal: {start_date}")
-st.write(f"Bulan/Tahun Akhir: {end_date}")
+if email:
+    # Verifikasi apakah email memiliki akses ke file
+    file_ids = authenticate_user(email)
+    
+    if file_ids:
+        st.success("Access granted!")
+        
+        # Menampilkan sidebar dengan menu pilihan file berdasarkan email pengguna
+        selected_file_id = st.sidebar.selectbox("Select a Google Sheet file", file_ids)
+        
+        # Membaca data dari file yang dipilih
+        if selected_file_id:
+            range_name = st.text_input("Enter the range (e.g., Sheet1!A1:D10):", "Sheet1!A1:D10")
+            if range_name:
+                sheet_data = read_sheet(selected_file_id, range_name)
+                st.write(sheet_data)
+    else:
+        st.error("You do not have access to any sheets.")
