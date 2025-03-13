@@ -10,3 +10,7 @@ streamlit_folium
 streamlit-elements 
 st-pages
 folium
+google-auth
+google-auth-oauthlib 
+google-auth-httplib2 
+google-api-python-client 
