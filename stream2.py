@@ -9,25 +9,28 @@ import os
 # SCOPES untuk membaca dan mengedit Google Sheets
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 
-# Fungsi untuk autentikasi menggunakan console (menghindari masalah browser)
 def authenticate_google_sheets():
     creds = None
+    
+    # Cek apakah token sudah ada dan masih valid
     if os.path.exists('token.json'):
         creds = Credentials.from_authorized_user_file('token.json', SCOPES)
-    
+
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
                 'credentials.json', SCOPES)
-            
-            # Gunakan run_console() untuk autentikasi via terminal
-            creds = flow.run_console()  # Ini akan memberi URL untuk autentikasi manual
+            # Tentukan port untuk menjalankan server lokal dan membuka browser
+            creds = flow.run_local_server(port=0)
+
+        # Simpan token untuk penggunaan berikutnya
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
     
     return creds
+
 
 
 # Fungsi untuk membaca data dari Google Sheets
