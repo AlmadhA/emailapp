@@ -52,3 +52,22 @@ st.title('Google Sheets Access App')
 
 # Autentikasi pengguna melalui Google
 email = st.text_input("Enter your email address:")
+
+if email:
+    # Verifikasi apakah email memiliki akses ke file
+    file_ids = authenticate_user(email)
+    
+    if file_ids:
+        st.success("Access granted!")
+        
+        # Menampilkan sidebar dengan menu pilihan file berdasarkan email pengguna
+        selected_file_id = st.sidebar.selectbox("Select a Google Sheet file", file_ids)
+        
+        # Membaca data dari file yang dipilih
+        if selected_file_id:
+            range_name = st.text_input("Enter the range (e.g., Sheet1!A1:D10):", "Sheet1!A1:D10")
+            if range_name:
+                sheet_data = read_sheet(selected_file_id, range_name)
+                st.write(sheet_data)
+    else:
+        st.error("You do not have access to any sheets.")
