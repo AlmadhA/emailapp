@@ -28,7 +28,7 @@ def authenticate_gmail(file_json):
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
                 file_json, SCOPES)
-            creds = flow.run_local_server(port=0,browser=False)
+            creds = flow.run_local_server(port=8801)
         
         # Simpan kredensial untuk penggunaan berikutnya
         with open('token.json', 'w') as token:
