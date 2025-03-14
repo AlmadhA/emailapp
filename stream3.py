@@ -13,12 +13,12 @@ from auth0_component import login_button
 import streamlit as st
 
 clientId = 'QwBaicViCKun5FgmCL5l9gWGzDlsjEgp'
-domain = 'https://dev-oee4zt3daq2ov6tp.us.auth0.com'
+domain = 'dev-oee4zt3daq2ov6tp.us.auth0.com'
 
 st.title('Welcome to Auth0-Streamlit')
 
 with st.echo():
-    user_info = login_button(clientId = clientId, domain = domain)
+    user_info = login_button(clientId = clientId, domain = domain, "auth0")
     if user_info:
         st.write(f'Hi {user_info["nickname"]}')
         # st.write(user_info) # some private information here
