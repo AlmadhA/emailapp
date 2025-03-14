@@ -13,6 +13,30 @@ from google.auth.transport.requests import Request
     
 # Jika memodifikasi scope, hapus file token.json
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.modify']
+flow = InstalledAppFlow.from_client_secrets_file('credentials_shopee.json', SCOPES)
+
+def authorize_app():
+    # Mendapatkan URL otorisasi
+    auth_url, _ = flow.authorization_url(prompt='consent')
+    
+    # Menampilkan URL otorisasi di Streamlit untuk di-copy
+    st.write("Klik link berikut untuk otorisasi aplikasi Anda:")
+    st.write(f"[Klik di sini untuk otorisasi](%s)" % auth_url)
+
+    # Meminta pengguna untuk memasukkan kode otorisasi setelah login
+    auth_code = st.text_input("Masukkan kode otorisasi yang Anda dapatkan:")
+    
+    if auth_code:
+        # Menukarkan kode otorisasi dengan token akses
+        flow.fetch_token(authorization_response=auth_code)
+
+        # Menyimpan kredensial (token akses)
+        credentials = flow.credentials
+
+        # Menyimpan kredensial untuk penggunaan di masa depan (misalnya, sesi pengguna)
+        return credentials
+    return None
+authorize_app()
 
 def authenticate_gmail(file_json):
     """Authenticate and return Gmail API service."""
@@ -84,7 +108,7 @@ def save_attachment(service, msg_id, store_dir='downloads'):
                     f.write(data)
                 print(f'Attachment {file_name} saved to {file_path}')
 
-service = authenticate_gmail(file_json = 'credentials_shopee.json')
+#service = authenticate_gmail(file_json = 'credentials_shopee.json')
 keywords_gojek = ['Mie Gacoan, Batu Tulis','Mie Gacoan, Cibubur','Mie Gacoan, Daan Mogot','Mie Gacoan, Kemang Raya','Mie Gacoan, Tebet',
             'Mie Gacoan, Padalarang','Mie Gacoan, Manukan','Mie Gacoan, Jatinangor','Mie Gacoan, Semarang Brigjen Sudiarto', 'Mie Gacoan, Mangga Besar']
 keywords_shopee = ['Shopee food - Mie Gacoan - Batu Tulis','Shopee food - Mie Gacoan - Cibubur','Shopee food - Mie Gacoan - Daan Mogot','Shopee food - Mie Gacoan - Kemang Raya','Shopee food - Mie Gacoan - Tebet',
