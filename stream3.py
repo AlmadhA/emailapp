@@ -52,7 +52,7 @@ def authenticate_gmail(file_json):
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
                 file_json, SCOPES)
-            creds = flow.run_local_server(port=0, open_browser=False)
+            creds = flow.run_local_server(port=8501, redirect_uri='http://localhost:8501/')
         
         # Simpan kredensial untuk penggunaan berikutnya
         with open('token.json', 'w') as token:
@@ -108,7 +108,7 @@ def save_attachment(service, msg_id, store_dir='downloads'):
                     f.write(data)
                 print(f'Attachment {file_name} saved to {file_path}')
 
-#service = authenticate_gmail(file_json = 'credentials_shopee.json')
+service = authenticate_gmail(file_json = 'credentials_shopee.json')
 keywords_gojek = ['Mie Gacoan, Batu Tulis','Mie Gacoan, Cibubur','Mie Gacoan, Daan Mogot','Mie Gacoan, Kemang Raya','Mie Gacoan, Tebet',
             'Mie Gacoan, Padalarang','Mie Gacoan, Manukan','Mie Gacoan, Jatinangor','Mie Gacoan, Semarang Brigjen Sudiarto', 'Mie Gacoan, Mangga Besar']
 keywords_shopee = ['Shopee food - Mie Gacoan - Batu Tulis','Shopee food - Mie Gacoan - Cibubur','Shopee food - Mie Gacoan - Daan Mogot','Shopee food - Mie Gacoan - Kemang Raya','Shopee food - Mie Gacoan - Tebet',
