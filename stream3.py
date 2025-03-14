@@ -13,6 +13,7 @@ from auth0_component import login_button
 import streamlit as st
 from dotenv import load_dotenv
 load_dotenv()
+
 clientId = 'QwBaicViCKun5FgmCL5l9gWGzDlsjEgp'
 domain = 'dev-oee4zt3daq2ov6tp.us.auth0.com'
 
