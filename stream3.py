@@ -12,8 +12,8 @@ from google.auth.transport.requests import Request
 from auth0_component import login_button
 import streamlit as st
 
-clientId = os.environ['1036706857790-jdp1lg4u2j5a99rg9q0rtsv2hg9ultt9.apps.googleusercontent.com']
-domain = os.environ['http://localhost:8080/']
+clientId = '1036706857790-jdp1lg4u2j5a99rg9q0rtsv2hg9ultt9.apps.googleusercontent.com'
+domain = 'http://localhost:8080/'
 
 st.title('Welcome to Auth0-Streamlit')
 
