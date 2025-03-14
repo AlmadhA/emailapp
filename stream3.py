@@ -9,7 +9,22 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.errors import HttpError
 from google.auth.transport.requests import Request
 
+from auth0_component import login_button
+import streamlit as st
 
+clientId = os.environ['1036706857790-jdp1lg4u2j5a99rg9q0rtsv2hg9ultt9.apps.googleusercontent.com']
+domain = os.environ['http://localhost:8080/']
+
+st.title('Welcome to Auth0-Streamlit')
+
+with st.echo():
+    user_info = login_button(clientId = clientId, domain = domain)
+    if user_info:
+        st.write(f'Hi {user_info["nickname"]}')
+        # st.write(user_info) # some private information here
+        
+if not user_info:
+    st.write("Please login to continue")
 # Jika memodifikasi scope, hapus file token.json
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.modify']
 
@@ -83,7 +98,7 @@ def save_attachment(service, msg_id, store_dir='downloads'):
                     f.write(data)
                 print(f'Attachment {file_name} saved to {file_path}')
 
-service = authenticate_gmail(file_json = 'credentials_shopee.json')
+#service = authenticate_gmail(file_json = 'credentials_shopee.json')
 keywords_gojek = ['Mie Gacoan, Batu Tulis','Mie Gacoan, Cibubur','Mie Gacoan, Daan Mogot','Mie Gacoan, Kemang Raya','Mie Gacoan, Tebet',
             'Mie Gacoan, Padalarang','Mie Gacoan, Manukan','Mie Gacoan, Jatinangor','Mie Gacoan, Semarang Brigjen Sudiarto', 'Mie Gacoan, Mangga Besar']
 keywords_shopee = ['Shopee food - Mie Gacoan - Batu Tulis','Shopee food - Mie Gacoan - Cibubur','Shopee food - Mie Gacoan - Daan Mogot','Shopee food - Mie Gacoan - Kemang Raya','Shopee food - Mie Gacoan - Tebet',
