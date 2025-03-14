@@ -36,6 +36,7 @@ def authenticate_gmail(file_json):
     # Membangun layanan Gmail API
     try:
         service = build('gmail', 'v1', credentials=creds)
+        st.write(service)
         return service
     except Exception as error:
         print(f'An error occurred: {error}')
