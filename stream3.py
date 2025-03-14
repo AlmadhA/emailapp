@@ -8,7 +8,8 @@ import os
 import requests
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
-       
+SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.modify']
+
 # Use your service account credentials to authenticate
 def authenticate_google_sheets_service_account():
     credentials = service_account.Credentials.from_service_account_file(
@@ -19,7 +20,6 @@ def authenticate_google_sheets_service_account():
 credentials = authenticate_google_sheets_service_account()
 
 # Jika memodifikasi scope, hapus file token.json
-SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.modify']
 
 def authenticate_gmail(file_json):
     """Authenticate and return Gmail API service."""
