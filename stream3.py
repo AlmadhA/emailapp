@@ -9,6 +9,27 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.errors import HttpError
 from google.auth.transport.requests import Request
 
+from auth0_component import login_button
+import streamlit as st
+from dotenv import load_dotenv
+load_dotenv()
+clientId = 'QwBaicViCKun5FgmCL5l9gWGzDlsjEgp'
+domain = 'dev-oee4zt3daq2ov6tp.us.auth0.com'
+
+clientId = os.environ[clientId]
+domain = os.environ[domain]
+
+st.title('Welcome to Auth0-Streamlit')
+
+with st.echo():
+    user_info = login_button(clientId=clientId, domain=domain)
+    if user_info:
+        st.write(f'Hi {user_info["nickname"]}')
+        # st.write(user_info) # some private information here
+        
+if not user_info:
+    st.write("Please login to continue")
+    
 # Jika memodifikasi scope, hapus file token.json
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.modify']
 
@@ -88,7 +109,6 @@ keywords_gojek = ['Mie Gacoan, Batu Tulis','Mie Gacoan, Cibubur','Mie Gacoan, Da
 keywords_shopee = ['Shopee food - Mie Gacoan - Batu Tulis','Shopee food - Mie Gacoan - Cibubur','Shopee food - Mie Gacoan - Daan Mogot','Shopee food - Mie Gacoan - Kemang Raya','Shopee food - Mie Gacoan - Tebet',
             'Shopee food - Mie Gacoan - Padalarang','Shopee food - Mie Gacoan - Manukan','Shopee food - Mie Gacoan - Jatinangor','Shopee food - Mie Gacoan - Semarang Brigjen Sudiarto', 'Shopee food - Mie Gacoan - Mangga Besar']
 cab = ['BGRBAT','BKSALT','GGPDAA','KYBKEM','KYBTEB','NPHCIB','SBYTAN','SMDJAT','SMGSUD','TNAMAN']
-service = authenticate_gmail(file_json = 'credentials_shopee.json')
 for i,query in enumerate(keywords_shopee):
     messages = list_messages(service, query)
     if messages:
