@@ -4,6 +4,7 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
+import google_auth_oauthlib
 import os
 import requests
 
@@ -33,7 +34,18 @@ def authenticate_google_sheets():
             token.write(creds.to_json())
     
     return creds
-
+def authenticate_google_sheets():
+    auth_code = st.query_params.get("code")
+    flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
+        "credentials.json", # replace with you json credentials from your google auth app
+        scopes=SCOPES
+    )
+    if auth_code:
+        flow.fetch_token(code=auth_code)
+        credentials = flow.credentials
+        st.session_state["google_auth_code"] = auth_code
+        st.session_state['creds'] = credentials
+        return st.session_state['creds']
 
 # Fungsi untuk membaca data dari Google Sheets
 def read_sheet(spreadsheet_id, range_name):
