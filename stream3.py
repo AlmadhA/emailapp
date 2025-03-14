@@ -12,8 +12,8 @@ from google.auth.transport.requests import Request
 from auth0_component import login_button
 import streamlit as st
 
-clientId = '1036706857790-jdp1lg4u2j5a99rg9q0rtsv2hg9ultt9.apps.googleusercontent.com'
-domain = 'https://accounts.google.com/o/oauth2/auth'
+clientId = 'QwBaicViCKun5FgmCL5l9gWGzDlsjEgp'
+domain = 'dev-oee4zt3daq2ov6tp.us.auth0.com'
 
 st.title('Welcome to Auth0-Streamlit')
 
