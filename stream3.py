@@ -65,3 +65,18 @@ def save_attachment(service, msg_id, store_dir='downloads'):
                     f.write(data)
                 print(f'Attachment {file_name} saved to {file_path}')
 service = authenticate_gmail(file_json = 'credentials_shopee.json')
+keywords_gojek = ['Mie Gacoan, Batu Tulis','Mie Gacoan, Cibubur','Mie Gacoan, Daan Mogot','Mie Gacoan, Kemang Raya','Mie Gacoan, Tebet',
+            'Mie Gacoan, Padalarang','Mie Gacoan, Manukan','Mie Gacoan, Jatinangor','Mie Gacoan, Semarang Brigjen Sudiarto', 'Mie Gacoan, Mangga Besar']
+keywords_shopee = ['Shopee food - Mie Gacoan - Batu Tulis','Shopee food - Mie Gacoan - Cibubur','Shopee food - Mie Gacoan - Daan Mogot','Shopee food - Mie Gacoan - Kemang Raya','Shopee food - Mie Gacoan - Tebet',
+            'Shopee food - Mie Gacoan - Padalarang','Shopee food - Mie Gacoan - Manukan','Shopee food - Mie Gacoan - Jatinangor','Shopee food - Mie Gacoan - Semarang Brigjen Sudiarto', 'Shopee food - Mie Gacoan - Mangga Besar']
+cab = ['BGRBAT','BKSALT','GGPDAA','KYBKEM','KYBTEB','NPHCIB','SBYTAN','SMDJAT','SMGSUD','TNAMAN']
+
+for i,query in enumerate(keywords_shopee):
+    messages = list_messages(service, query)
+    if messages:
+        print(f'Found {len(messages)} messages.')
+        for msg in messages[:7]:
+            msg_id = msg['id']
+            save_attachment(service, msg_id, store_dir=f'downloads/{cab[i]}')
+    else:
+        print('No messages found with the given criteria.')
