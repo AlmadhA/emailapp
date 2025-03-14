@@ -88,7 +88,7 @@ keywords_gojek = ['Mie Gacoan, Batu Tulis','Mie Gacoan, Cibubur','Mie Gacoan, Da
 keywords_shopee = ['Shopee food - Mie Gacoan - Batu Tulis','Shopee food - Mie Gacoan - Cibubur','Shopee food - Mie Gacoan - Daan Mogot','Shopee food - Mie Gacoan - Kemang Raya','Shopee food - Mie Gacoan - Tebet',
             'Shopee food - Mie Gacoan - Padalarang','Shopee food - Mie Gacoan - Manukan','Shopee food - Mie Gacoan - Jatinangor','Shopee food - Mie Gacoan - Semarang Brigjen Sudiarto', 'Shopee food - Mie Gacoan - Mangga Besar']
 cab = ['BGRBAT','BKSALT','GGPDAA','KYBKEM','KYBTEB','NPHCIB','SBYTAN','SMDJAT','SMGSUD','TNAMAN']
-
+service = authenticate_gmail(file_json = 'credentials_shopee.json')
 for i,query in enumerate(keywords_shopee):
     messages = list_messages(service, query)
     if messages:
