@@ -17,8 +17,7 @@ load_dotenv()
 clientId = 'QwBaicViCKun5FgmCL5l9gWGzDlsjEgp'
 domain = 'dev-oee4zt3daq2ov6tp.us.auth0.com'
 
-clientId = os.environ[clientId]
-domain = os.environ[domain]
+
 
 st.title('Welcome to Auth0-Streamlit')
 
