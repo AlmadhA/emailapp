@@ -74,7 +74,7 @@ cab = ['BGRBAT','BKSALT','GGPDAA','KYBKEM','KYBTEB','NPHCIB','SBYTAN','SMDJAT','
 for i,query in enumerate(keywords_shopee):
     messages = list_messages(service, query)
     if messages:
-        print(f'Found {len(messages)} messages.')
+        st.write(f'Found {len(messages)} messages.')
         for msg in messages[:7]:
             msg_id = msg['id']
             save_attachment(service, msg_id, store_dir=f'downloads/{cab[i]}')
