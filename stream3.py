@@ -1,80 +1,92 @@
-import folium
-import requests
-import pandas as pd
-from folium import GeoJsonTooltip
-from streamlit_folium import folium_static
-import streamlit as st
 
-# Contoh DataFrame yang berisi nama provinsi dan rata-rata harga
-data = {
-    'Provinsi': ['JAWA BARAT', 'JAWA TIMUR', 'JAWA TENGAH', 'PROBANTEN'],
-    'Rata-rata Harga': [15000, 12000, 14000,9000]
-}
 
-df = pd.DataFrame(data)
 
-# Buat peta
-m = folium.Map(location=[-0.4471383, 117.1655734], zoom_start=5)
+# Jika memodifikasi scope, hapus file token.json
+SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.modify']
 
-# Mendapatkan data geojson
-geojson_data = requests.get(
-    "https://github.com/superpikar/indonesia-geojson/blob/master/indonesia-province.json?raw=true"
-).json()
+def authenticate_gmail(file_json):
+    """Authenticate and return Gmail API service."""
+    creds = None
+    # Token file untuk menyimpan kredensial yang telah diakses sebelumnya.
+    if os.path.exists('token.json'):
+        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+    
+    # Jika tidak ada kredensial yang valid, lakukan login
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(
+                file_json, SCOPES)
+            creds = flow.run_console()
+        
+        # Simpan kredensial untuk penggunaan berikutnya
+        with open('token.json', 'w') as token:
+            token.write(creds.to_json())
+    
+    # Membangun layanan Gmail API
+    try:
+        service = build('gmail', 'v1', credentials=creds)
+        return service
+    except Exception as error:
+        print(f'An error occurred: {error}')
+        return None
+    
+def list_messages(service, query):
+    """List email messages based on a query."""
+    try:
+        results = service.users().messages().list(userId='me', q=query).execute()
+        messages = results.get('messages', [])
+        return messages
+    except HttpError as error:
+        print(f'An error occurred: {error}')
+        return []
+    
+def get_message(service, msg_id):
+    """Get a specific email message."""
+    try:
+        msg = service.users().messages().get(userId='me', id=msg_id).execute()
+        return msg
+    except HttpError as error:
+        print(f'An error occurred: {error}')
+        return None
 
-# Gabungkan data GeoJSON dengan DataFrame df berdasarkan provinsi
-# Asumsikan 'Propinsi' adalah kolom di GeoJSON yang berisi nama provinsi yang sama dengan kolom di df
+def save_attachment(service, msg_id, store_dir='downloads'):
+    """Download attachment if it's a CSV file."""
+    msg = get_message(service, msg_id)
+    if not msg:
+        return
+    
+    for part in msg['payload']['parts']:
+        if 'filename' in part and part['filename']:
+            file_name = part['filename']
+            if file_name.endswith('.csv'):
+                attachment = service.users().messages().attachments().get(
+                    userId='me', messageId=msg_id, id=part['body']['attachmentId']).execute()
+                data = base64.urlsafe_b64decode(attachment['data'].encode('UTF-8'))
 
-# Pastikan bahwa nama kolom 'Provinsi' di df sama dengan 'Propinsi' di GeoJSON
-#df['Provinsi'] = df['Provinsi'].str.title()  # Menyamakannya dengan format nama di GeoJSON
+                if not os.path.exists(store_dir):
+                    os.makedirs(store_dir)
 
-# Gabungkan df ke dalam GeoJSON berdasarkan 'Provinsi' dan 'Propinsi'
-geojson_data_with_prices = []
-for feature in geojson_data['features']:
-    provinsi = feature['properties']['Propinsi']
-    harga = df.loc[df['Provinsi'] == provinsi, 'Rata-rata Harga'].values
-    if harga.size>0:
-        feature['properties']['Rata-rata Harga'] = float(harga[0])
+                file_path = os.path.join(store_dir, file_name)
+                with open(file_path, 'wb') as f:
+                    f.write(data)
+                print(f'Attachment {file_name} saved to {file_path}')
+
+service = authenticate_gmail(file_json = 'credentials_shopee.json')
+keywords_gojek = ['Mie Gacoan, Batu Tulis','Mie Gacoan, Cibubur','Mie Gacoan, Daan Mogot','Mie Gacoan, Kemang Raya','Mie Gacoan, Tebet',
+            'Mie Gacoan, Padalarang','Mie Gacoan, Manukan','Mie Gacoan, Jatinangor','Mie Gacoan, Semarang Brigjen Sudiarto', 'Mie Gacoan, Mangga Besar']
+keywords_shopee = ['Shopee food - Mie Gacoan - Batu Tulis','Shopee food - Mie Gacoan - Cibubur','Shopee food - Mie Gacoan - Daan Mogot','Shopee food - Mie Gacoan - Kemang Raya','Shopee food - Mie Gacoan - Tebet',
+            'Shopee food - Mie Gacoan - Padalarang','Shopee food - Mie Gacoan - Manukan','Shopee food - Mie Gacoan - Jatinangor','Shopee food - Mie Gacoan - Semarang Brigjen Sudiarto', 'Shopee food - Mie Gacoan - Mangga Besar']
+cab = ['BGRBAT','BKSALT','GGPDAA','KYBKEM','KYBTEB','NPHCIB','SBYTAN','SMDJAT','SMGSUD','TNAMAN']
+
+for i,query in enumerate(keywords_shopee):
+    messages = list_messages(service, query)
+    if messages:
+        print(f'Found {len(messages)} messages.')
+        for msg in messages[:7]:
+            msg_id = msg['id']
+            save_attachment(service, msg_id, store_dir=f'downloads/{cab[i]}')
     else:
-        feature['properties']['Rata-rata Harga'] = None
-    geojson_data_with_prices.append(feature)
+        print('No messages found with the given criteria.')
 
-geojson_data['features'] = geojson_data_with_prices
-
-# Menambahkan choropleth dengan data harga
-folium.Choropleth(
-    geo_data=geojson_data,
-    name='choropleth',
-    data=df,
-    columns=['Provinsi', 'Rata-rata Harga'],
-    key_on='properties.Propinsi',  # Sesuaikan dengan nama properti di GeoJSON
-    fill_color='YlOrRd',  # Warna gradient
-    fill_opacity=0.7,
-    line_opacity=0.05,
-    legend_name='Rata-rata Harga Barang',
-).add_to(m)
-
-# Menambahkan GeoJson dengan Tooltip
-folium.GeoJson(
-    geojson_data,
-    name="Provinsi",
-    tooltip=GeoJsonTooltip(
-        fields=["Propinsi", "Rata-rata Harga"],  # Sesuaikan dengan kolom yang ada pada GeoJSON
-        aliases=["Provinsi:", "Rata-rata Harga:"],  # Label yang akan ditampilkan di tooltip
-        localize=True
-    ),
-    style_function=lambda x: {
-        #'fillOpacity': 0.0 if x['properties']['Rata-rata Harga'] is None else 0.7,  # Set opasitas area
-        'weight': 0.2,  # Menghilangkan garis perbatasan
-        'color': 'white'  # Menghilangkan warna garis perbatasan
-    }
-).add_to(m)
-folium.TileLayer('cartodbpositron', control=False).add_to(m)
-# Menambahkan kontrol layer
-folium.LayerControl().add_to(m)
-
-# Menampilkan peta
-
-folium_static(m)
-
-# Menyimpan peta ke file HTML
-# m.save('peta_harga_barang_indonesia.html')
