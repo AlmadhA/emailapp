@@ -14,7 +14,7 @@ SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googlea
 def authenticate_gmail(file_json):
     """Authenticate and return Gmail API service."""
     creds = service_account.Credentials.from_service_account_file(
-        'credentials_shopee.json', scopes=SCOPES)
+        file_json, scopes=SCOPES)
     
     # Membangun layanan Gmail API
     try:
@@ -64,4 +64,4 @@ def save_attachment(service, msg_id, store_dir='downloads'):
                 with open(file_path, 'wb') as f:
                     f.write(data)
                 print(f'Attachment {file_name} saved to {file_path}')
-
+service = authenticate_gmail(file_json = 'credentials_shopee.json')
