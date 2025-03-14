@@ -7,6 +7,17 @@ from googleapiclient.discovery import build
 import os
 import requests
 
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
+
+# Use your service account credentials to authenticate
+def authenticate_google_sheets_service_account():
+    credentials = service_account.Credentials.from_service_account_file(
+        'service_account.json', scopes=SCOPES)
+    return credentials
+
+# Example usage in Streamlit
+credentials = authenticate_google_sheets_service_account()
 
 # Jika memodifikasi scope, hapus file token.json
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.modify']
