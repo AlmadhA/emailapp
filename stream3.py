@@ -84,7 +84,7 @@ def save_attachment(service, msg_id, store_dir='downloads'):
                     f.write(data)
                 print(f'Attachment {file_name} saved to {file_path}')
 
-#service = authenticate_gmail(file_json = 'credentials_shopee.json')
+service = authenticate_gmail(file_json = 'credentials_shopee.json')
 keywords_gojek = ['Mie Gacoan, Batu Tulis','Mie Gacoan, Cibubur','Mie Gacoan, Daan Mogot','Mie Gacoan, Kemang Raya','Mie Gacoan, Tebet',
             'Mie Gacoan, Padalarang','Mie Gacoan, Manukan','Mie Gacoan, Jatinangor','Mie Gacoan, Semarang Brigjen Sudiarto', 'Mie Gacoan, Mangga Besar']
 keywords_shopee = ['Shopee food - Mie Gacoan - Batu Tulis','Shopee food - Mie Gacoan - Cibubur','Shopee food - Mie Gacoan - Daan Mogot','Shopee food - Mie Gacoan - Kemang Raya','Shopee food - Mie Gacoan - Tebet',
