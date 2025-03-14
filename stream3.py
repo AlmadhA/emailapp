@@ -8,7 +8,7 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.errors import HttpError
 from google.auth.transport.requests import Request
- a
+
 from auth0_component import login_button
 import streamlit as st
 
