@@ -13,7 +13,7 @@ from auth0_component import login_button
 import streamlit as st
 
 clientId = 'QwBaicViCKun5FgmCL5l9gWGzDlsjEgp'
-domain = 'dev-oee4zt3daq2ov6tp.us.auth0.com'
+domain = 'https://dev-oee4zt3daq2ov6tp.us.auth0.com'
 
 st.title('Welcome to Auth0-Streamlit')
 
