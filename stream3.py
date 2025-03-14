@@ -6,40 +6,15 @@ from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
 import os
 import requests
-from google.oauth2 import service_account
-from googleapiclient.discovery import build
+
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.modify']
-
-# Use your service account credentials to authenticate
-def authenticate_google_sheets_service_account():
-    credentials = service_account.Credentials.from_service_account_file(
-        'credentials_shopee.json', scopes=SCOPES)
-    return credentials
-
-# Example usage in Streamlit
-credentials = authenticate_google_sheets_service_account()
 
 # Jika memodifikasi scope, hapus file token.json
 
 def authenticate_gmail(file_json):
     """Authenticate and return Gmail API service."""
-    creds = None
-    # Token file untuk menyimpan kredensial yang telah diakses sebelumnya.
-    if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
-    
-    # Jika tidak ada kredensial yang valid, lakukan login
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                file_json, SCOPES)
-            creds = flow.run_console()
-        
-        # Simpan kredensial untuk penggunaan berikutnya
-        with open('token.json', 'w') as token:
-            token.write(creds.to_json())
+    creds = service_account.Credentials.from_service_account_file(
+        'credentials_shopee.json', scopes=SCOPES)
     
     # Membangun layanan Gmail API
     try:
