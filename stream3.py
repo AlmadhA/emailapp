@@ -9,22 +9,6 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.errors import HttpError
 from google.auth.transport.requests import Request
 
-from auth0_component import login_button
-import streamlit as st
-
-clientId = 'QwBaicViCKun5FgmCL5l9gWGzDlsjEgp'
-domain = 'dev-oee4zt3daq2ov6tp.us.auth0.com'
-
-st.title('Welcome to Auth0-Streamlit')
-
-with st.echo():
-    user_info = login_button(clientId, domain,)
-    if user_info:
-        st.write(f'Hi {user_info["nickname"]}')
-        # st.write(user_info) # some private information here
-        
-if not user_info:
-    st.write("Please login to continue")
 # Jika memodifikasi scope, hapus file token.json
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.modify']
 
