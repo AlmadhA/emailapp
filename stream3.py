@@ -7,14 +7,29 @@ from googleapiclient.discovery import build
 import os
 import requests
 
-SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.modify']
 
 # Jika memodifikasi scope, hapus file token.json
+SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.modify']
 
 def authenticate_gmail(file_json):
     """Authenticate and return Gmail API service."""
-    creds = service_account.Credentials.from_service_account_file(
-        file_json, scopes=SCOPES)
+    creds = None
+    # Token file untuk menyimpan kredensial yang telah diakses sebelumnya.
+    if os.path.exists('token.json'):
+        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+    
+    # Jika tidak ada kredensial yang valid, lakukan login
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(
+                file_json, SCOPES)
+            creds = flow.run_local_server(port=0)
+        
+        # Simpan kredensial untuk penggunaan berikutnya
+        with open('token.json', 'w') as token:
+            token.write(creds.to_json())
     
     # Membangun layanan Gmail API
     try:
@@ -64,6 +79,7 @@ def save_attachment(service, msg_id, store_dir='downloads'):
                 with open(file_path, 'wb') as f:
                     f.write(data)
                 print(f'Attachment {file_name} saved to {file_path}')
+
 service = authenticate_gmail(file_json = 'credentials_shopee.json')
 keywords_gojek = ['Mie Gacoan, Batu Tulis','Mie Gacoan, Cibubur','Mie Gacoan, Daan Mogot','Mie Gacoan, Kemang Raya','Mie Gacoan, Tebet',
             'Mie Gacoan, Padalarang','Mie Gacoan, Manukan','Mie Gacoan, Jatinangor','Mie Gacoan, Semarang Brigjen Sudiarto', 'Mie Gacoan, Mangga Besar']
