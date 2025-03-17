@@ -22,7 +22,7 @@ def auth_flow():
     st.write("Welcome to My App!")
     auth_code = st.query_params.get("code")
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
-        "client_secret.json", # replace with you json credentials from your google auth app
+        "credentials_shopee.json", # replace with you json credentials from your google auth app
         scopes=["https://www.googleapis.com/auth/userinfo.email", "openid"],
         redirect_uri=redirect_uri,
     )
