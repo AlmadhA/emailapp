@@ -30,7 +30,7 @@ def authenticate_gmail(file_json):
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
                 file_json, SCOPES)
-            creds = flow.run_local_server()
+            creds = flow.run_local_server(port=0)
         
         # Simpan kredensial untuk penggunaan berikutnya
         with open('token.json', 'w') as token:
@@ -91,6 +91,7 @@ keywords_gojek = ['Mie Gacoan, Batu Tulis','Mie Gacoan, Cibubur','Mie Gacoan, Da
             'Mie Gacoan, Padalarang','Mie Gacoan, Manukan','Mie Gacoan, Jatinangor','Mie Gacoan, Semarang Brigjen Sudiarto', 'Mie Gacoan, Mangga Besar']
 keywords_shopee = ['Shopee food - Mie Gacoan - Batu Tulis','Shopee food - Mie Gacoan - Cibubur','Shopee food - Mie Gacoan - Daan Mogot','Shopee food - Mie Gacoan - Kemang Raya','Shopee food - Mie Gacoan - Tebet',
             'Shopee food - Mie Gacoan - Padalarang','Shopee food - Mie Gacoan - Manukan','Shopee food - Mie Gacoan - Jatinangor','Shopee food - Mie Gacoan - Semarang Brigjen Sudiarto', 'Shopee food - Mie Gacoan - Mangga Besar']
+
 cab = ['BGRBAT','BKSALT','GGPDAA','KYBKEM','KYBTEB','NPHCIB','SBYTAN','SMDJAT','SMGSUD','TNAMAN']
 for i,query in enumerate(keywords_shopee):
     messages = list_messages(service, query)
