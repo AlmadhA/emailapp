@@ -17,7 +17,7 @@ import webbrowser
 # Jika memodifikasi scope, hapus file token.json
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.modify']
 
-redirect_uri = os.environ.get("REDIRECT_URI", "http://localhost:8080/")
+redirect_uri = os.environ.get("REDIRECT_URI", "http://localhost:8501/")
 
 from streamlit_js import st_js, st_js_blocking
 
