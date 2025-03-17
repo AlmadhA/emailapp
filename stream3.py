@@ -15,7 +15,7 @@ import google_auth_oauthlib.flow
 import webbrowser
 
 
-redirect_uri = os.environ.get("REDIRECT_URI", "http://localhost:8080/")
+redirect_uri = os.environ.get("REDIRECT_URI", "http://localhost:8501/")
 
 
 def auth_flow():
@@ -23,7 +23,7 @@ def auth_flow():
     auth_code = st.query_params.get("code")
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
         "credentials_shopee.json", # replace with you json credentials from your google auth app
-        scopes=["https://www.googleapis.com/auth/userinfo.email", "openid"],
+        scopes=['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.modify'],
         redirect_uri=redirect_uri,
     )
     if auth_code:
@@ -142,3 +142,12 @@ keywords_shopee = ['Shopee food - Mie Gacoan - Batu Tulis','Shopee food - Mie Ga
             'Shopee food - Mie Gacoan - Padalarang','Shopee food - Mie Gacoan - Manukan','Shopee food - Mie Gacoan - Jatinangor','Shopee food - Mie Gacoan - Semarang Brigjen Sudiarto', 'Shopee food - Mie Gacoan - Mangga Besar']
 
 cab = ['BGRBAT','BKSALT','GGPDAA','KYBKEM','KYBTEB','NPHCIB','SBYTAN','SMDJAT','SMGSUD','TNAMAN']
+for i,query in enumerate(keywords_shopee):
+    messages = list_messages(service, query)
+    if messages:
+        st.write(f'Found {len(messages)} messages.')
+        for msg in messages[:7]:
+            msg_id = msg['id']
+            save_attachment(service, msg_id, store_dir=f'downloads/{cab[i]}')
+    else:
+        print('No messages found with the given criteria.')
