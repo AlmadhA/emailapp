@@ -13,7 +13,6 @@ from google.auth.transport.requests import Request
     
 # Jika memodifikasi scope, hapus file token.json
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.modify']
-flow = InstalledAppFlow.from_client_secrets_file('credentials_shopee.json', SCOPES)
 
 def authorize_app():
     # Mendapatkan URL otorisasi
