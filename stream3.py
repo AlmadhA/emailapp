@@ -14,28 +14,7 @@ from google.auth.transport.requests import Request
 # Jika memodifikasi scope, hapus file token.json
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.modify']
 
-def authorize_app():
-    # Mendapatkan URL otorisasi
-    auth_url, _ = flow.authorization_url(prompt='consent')
-    
-    # Menampilkan URL otorisasi di Streamlit untuk di-copy
-    st.write("Klik link berikut untuk otorisasi aplikasi Anda:")
-    st.write(f"[Klik di sini untuk otorisasi](%s)" % auth_url)
 
-    # Meminta pengguna untuk memasukkan kode otorisasi setelah login
-    auth_code = st.text_input("Masukkan kode otorisasi yang Anda dapatkan:")
-    
-    if auth_code:
-        # Menukarkan kode otorisasi dengan token akses
-        flow.fetch_token(authorization_response=auth_code)
-
-        # Menyimpan kredensial (token akses)
-        credentials = flow.credentials
-
-        # Menyimpan kredensial untuk penggunaan di masa depan (misalnya, sesi pengguna)
-        return credentials
-    return None
-authorize_app()
 
 def authenticate_gmail(file_json):
     """Authenticate and return Gmail API service."""
