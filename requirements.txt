@@ -13,4 +13,4 @@ google-auth==2.14.1
 google-auth-httplib2==0.0.3
 google-auth-oauthlib==0.4.1
 streamlit-auth0-component
-dotenv
+streamlit_js
