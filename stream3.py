@@ -92,6 +92,7 @@ def authenticate_gmail(file_json):
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
                 file_json, SCOPES)
+            st.write(flow.authorization_url())
             creds = flow.run_local_server()
         
         # Simpan kredensial untuk penggunaan berikutnya
