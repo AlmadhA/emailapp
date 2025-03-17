@@ -142,12 +142,3 @@ keywords_shopee = ['Shopee food - Mie Gacoan - Batu Tulis','Shopee food - Mie Ga
             'Shopee food - Mie Gacoan - Padalarang','Shopee food - Mie Gacoan - Manukan','Shopee food - Mie Gacoan - Jatinangor','Shopee food - Mie Gacoan - Semarang Brigjen Sudiarto', 'Shopee food - Mie Gacoan - Mangga Besar']
 
 cab = ['BGRBAT','BKSALT','GGPDAA','KYBKEM','KYBTEB','NPHCIB','SBYTAN','SMDJAT','SMGSUD','TNAMAN']
-for i,query in enumerate(keywords_shopee):
-    messages = list_messages(service, query)
-    if messages:
-        st.write(f'Found {len(messages)} messages.')
-        for msg in messages[:7]:
-            msg_id = msg['id']
-            save_attachment(service, msg_id, store_dir=f'downloads/{cab[i]}')
-    else:
-        print('No messages found with the given criteria.')
