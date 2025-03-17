@@ -92,8 +92,7 @@ def authenticate_gmail(file_json):
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
                 file_json, SCOPES)
-            creds = flow.run_local_server(prompt='consent',
-                                                authorization_prompt_message='')
+            creds = flow.run_local_server()
         
         # Simpan kredensial untuk penggunaan berikutnya
         with open('token.json', 'w') as token:
@@ -148,4 +147,5 @@ def save_attachment(service, msg_id, store_dir='downloads'):
                 with open(file_path, 'wb') as f:
                     f.write(data)
                 print(f'Attachment {file_name} saved to {file_path}')
+                
 st.code(service = authenticate_gmail(file_json = 'credentials_shopee.json'))
